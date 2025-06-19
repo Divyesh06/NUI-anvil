@@ -1,0 +1,9 @@
+allow_embedding: false
+name: Custom HTML 8
+package_name: Custom_HTML_8
+runtime_options:
+  client_version: '3'
+  server_spec: {base: python310-minimal}
+  server_version: python3-sandbox
+  version: 2
+services: []
