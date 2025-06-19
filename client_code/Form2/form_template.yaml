@@ -1,25 +1,14 @@
 components:
-- layout_properties: {grid_position: 'CWQKHI,FDXIET'}
-  name: form1_1
-  properties:
-    background: red
-    border_color: green
-    border_radius: 25px
-    border_size: ['0']
-    border_style: dotted
-    css: |-
-      opacity: 0.2
-      margin-top: 50px
-    font_size: ''
-    font_weight: ''
-    foreground: green
-    html: ''
-    html_tag: h1
-    text: Hey
-  type: form:Form1
-- layout_properties: {grid_position: 'IDUJCR,ZFUCGZ'}
-  name: label_1
+- components:
+  - layout_properties: {grid_position: 'QVCJHV,MFURHT'}
+    name: form1_1
+    properties: {preset: '', text: Hey I am very good}
+    type: form:Form1
+  layout_properties: {slot: default}
+  name: content_panel
   properties: {}
-  type: Label
-container: {type: ColumnPanel}
+  type: ColumnPanel
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
 is_package: true

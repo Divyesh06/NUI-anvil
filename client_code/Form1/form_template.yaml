@@ -28,3 +28,4 @@ properties:
 - {default_value: '', group: CSS, important: true, multiline: true, name: css, type: string}
 - {default_value: '', group: CSS, important: true, multiline: true, name: hover_state, type: string}
 - {default_value: div, important: true, name: html_tag, type: string}
+- {default_value: '', important: true, name: preset, type: string}
