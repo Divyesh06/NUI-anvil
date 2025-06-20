@@ -17,7 +17,7 @@ components:
   type: Button
 - layout_properties: {slot: default}
   name: label_1
-  properties: {background: '', text_align: center}
+  properties: {background: '', text: '', text_align: center}
   type: form:Label
 container:
   properties: {html: '@theme:standard-page.html'}
