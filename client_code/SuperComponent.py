@@ -6,7 +6,7 @@ from anvil.designer import in_designer
 
 
 class SuperComponent:
-    def __init__(self, form, **properties):
+    def init(self, form, **properties):
         self.form = form
         self._html_tag = None
         self._text = None

@@ -6,7 +6,7 @@ from .. import css_manager
 from anvil.designer import in_designer
 
 class Form1(Form1Template):
-    def __init__(self, **properties):
+    def init(self, **properties):
         css_manager.create_stylesheet(self)
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
