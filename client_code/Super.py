@@ -1,16 +1,21 @@
 from .SuperComponent import SuperComponentTemplate
+from anvil.js.window import document
+from anvil.js import get_dom_node
+from .utils import px_convert, id_assigner
+from . import css_manager
+from anvil.designer import in_designer
 
 class SuperComponent(SuperComponentTemplate):
-    def __init__(self, **properties):
+    def init(self, form, **properties):
         css_manager.create_stylesheet(self)
         self.uid = id_assigner.get_id()
-        self.last_tag = properties['html_tag']
-        self._text_type = properties['text_type']
-        self._text = properties['text']
+        self.last_tag = properties.get('html_tag')
+        self._text_type = properties.get('text_type')
+        self._text = properties.get('text')
         self.dom = None
         self.create_dom(self.last_tag)
-
-        self.init_components(**properties)
+        
+        form.init_components(form, **properties)
 
         self.block_stylesheet = False
         self.update_stylesheet()

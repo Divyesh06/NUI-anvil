@@ -2,7 +2,7 @@ components: []
 container:
   properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
-custom_component: true
+custom_component: false
 events:
 - {default_event: true, name: event}
 is_package: true
