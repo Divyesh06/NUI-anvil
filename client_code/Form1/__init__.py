@@ -41,9 +41,7 @@ class Form1(Form1Template):
             self.last_tag = value
             self.text = self._text
             self.update_preset()
-            self.update_stylesheet()
-            
-            
+            self.update_stylesheet()    
 
     @property
     def text(self):
@@ -76,16 +74,14 @@ class Form1(Form1Template):
             self.dom.innerText = self._text
         else:
             self.dom.innerHTML = self._text
-        
+            
     @property
     def font_size(self):
         return self._font_size
     
     @font_size.setter
     def font_size(self, value):
-        self._font_size = value
-        self.css_properties["font-size"] = px_convert.convert_to_px(value)
-        self.update_stylesheet()
+        self.set_property("font-size", px_convert.convert_to_px(value))
     
     @property
     def font(self):
@@ -93,9 +89,7 @@ class Form1(Form1Template):
     
     @font.setter
     def font(self, value):
-        self._font = value
-        self.css_properties["font-family"] = value
-        self.update_stylesheet()
+        self.set_property("font-family", value)
     
     @property
     def font_weight(self):
@@ -103,9 +97,7 @@ class Form1(Form1Template):
     
     @font_weight.setter
     def font_weight(self, value):
-        self._font_weight = value
-        self.css_properties["font-weight"] = value
-        self.update_stylesheet()
+        self.set_property("font-weight", value)
     
     @property
     def foreground(self):
@@ -113,9 +105,7 @@ class Form1(Form1Template):
     
     @foreground.setter
     def foreground(self, value):
-        self._foreground = value
-        self.css_properties["color"] = value
-        self.update_stylesheet()
+        self.set_property("color", value)
     
     @property
     def background(self):
@@ -123,9 +113,7 @@ class Form1(Form1Template):
     
     @background.setter
     def background(self, value):
-        self._background = value
-        self.css_properties["background-color"] = value
-        self.update_stylesheet()
+        self.set_property("background-color", value)
     
     @property
     def border_radius(self):
@@ -133,9 +121,7 @@ class Form1(Form1Template):
     
     @border_radius.setter
     def border_radius(self, value):
-        self._border_radius = value
-        self.css_properties["border-radius"] = px_convert.convert_to_px(value)
-        self.update_stylesheet()
+        self.set_property("border-radius", px_convert.convert_to_px(value))
     
     @property
     def border_size(self):
@@ -145,11 +131,11 @@ class Form1(Form1Template):
     def border_size(self, value):
         self._border_size = value
         if isinstance(value, list):
-            converted = [px_convert.convert_to_px(v) for v in value]
-            self.css_properties["border-width"] = " ".join(converted)
+            value = " ".join([px_convert.convert_to_px(v) for v in value])
         else:
-            self.css_properties["border-width"] = px_convert.convert_to_px(value)
-        self.update_stylesheet()
+            value = px_convert.convert_to_px(value)
+        
+        self.set_property("border-width", value)
     
     @property
     def border_style(self):
@@ -157,9 +143,7 @@ class Form1(Form1Template):
     
     @border_style.setter
     def border_style(self, value):
-        self._border_style = value
-        self.css_properties["border-style"] = value
-        self.update_stylesheet()
+        self.set_property("border-style", value)
     
     @property
     def border_color(self):
@@ -167,15 +151,7 @@ class Form1(Form1Template):
     
     @border_color.setter
     def border_color(self, value):
-        self._border_color = value
-        self.css_properties["border-color"] = value
-        self.update_stylesheet()
-
-    @border_color.setter
-    def border_color(self, value):
-        self._border_color = value
-        self.css_properties["border-color"] = value
-        self.update_stylesheet()
+        self.set_property("border-color", value)
 
     @property
     def preset(self):
@@ -185,3 +161,7 @@ class Form1(Form1Template):
     def preset(self, value):
         self._preset = value
         self.update_preset()
+
+    def set_property(self, name, value):
+        self.css_properties[name] = value
+        self.update_stylesheet()
