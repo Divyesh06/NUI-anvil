@@ -3,6 +3,7 @@ from anvil.js.window import document
 from anvil.js import get_dom_node
 from ..utils import px_convert, id_assigner
 from .. import css_manager
+from anvil.designer import in_designer
 #px_convert.convert_to_px("30") 
 
 class Form1(Form1Template):
@@ -10,7 +11,8 @@ class Form1(Form1Template):
         css_manager.create_stylesheet(self)
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
-
+        self._text_type = properties['text_type']
+        self._text = properties['text']
         self.dom = None
         self.create_dom(self.last_tag)
         
@@ -38,7 +40,6 @@ class Form1(Form1Template):
             self.create_dom(value)
             self.last_tag = value
             self.text = self._text
-            self.html = self._html
             self.update_preset()
             self.update_stylesheet()
             
@@ -51,19 +52,31 @@ class Form1(Form1Template):
     @text.setter
     def text(self, value):
         self._text = value
-        if value:
-            self.dom.innerText = value
-    
+        self._set_text()
+
     @property
-    def html(self):
-        return self._html
+    def text_type(self):
+        return self._text_type
     
-    @html.setter
-    def html(self, value):
-        self._html = value
-        if value:
-            self.dom.innerHTML = value
-    
+    @text_type.setter
+    def text_type(self, value):
+        self._text_type = value
+        self._set_text()
+
+    def _set_text(self):
+        if in_designer:
+            if not self._text:
+                self.dom.innerText = self.__name__
+                self.dom.style.opacity = 0.5
+                return
+            else:
+                self.dom.style.opacity = ""
+                
+        if self._text_type == 'plain':
+            self.dom.innerText = self._text
+        else:
+            self.dom.innerHTML = self._text
+        
     @property
     def font_size(self):
         return self._font_size
