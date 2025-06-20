@@ -6,6 +6,8 @@ from .. import css_manager
 from anvil.designer import in_designer
 
 class SuperComponent(SuperComponentTemplate):
+    container = False
+    
     def __init__(self, **properties):
         css_manager.create_stylesheet(self)
         self.uid = id_assigner.get_id()
@@ -14,7 +16,7 @@ class SuperComponent(SuperComponentTemplate):
         self._text = properties.get('text')
         self.dom = None
         self.create_dom(self.last_tag)
-
+        
         self.init_components(**properties)
 
         self.block_stylesheet = False
@@ -60,6 +62,8 @@ class SuperComponent(SuperComponentTemplate):
         self._set_text()
 
     def _set_text(self):
+        if self.container:
+            return
         if in_designer:
             if not self._text:
                 self.dom.innerText = self.__name__

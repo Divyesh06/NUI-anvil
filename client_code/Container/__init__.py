@@ -5,5 +5,5 @@ from ..utils import px_convert, id_assigner
 from .. import css_manager
 from anvil.designer import in_designer
 from ..SuperComponent import SuperComponent
-class Label(SuperComponent):
-    pass
+class Container(SuperComponent):
+    container = True
