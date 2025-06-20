@@ -1,11 +1,11 @@
-from ._anvil_designer import Form1Template
+from ._anvil_designer import SuperComponentTemplate
 from anvil.js.window import document
 from anvil.js import get_dom_node
 from ..utils import px_convert, id_assigner
 from .. import css_manager
 from anvil.designer import in_designer
 
-class Form1(Form1Template):
+class SuperComponent(SuperComponentTemplate):
     def __init__(self, **properties):
         css_manager.create_stylesheet(self)
         self.uid = id_assigner.get_id()
@@ -181,8 +181,6 @@ class Form1(Form1Template):
     def border_color(self, value):
         self._border_color = value
         self.set_property("border-color", value)
-
-
         
     @property
     def text_align(self):
