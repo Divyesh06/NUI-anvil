@@ -6,24 +6,45 @@ from anvil.designer import in_designer
 
 
 class SuperComponent:
-
     def __init__(self, form, **properties):
-        css_manager.create_stylesheet(self)
+        self.form = form
+        self._html_tag = None
+        self._text = None
+        self._text_type = None
+        self._font_size = None
+        self._font = None
+        self._font_weight = None
+        self._foreground = None
+        self._background = None
+        self._border_radius = None
+        self._margin = None
+        self._padding = None
+        self._border_size = None
+        self._border_style = None
+        self._border_color = None
+        self._text_align = None
+        self._css = None
+        self._visible = None
+        self._preset = None
+        
+        self.css_properties = None
+
+        self.last_tag = None
+        
+        css_manager.create_stylesheet(self, self.form)
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
         self._text_type = properties['text_type']
-        self._text = properties['text']
+        self._text = properties.get('text')
         self.dom = None
         self.create_dom(self.last_tag)
-        
-        self.init_components(**properties)
-        
+
         self.block_stylesheet = False
         self.update_stylesheet()
-    def create_dom(self, tag):
-        if self.dom:
-            self.dom.remove()
 
+        if in_designer:
+            self.css_properties['transition'] = "all 0.25s ease-in-out"
+        
     @property
     def html_tag(self):
         return self._html_tag
@@ -40,10 +61,12 @@ class SuperComponent:
     
     @property
     def text(self):
+        
         return self._text
     
     @text.setter
     def text(self, value):
+        
         self._text = value
         self._set_text()
     
@@ -59,7 +82,7 @@ class SuperComponent:
     def _set_text(self):
         if in_designer:
             if not self._text:
-                self.dom.innerText = "LOL"
+                self.dom.innerText = self.form.__name__
                 self.dom.style.opacity = 0.5
                 return
             else:
@@ -151,6 +174,7 @@ class SuperComponent:
     
     @property
     def border_size(self):
+        
         return self._border_size
     
     @border_size.setter
@@ -158,8 +182,11 @@ class SuperComponent:
         self._border_size = value
         value = value.split()
         value = " ".join([px_convert.convert_to_px(v) for v in value])
-    
+        
         self.set_property("border-width", value)
+
+        if not self.border_style:
+            self.border_style = "solid"
     
     @property
     def border_style(self):
@@ -223,7 +250,14 @@ class SuperComponent:
     def preset(self, value):
         self._preset = value
         self.update_preset()
-    
-        def set_property(self, name, value):
-            self.css_properties[name] = value
-            self.update_stylesheet()
+
+    def create_dom(self, tag):
+        if self.dom:
+            self.dom.remove()
+        self.dom = document.createElement(tag)
+        self.dom.id = self.uid
+        get_dom_node(self.form).appendChild(self.dom)
+        
+    def set_property(self, name, value):
+        self.css_properties[name] = value
+        self.update_stylesheet()

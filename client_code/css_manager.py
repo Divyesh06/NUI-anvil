@@ -2,19 +2,20 @@ from anvil.js.window import document
 from anvil.js import get_dom_node
 from . import presets
 
-def create_stylesheet(self):
+def create_stylesheet(self, form):
+    
     self.block_stylesheet = True
     self.preset_stylesheet = document.createElement("style")
-    get_dom_node(self).appendChild(self.preset_stylesheet)    
+    get_dom_node(form).appendChild(self.preset_stylesheet)    
     self.stylesheet = document.createElement("style")
-    get_dom_node(self).appendChild(self.stylesheet)    
+    get_dom_node(form).appendChild(self.stylesheet)    
     
     def update_stylesheet():
         if self.block_stylesheet:
             return
 
         properties = self.css_properties        
-        css_rules = ";".join(f"{key}: {value}" for key, value in properties.items() if key!="border-style" or properties['border-width'])  
+        css_rules = ";".join(f"{key}: {value}" for key, value in properties.items())  
         
         stylesheet_content = f"""    
             #{self.dom.id} {{

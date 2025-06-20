@@ -12,7 +12,6 @@ properties:
   name: text_type
   options: [plain, html]
   type: enum
-- {default_value: '', group: Content, important: true, multiline: true, name: text, type: string}
 - {default_value: '', group: Font, important: true, name: font_size, type: string}
 - {default_value: '', group: Font, important: true, name: font, type: string}
 - {default_value: '', group: Font, important: true, name: font_weight, type: string}
