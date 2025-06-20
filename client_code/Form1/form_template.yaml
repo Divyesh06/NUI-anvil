@@ -5,6 +5,7 @@ container:
 custom_component: true
 is_package: true
 properties:
+- {default_value: div, important: true, name: html_tag, priority: 1, type: string}
 - {default_value: '', group: Content, important: true, name: text, type: string}
 - {default_value: '', group: Content, important: true, name: html, type: string}
 - {default_value: '', group: Font, important: true, name: font_size, type: string}
@@ -27,5 +28,4 @@ properties:
 - {default_value: '', group: Border, important: true, name: border_color, type: color}
 - {default_value: '', group: CSS, important: true, multiline: true, name: css, type: string}
 - {default_value: '', group: CSS, important: true, multiline: true, name: hover_state, type: string}
-- {default_value: div, important: true, name: html_tag, type: string}
 - {default_value: '', important: true, name: preset, type: string}

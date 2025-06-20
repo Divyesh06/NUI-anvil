@@ -1,8 +1,17 @@
 components:
 - components:
-  - layout_properties: {grid_position: 'ORCHOC,MQOSDD'}
+  - layout_properties: {grid_position: 'FAEPZY,LKXKSO'}
     name: form1_1
-    properties: {}
+    properties:
+      background: ''
+      border_color: red
+      border_radius: '25'
+      border_size: ['2']
+      border_style: dashed
+      foreground: ''
+      html: <b> hey </b<
+      html_tag: p
+      text: ''
     type: form:Form1
   layout_properties: {slot: default}
   name: content_panel

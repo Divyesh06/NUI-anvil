@@ -7,15 +7,43 @@ from .. import css_manager
 
 class Form1(Form1Template):
     def __init__(self, **properties):
-        self.dom = document.createElement(properties['html_tag'])
         css_manager.create_stylesheet(self)
-        self.dom.id = id_assigner.get_id()
+        self.uid = id_assigner.get_id()
+        self.last_tag = properties['html_tag']
+
+        self.dom = None
+        self.create_dom(self.last_tag)
+        
         self.init_components(**properties)
-        get_dom_node(self).appendChild(self.dom)
-        self.implement_presets()
+        
         self.block_stylesheet = False
         self.update_stylesheet()
+
+    def create_dom(self, tag):
+        if self.dom:
+            self.dom.remove()
+            
+        self.dom = document.createElement(tag)
+        self.dom.id = self.uid
+        get_dom_node(self).appendChild(self.dom)
         
+    @property
+    def html_tag(self):
+        return self._html_tag
+
+    @html_tag.setter
+    def html_tag(self, value):
+        self._html_tag = value
+        if value!=self.last_tag:
+            self.create_dom(value)
+            self.last_tag = value
+            self.text = self._text
+            self.html = self._html
+            self.update_preset()
+            self.update_stylesheet()
+            
+            
+
     @property
     def text(self):
         return self._text
@@ -130,15 +158,17 @@ class Form1(Form1Template):
         self.css_properties["border-color"] = value
         self.update_stylesheet()
 
-    @property
-    def preset(self):
-        return self._border_color
-
     @border_color.setter
     def border_color(self, value):
         self._border_color = value
         self.css_properties["border-color"] = value
         self.update_stylesheet()
 
+    @property
+    def preset(self):
+        return self._preset
 
-   
+    @preset.setter
+    def preset(self, value):
+        self._preset = value
+        self.update_preset()
