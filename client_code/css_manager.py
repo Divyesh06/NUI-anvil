@@ -3,6 +3,7 @@ from anvil.js import get_dom_node
 from . import presets
 
 def create_stylesheet(self):
+    print(self)
     self.block_stylesheet = True
     self.preset_stylesheet = document.createElement("style")
     get_dom_node(self).appendChild(self.preset_stylesheet)    

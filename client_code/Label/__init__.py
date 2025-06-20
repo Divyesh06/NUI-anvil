@@ -4,6 +4,7 @@ from anvil.js import get_dom_node
 from ..utils import px_convert, id_assigner
 from .. import css_manager
 from anvil.designer import in_designer
-from ..SuperComponent import SuperComponent
-class Label(SuperComponent):
-    pass
+from ..Super import Super
+class Label(Super):
+    def __init__(self, **properties):
+        self.init(self, **properties)
