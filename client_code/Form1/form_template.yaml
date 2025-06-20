@@ -19,11 +19,7 @@ properties:
 - {default_value: '', group: Appearance, important: true, name: foreground, type: color}
 - {default_value: '', group: Appearance, important: true, name: background, type: color}
 - {default_value: '', group: Border, important: true, name: border_radius, type: string}
-- default_value: []
-  group: Border
-  important: true
-  name: border_size
-  type: text[]
+- {default_value: '', group: Border, important: true, name: border_size, type: string}
 - default_value: solid
   group: Border
   important: true
@@ -40,3 +36,6 @@ properties:
   name: text_align
   options: [left, center, right, justify]
   type: enum
+- {default_value: true, designer_hint: visible, important: true, name: visible, type: boolean}
+- {default_value: '', important: true, name: margin, type: string}
+- {default_value: '', important: true, name: padding, type: string}
