@@ -8,7 +8,7 @@ from .. import css_manager
 class Form1(Form1Template):
     def __init__(self, **properties):
         self.dom = document.createElement(properties['html_tag'])
-        css_manager.create_stylesheet(self, properties['preset'])
+        css_manager.create_stylesheet(self)
         self.dom.id = id_assigner.get_id()
         self.init_components(**properties)
         get_dom_node(self).appendChild(self.dom)
