@@ -9,9 +9,9 @@ class SuperComponent(SuperComponentTemplate):
     def __init__(self, **properties):
         css_manager.create_stylesheet(self)
         self.uid = id_assigner.get_id()
-        self.last_tag = properties['html_tag']
-        self._text_type = properties['text_type']
-        self._text = properties['text']
+        self.last_tag = properties.get('html_tag')
+        self._text_type = properties.get('text_type')
+        self._text = properties.get('text')
         self.dom = None
         self.create_dom(self.last_tag)
 
