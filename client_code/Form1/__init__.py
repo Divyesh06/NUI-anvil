@@ -1,4 +1,4 @@
-from ._anvil_designer import Form2Template
-class Form2(Form2Template):
+from ._anvil_designer import Form1Template
+class Form1(Form1Template):
     def __init__(self, **properties):
         self.init_components(**properties)

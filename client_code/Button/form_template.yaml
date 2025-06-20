@@ -3,8 +3,7 @@ container:
   properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
 custom_component: true
-events:
-- {default_event: true, name: event}
+events: []
 is_package: true
 properties:
 - {default_value: div, important: true, name: html_tag, priority: 1, type: string}
@@ -41,4 +40,3 @@ properties:
 - {default_value: true, designer_hint: visible, important: true, name: visible, type: boolean}
 - {default_value: '', important: true, name: margin, type: string}
 - {default_value: '', important: true, name: padding, type: string}
-- {default_value: '', important: true, name: new, type: string}
