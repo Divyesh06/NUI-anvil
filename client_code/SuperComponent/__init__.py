@@ -4,9 +4,10 @@ from anvil.js import get_dom_node
 from ..utils import px_convert, id_assigner
 from .. import css_manager
 from anvil.designer import in_designer
+from .. import presets
 
 class SuperComponent(SuperComponentTemplate):
-    def __init__(self, **properties):
+    def init(self, **properties):
         css_manager.create_stylesheet(self)
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
@@ -15,6 +16,13 @@ class SuperComponent(SuperComponentTemplate):
         self.dom = None
         self.create_dom(self.last_tag)
 
+        self.block_stylesheet = True
+        self.preset_stylesheet = document.createElement("style")
+        get_dom_node(self).appendChild(self.preset_stylesheet)    
+        self.stylesheet = document.createElement("style")
+        get_dom_node(self).appendChild(self.stylesheet)  
+        self.css_properties = None
+        
         self.init_components(**properties)
 
         self.block_stylesheet = False
@@ -230,3 +238,32 @@ class SuperComponent(SuperComponentTemplate):
     def set_property(self, name, value):
         self.css_properties[name] = value
         self.update_stylesheet()
+
+    def update_stylesheet(self):
+        if self.block_stylesheet:
+            return
+
+        properties = self.css_properties        
+        css_rules = ";".join(f"{key}: {value}" for key, value in properties.items() if key!="border-style" or properties['border-width'])  
+
+        stylesheet_content = f"""    
+            #{self.dom.id} {{
+                {css_rules};
+                {';'.join(self.css.splitlines()) if self.css else ""}
+            }}
+        """
+
+        self.stylesheet.textContent = stylesheet_content    
+
+    def update_preset(self):
+        preset_data = presets.data.get(self.preset, {})
+
+        preset_rules = ";".join(f"{key}: {value}" for key, value in preset_data.items())
+        stylesheet_content = f"""    
+            #{self.dom.id} {{
+                {preset_rules};
+                {';'.join(self.css.splitlines()) if self.css else ""}
+            }}
+        """
+
+        self.preset_stylesheet.textContent = stylesheet_content
