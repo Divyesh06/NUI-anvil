@@ -15,9 +15,10 @@ components:
   name: button_2
   properties: {text: button_2}
   type: Button
-- layout_properties: {slot: default}
+- event_bindings: {show: label_1_show}
+  layout_properties: {slot: default}
   name: label_1
-  properties: {background: '', text: '', text_align: center}
+  properties: {background: '', css: '', font_size: '20', text: '', text_align: center}
   type: form:Label
 container:
   properties: {html: '@theme:standard-page.html'}

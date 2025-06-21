@@ -3,6 +3,9 @@ container:
   properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
 custom_component: true
+events:
+- {default_event: true, name: show}
+- {name: hide}
 is_package: true
 properties:
 - {default_value: div, important: true, name: html_tag, priority: 1, type: string}

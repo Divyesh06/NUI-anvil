@@ -15,7 +15,7 @@ def create_stylesheet(self, form):
             return
 
         properties = self.css_properties        
-        css_rules = ";".join(f"{key}: {value}" for key, value in properties.items())  
+        css_rules = ";".join(f"{key}: {value}" for key, value in properties.items())
         
         stylesheet_content = f"""    
             #{self.dom.id} {{
@@ -33,7 +33,6 @@ def create_stylesheet(self, form):
         stylesheet_content = f"""    
             #{self.dom.id} {{
                 {preset_rules};
-                {';'.join(self.css.splitlines()) if self.css else ""}
             }}
         """
 
@@ -43,3 +42,11 @@ def create_stylesheet(self, form):
     self.update_stylesheet = update_stylesheet
     self.update_preset = update_preset
     self.css_properties = {}
+
+    def css_parser(self, css):
+        css.replace("{", "").replace("{","") #We will autohandle the curly brackets
+        
+        breakpoints = [":", "@", "!"]
+
+   
+            
