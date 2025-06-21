@@ -4,9 +4,18 @@ from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer
 
+events_map = {
+    "hover": "mouseenter",
+    "hover_out": "mouseleave",
+    "click": "click"
+}
+
+reverse_events_map = {v: k for k, v in events_map.items()}
+
 class SuperComponent:
-    def __init__(self, form, **properties):
+    def __init__(self, form, events = [], **properties):
         self.form = form
+        self.events = events
         
         self._html_tag = None
         self._text = None
@@ -62,8 +71,14 @@ class SuperComponent:
         self.block_stylesheet = False
         self.update_stylesheet()
 
+        for event in self.events:
+            self.dom.addEventListener(events_map[event], self.global_events_handler)
+            
         if in_designer:
             self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
+
+    def global_events_handler(self, e):
+        self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
         
     @property
     def html_tag(self):
@@ -208,8 +223,6 @@ class SuperComponent:
         
         self.set_property("border-width", value)
 
-        if not self.border_style:
-            self.border_style = "solid"
     
     @property
     def border_style(self):
@@ -219,6 +232,8 @@ class SuperComponent:
     def border_style(self, value):
         self._border_style = value
         self.set_property("border-style", value)
+
+        
     
     @property
     def border_color(self):
@@ -385,7 +400,7 @@ class SuperComponent:
         icon_el.setAttribute("nui-icon", "true")
         
         align = self.icon_align
-        icon_el.style.margin = "4px"
+        
         
         icon_el.style.display = "inline-block"
 
@@ -393,7 +408,7 @@ class SuperComponent:
             icon_el.style.verticalAlign = "middle"
         elif align in ["top", "bottom"]:
             icon_el.style.display = "block"
-            icon_el.style.margin = "auto"
+            #icon_el.style.margin = "auto"
 
         if align == "left":
             self.dom.insertBefore(icon_el, self.dom.firstChild)
@@ -404,7 +419,14 @@ class SuperComponent:
         elif align == "bottom":
             self.dom.appendChild(icon_el)
 
+    def add_event(self, event_name, event_callback):
+        
+        def event_raiser(e):
+            event_callback(sender = self.form, event = e)
+            
+        self.dom.addEventListener(event_name, event_raiser)
 
+        
     def create_dom(self, tag):
         if self.dom:
             self.dom.remove()

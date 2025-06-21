@@ -3,7 +3,9 @@ from anvil.js import window
 class Form2(Form2Template):
     def __init__(self, **properties):
         self.init_components(**properties)
+        self.label_1.font_size = 200
+        self.label_1.pp = 200
 
-    def label_1_hide(self, **event_args):
-        pass
-
+    def label_1_hover(self, **event_args):
+        print(event_args['sender'])
+        print(event_args['event'])
