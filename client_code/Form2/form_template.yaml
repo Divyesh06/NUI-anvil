@@ -17,7 +17,7 @@ components:
   type: Button
 - layout_properties: {slot: default}
   name: label_1
-  properties: {background: '', css: '', font_size: '', foreground: '', hover_css: '', html_tag: div, icon: 'bi:person-fill', icon_align: top, text: sdsdsdsds, text_align: center}
+  properties: {background: '', css: '', font_size: '', foreground: '', hover_css: '', html_tag: div, icon: 'lu:x', icon_align: top, text: sdsdsdsds, text_align: center}
   type: form:Label
 - layout_properties: {slot: default}
   name: label_2

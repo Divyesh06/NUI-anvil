@@ -10,9 +10,9 @@ ICON_CLASS_MAP = {
     "far": "far",         # Font Awesome Regular
     "fab": "fab",         # Font Awesome Brands
     "bi": "bi",           # Bootstrap Icons
-    "material": "material-icons",  # Material Icons
-    "feather": "feather",  # Feather Icons (usually replaced by SVG injection)
-    "lucide": "lucide",    # Lucide Icons (usually replaced by SVG injection)
+    # "mi": "material-icons",  # Material Icons
+    # "fi": "feather",  # Feather Icons (usually replaced by SVG injection)
+    # "lu": "lucide",    # Lucide Icons (usually replaced by SVG injection)
 }
 
 class SuperComponent:
@@ -326,20 +326,22 @@ class SuperComponent:
         icon_el = document.createElement("i")
         icon_el.setAttribute("data-role", "dynamic-icon")
 
-        if lib in ["material"]:
+        if lib in ["mi"]:
             icon_el.className = ICON_CLASS_MAP[lib]
             icon_el.textContent = name
         elif lib in ICON_CLASS_MAP:
             icon_el.classList.add(ICON_CLASS_MAP[lib])
             icon_el.classList.add(f"{lib}-{name}")
-        elif lib in ["feather", "lucide"]:
+        elif lib =="lu":
+            
             # Use SVG injection icon frameworks
             icon_el = document.createElement("i")
             icon_el.setAttribute("data-role", "dynamic-icon")
             icon_el.setAttribute("data-icon-lib", lib)
-            icon_el.setAttribute("data-icon-name", name)
+            icon_el.setAttribute("data-lucide", name)
             icon_el.classList.add(f"{lib}")
             icon_el.classList.add(f"{name}")
+            window.lucide.createIcons()
         else:
             return  # Unknown lib
 
