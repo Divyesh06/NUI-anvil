@@ -15,11 +15,14 @@ components:
   name: button_2
   properties: {text: button_2}
   type: Button
-- event_bindings: {show: label_1_show}
-  layout_properties: {slot: default}
+- layout_properties: {slot: default}
   name: label_1
-  properties: {background: '', css: '', font_size: '20', text: '', text_align: center}
+  properties: {background: '', css: '', font_size: '', foreground: '', hover_css: '', html_tag: div, icon: 'bi:person-fill', icon_align: top, text: sdsdsdsds, text_align: center}
   type: form:Label
+- layout_properties: {slot: default}
+  name: label_2
+  properties: {foreground: 'theme:Test', text: dfsdfsdf}
+  type: Label
 container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
