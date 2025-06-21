@@ -50,7 +50,8 @@ def css_parser(raw_css, main_selector):
         elif line.startswith("."):
             flush_block()
             class_name = line
-            current_selector = f"{main_selector} {class_name}"
+            class_name = class_name[1:].strip()
+            current_selector = f"{main_selector}.nui-{class_name}"
             current_block = []
         elif line.startswith("@"):
             flush_block()
@@ -70,4 +71,5 @@ def css_parser(raw_css, main_selector):
 
     return "\n\n".join(css_blocks)
 
-from . import preset_injector
+from . import presets
+presets.init_presets()

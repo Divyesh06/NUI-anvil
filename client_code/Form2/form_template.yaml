@@ -1,5 +1,11 @@
 components:
-- components: []
+- components:
+  - layout_properties: {grid_position: 'XYBVVT,EPMVSU'}
+    name: label_1
+    properties:
+      preset: [default-label]
+      text: sdsdsdsd
+    type: form:Label
   event_bindings: {show: content_panel_show}
   layout_properties: {slot: default}
   name: content_panel
@@ -15,15 +21,12 @@ components:
   name: button_2
   properties: {text: button_2}
   type: Button
-- components: []
-  layout_properties: {slot: default}
-  name: flow_panel_1
-  properties: {}
-  type: FlowPanel
 - layout_properties: {slot: default}
   name: label_2
-  properties: {foreground: 'theme:Test', text: dfsdfsdf}
-  type: Label
+  properties:
+    preset: [default-label]
+    text: asdsadasdasd
+  type: form:Label
 container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate

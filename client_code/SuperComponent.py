@@ -313,10 +313,10 @@ class SuperComponent:
         self._preset = value
 
         for preset in previous_presets:
-            self.dom.classList.remove(preset)
+            self.dom.classList.remove(f"nui-{preset}")
 
         for preset in value:
-            self.dom.classList.add(value)
+            self.dom.classList.add(f"nui-{preset}")
         
 
     @property
