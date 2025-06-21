@@ -1,23 +1,13 @@
 from anvil.js.window import document
-from anvil.js import get_dom_node, window
+from anvil.js import get_dom_node
 from .utils import px_convert, id_assigner
-from . import css_manager
+from .css_parser import css_parser
 from anvil.designer import in_designer
-
-ICON_CLASS_MAP = {
-    "fa": "fa",           # Font Awesome (e.g., fa:user)
-    "fas": "fas",         # Font Awesome Solid
-    "far": "far",         # Font Awesome Regular
-    "fab": "fab",         # Font Awesome Brands
-    "bi": "bi",           # Bootstrap Icons
-    # "mi": "material-icons",  # Material Icons
-    # "fi": "feather",  # Feather Icons (usually replaced by SVG injection)
-    # "lu": "lucide",    # Lucide Icons (usually replaced by SVG injection)
-}
 
 class SuperComponent:
     def __init__(self, form, **properties):
         self.form = form
+        
         self._html_tag = None
         self._text = None
         self._other_css = None
@@ -35,6 +25,9 @@ class SuperComponent:
         self._border_style = None
         self._icon = None
         self._icon_align = None
+        self._icon_size = None
+        self._icon_css = None
+        self._custom_icon =  None
         self._border_color = None
         self._text_align = None
         self._css = None
@@ -46,21 +39,31 @@ class SuperComponent:
         
         self.last_tag = None
         
-        css_manager.create_stylesheet(self, self.form)
+        
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
         self._text_type = properties['text_type']
         self._text = properties.get('text')
         self.dom = None
         self.text_dom = None
-        
+
+        self.block_stylesheet = True
+    
+        self.stylesheet = document.createElement("style")
+        get_dom_node(form).appendChild(self.stylesheet)    
+        self.other_stylesheet = document.createElement("style")
+        get_dom_node(form).appendChild(self.other_stylesheet)   
+
+        self.icon_stylesheet = document.createElement("style")
+        get_dom_node(form).appendChild(self.icon_stylesheet)   
+            
         self.create_dom(self.last_tag)
 
         self.block_stylesheet = False
         self.update_stylesheet()
 
         if in_designer:
-            self.css_properties['transition'] = "all 0.25s ease-in-out"
+            self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
         
     @property
     def html_tag(self):
@@ -73,7 +76,7 @@ class SuperComponent:
             self.create_dom(value)
             self.last_tag = value
             self.text = self._text
-            self.update_preset()
+            
             self.update_stylesheet()    
     
     @property
@@ -288,8 +291,18 @@ class SuperComponent:
     
     @preset.setter
     def preset(self, value):
+        previous_presets = self._preset or []
+        
+        previous_presets = previous_presets.copy()
+            
         self._preset = value
-        self.update_preset()
+
+        for preset in previous_presets:
+            self.dom.classList.remove(preset)
+
+        for preset in value:
+            self.dom.classList.add(value)
+        
 
     @property
     def icon(self):
@@ -301,6 +314,16 @@ class SuperComponent:
         self.update_icon()
 
     @property
+    def custom_icon(self):
+        return self._custom_icon
+
+    @custom_icon.setter
+    def custom_icon(self, value):
+        self._custom_icon = value
+        self.update_icon()
+
+
+    @property
     def icon_align(self):
         return self._icon_align
 
@@ -309,45 +332,61 @@ class SuperComponent:
         self._icon_align = value
         self.update_icon()
 
+    @property
+    def icon_size(self):
+        return self._icon_size
+
+    @icon_size.setter
+    def icon_size(self, value):
+        self._icon_size = value
+        self.update_icon()
+
+    @property
+    def icon_css(self):
+        return self._icon_css
+
+    @icon_css.setter
+    def icon_css(self, value):
+        self._icon_css = value
+        self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
+
     def update_icon(self):
-        for child in list(self.dom.children):
-            if child.getAttribute("data-role") == "dynamic-icon":
-                self.dom.removeChild(child)
+        
+        icon_el = self.dom.querySelector('[nui-icon="true"]')
+        if icon_el:
+            icon_el.remove()
 
-        if not hasattr(self, "icon") or not self.icon:
-            return
-
-        # Parse the icon string
-        if ":" not in self.icon:
-            return  # invalid format
-        lib, name = self.icon.split(":", 1)
-
-        # Create the icon element
-        icon_el = document.createElement("i")
-        icon_el.setAttribute("data-role", "dynamic-icon")
-
-        if lib in ["mi"]:
-            icon_el.className = ICON_CLASS_MAP[lib]
-            icon_el.textContent = name
-        elif lib in ICON_CLASS_MAP:
-            icon_el.classList.add(ICON_CLASS_MAP[lib])
-            icon_el.classList.add(f"{lib}-{name}")
-        elif lib =="lu":
-            
-            # Use SVG injection icon frameworks
+        if self.custom_icon:
             icon_el = document.createElement("i")
-            icon_el.setAttribute("data-role", "dynamic-icon")
-            icon_el.setAttribute("data-icon-lib", lib)
-            icon_el.setAttribute("data-lucide", name)
-            icon_el.classList.add(f"{lib}")
-            icon_el.classList.add(f"{name}")
-            window.lucide.createIcons()
-        else:
-            return  # Unknown lib
+            
+            icon_el.innerHTML = self.custom_icon
+            self.dom.appendChild(icon_el)
+            
+            
 
-        # Apply alignment
-        align = getattr(self, "icon_align", "left")
+        elif self.icon and ":" in self.icon:
+            lib, name = self.icon.split(":", 1)
+            icon_el = document.createElement("i")
+    
+            if lib == 'bi':
+                icon_el.className = f'bi bi-{name}'
+                
+            elif lib.startswith("fa"):
+                icon_el.className = f'{lib} fa-{name}'
+    
+            elif lib == 'mi':
+                icon_el.className = "material-icons"
+                icon_el.textContent = name
+
+            icon_el.style.fontSize = self.icon_size
+
+        else:
+            return
+        icon_el.setAttribute("nui-icon", "true")
+        
+        align = self.icon_align
         icon_el.style.margin = "4px"
+        
         icon_el.style.display = "inline-block"
 
         if align in ["left", "right"]:
@@ -356,7 +395,6 @@ class SuperComponent:
             icon_el.style.display = "block"
             icon_el.style.margin = "auto"
 
-        # Insert the icon in the correct place
         if align == "left":
             self.dom.insertBefore(icon_el, self.dom.firstChild)
         elif align == "right":
@@ -366,11 +404,6 @@ class SuperComponent:
         elif align == "bottom":
             self.dom.appendChild(icon_el)
 
-        # Optional: re-render SVG if Feather/Lucide is used
-        if lib == "feather" and hasattr(window, "feather"):
-            window.feather.replace()
-        elif lib == "lucide" and hasattr(window, "lucide"):
-            window.lucide.createIcons()
 
     def create_dom(self, tag):
         if self.dom:
@@ -382,3 +415,31 @@ class SuperComponent:
     def set_property(self, name, value):
         self.css_properties[name] = value
         self.update_stylesheet()
+
+    def update_stylesheet(self):
+        if self.block_stylesheet:
+            return
+
+        properties = self.css_properties 
+
+        css_rules = "\n".join(f"{key}: {value}" for key, value in properties.items())
+        css_rules+="\n"+ (self.css or "")
+
+        parsed_css = css_parser(css_rules, f"#{self.uid}")
+
+        self.stylesheet.textContent = parsed_css
+    
+    def update_other_stylesheet(self):
+        if self.block_stylesheet:
+            return
+
+        other_css = self.other_css or ""
+
+        for state, css in self.states_css.items():
+            if not css:
+                continue
+            other_css+=f"\n:{state}\n{(css)}"
+
+        parsed_css = css_parser(other_css, f"#{self.uid}")
+
+        self.other_stylesheet.textContent = parsed_css
