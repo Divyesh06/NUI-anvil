@@ -21,6 +21,8 @@ class SuperComponent:
         self._text = None
         self._other_css = None
         self._hover_css = None
+        self._active_css = None
+        self._disabled_css = None
         self._text_type = None
         self._font_size = None
         self._font = None
@@ -41,6 +43,7 @@ class SuperComponent:
         self._text_align = None
         self._css = None
         self._visible = None
+        self._enabled = None
         self._preset = None
         
         self.css_properties = {}
@@ -51,7 +54,7 @@ class SuperComponent:
         
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
-        self._text_type = properties['text_type']
+        self._text_type = properties.get('text_type')
         self._text = properties.get('text')
         self.dom = None
         self.text_dom = None
@@ -281,6 +284,26 @@ class SuperComponent:
         self._hover_css = value
         self.states_css['hover'] = value
         self.update_other_stylesheet()
+
+    @property
+    def disabled_css(self):
+        return self._disabled_css
+
+    @disabled_css.setter
+    def disabled_css(self, value):
+        self._disabled_css = value
+        self.states_css['disabled'] = value
+        self.update_other_stylesheet()
+
+    @property
+    def active_css(self):
+        return self._active_css
+
+    @active_css.setter
+    def active_css(self, value):
+        self._active_css = value
+        self.states_css['active'] = value
+        self.update_other_stylesheet()
     
     @property
     def visible(self):
@@ -299,6 +322,15 @@ class SuperComponent:
                 self.set_property("opacity", "0.3")
             else:
                 self.set_property("opacity", "1")
+
+    @property
+    def enabled(self):
+        return self._enabled
+
+    @enabled.setter
+    def enabled(self, value):
+        self._enabled = value
+        self.dom.disabled = not value
     
     @property
     def preset(self):
@@ -365,6 +397,7 @@ class SuperComponent:
         self._icon_css = value
         self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
 
+    
     def update_icon(self):
         
         icon_el = self.dom.querySelector('[nui-icon="true"]')

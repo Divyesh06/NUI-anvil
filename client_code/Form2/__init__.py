@@ -9,3 +9,9 @@ class Form2(Form2Template):
     def label_1_hover(self, **event_args):
         print(event_args['sender'])
         print(event_args['event'])
+
+    def button_3_click(self, **event_args):
+        print("Clicked")
+
+    def container_1_click(self, **event_args):
+        print("Click")

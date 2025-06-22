@@ -1,32 +1,24 @@
 components:
 - components:
-  - layout_properties: {grid_position: 'XYBVVT,EPMVSU'}
-    name: label_1
-    properties:
-      preset: [default-label]
-      text: sdsdsdsd
-    type: form:Label
+  - components:
+    - layout_properties: {slot: default}
+      name: label_1
+      properties: {html_tag: li, margin: '', text: sadasdsad}
+      type: form:Label
+    - layout_properties: {slot: default}
+      name: label_2
+      properties: {html_tag: li, text: asdasd}
+      type: form:Label
+    event_bindings: {click: container_1_click}
+    layout_properties: {grid_position: 'DJXSXS,ZFJNPJ'}
+    name: container_1
+    properties: {active_css: 'background: red', background: '#ddd', border_radius: '20', hover_css: 'scale: 0.95', html_tag: ul, padding: 10 35}
+    type: form:Container
   event_bindings: {show: content_panel_show}
   layout_properties: {slot: default}
   name: content_panel
   properties: {}
   type: ColumnPanel
-- event_bindings: {click: button_1_click}
-  layout_properties: {slot: default}
-  name: button_1
-  properties: {text: button_1}
-  type: Button
-- event_bindings: {click: button_2_click}
-  layout_properties: {slot: default}
-  name: button_2
-  properties: {text: button_2}
-  type: Button
-- layout_properties: {slot: default}
-  name: label_2
-  properties:
-    preset: [default-label]
-    text: asdsadasdasd
-  type: form:Label
 container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
