@@ -17,6 +17,36 @@ components:
     name: text_area_1
     properties: {}
     type: form:TextArea
+  - layout_properties: {grid_position: 'WPKOWI,CNFYCL'}
+    name: label_2
+    properties:
+      css: ''
+      html_tag: h1
+      icon: bi:person
+      text: |-
+        Hey
+        asdasdasd
+    type: form:Label
+  - layout_properties: {grid_position: 'VRVMBC,CPTYEL'}
+    name: text_area_3
+    properties: {}
+    type: form:TextArea
+  - layout_properties: {grid_position: 'LSWWSZ,FEVEGO'}
+    name: text_box_3
+    properties: {}
+    type: form:TextBox
+  - layout_properties: {grid_position: 'XUPTHW,IGFLTY'}
+    name: button_2
+    properties: {}
+    type: form:Button
+  - layout_properties: {grid_position: 'ZARTYS,MTFEGY'}
+    name: text_area_2
+    properties: {}
+    type: form:TextArea
+  - layout_properties: {grid_position: 'PDGGVB,OBJUVS'}
+    name: text_box_2
+    properties: {}
+    type: form:TextBox
   layout_properties: {slot: default}
   name: column_panel_1
   properties: {}

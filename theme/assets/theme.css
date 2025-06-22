@@ -14,7 +14,7 @@
 
 .nui-default-textbox {
     border-radius: 5px;
-    border-width: solid #ccc 1px;
+    border: solid #ccc 1px;
     border-style: solid;
     width: 100%;
     padding: 8px 12px;

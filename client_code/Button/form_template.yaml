@@ -105,4 +105,5 @@ properties:
 - {default_value: '', description: ' Defines CSS styles to apply when the button is disabled', group: CSS, important: true, multiline: true, name: disabled_css, type: string}
 - {default_value: '', description: ' Defines CSS styles to apply when the button is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
 toolbox_item:
+  group: NUI Components
   icon: {dark: 'asset:designer_icons/button_dark.svg', light: 'asset:designer_icons/button_light.svg'}
