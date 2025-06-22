@@ -5,7 +5,7 @@ anvil_theme_vars = window.anvilThemeVars
 def css_parser(raw_css, main_selector):
     raw_css = raw_css.replace('{', '').replace('}', '')
     lines = re.split(r'[;\n]+', raw_css)
-    lines = [line.strip() for line in lines if line.strip()]
+    lines = [line for line in lines if line.strip()]
 
     css_blocks = []
     current_selector = main_selector
@@ -50,16 +50,15 @@ def css_parser(raw_css, main_selector):
             current_block = []
         else:
             flush_block()
-            selector_ext = line.strip()
-            if selector_ext.startswith("&"):
-                current_selector = selector_ext.replace("&", main_selector)
-            elif selector_ext.startswith((">", "+", "~", "[", ":", ".")):
-                current_selector = f"{main_selector}{selector_ext}"
+            raw_line = line.rstrip()  # Only strip right side
+            
+            if raw_line.startswith("&"):
+                current_selector = raw_line.replace("&", main_selector)
+            elif raw_line[:1] in (">", "+", "~", "[", ":", ".", "#") or raw_line.startswith(" "):
+                # If it starts with a known combinator OR a space, treat it as direct
+                current_selector = f"{main_selector}{raw_line}"
             else:
-                # If the line doesn't start with any combinator/symbol, assume space is intended
-                current_selector = f"{main_selector} {selector_ext}"
-            current_media = None
-            current_block = []
+                current_selector = f"{main_selector} {raw_line}"
 
     flush_block()
     return "\n\n".join(css_blocks)

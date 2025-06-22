@@ -40,12 +40,7 @@ components:
     type: form:Label
   - layout_properties: {grid_position: 'JKZNLS,UNCQLW'}
     name: label_9
-    properties:
-      icon: fa:address-book
-      other_css: |2-
-         [nui-icon="true"]
-        padding: 20px
-      text: asdasdsadasdasd
+    properties: {icon: 'fa:address-book', other_css: '', text: asdasdsadasdasd}
     type: form:Label
   layout_properties: {slot: default}
   name: column_panel_1
