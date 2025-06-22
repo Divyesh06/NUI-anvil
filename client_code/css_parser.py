@@ -2,16 +2,12 @@ from anvil.js import window
 import re
 
 anvil_theme_vars = window.anvilThemeVars
-
 def css_parser(raw_css, main_selector):
-    
-    # Cleanup optional braces and enforce semicolon splitting
     raw_css = raw_css.replace('{', '').replace('}', '')
     lines = re.split(r'[;\n]+', raw_css)
     lines = [line.strip() for line in lines if line.strip()]
 
     css_blocks = []
-        
     current_selector = main_selector
     current_media = None
     current_block = []
@@ -35,40 +31,37 @@ def css_parser(raw_css, main_selector):
             rules.append(f"{prop}: {val}")
         if not rules:
             return
-        body = ";".join(rules)
+        body = "; ".join(rules)
         block = f"{current_selector} {{\n  {body};\n}}"
         if current_media:
             block = f"{current_media} {{\n  {block}\n}}"
         css_blocks.append(block)
-        
+
+    def is_property_line(line):
+        return re.match(r'^[\w-]+\s*:', line)
+
     for line in lines:
-        if line.startswith(":"):
-            flush_block()
-            pseudo = line[1:].strip()
-            current_selector = f"{main_selector}:{pseudo}"
-            current_block = []
-        elif line.startswith("."):
-            flush_block()
-            class_name = line
-            class_name = class_name[1:].strip()
-            current_selector = f"{main_selector}.nui-{class_name}"
-            current_block = []
+        if is_property_line(line):
+            current_block.append(line)
         elif line.startswith("@"):
             flush_block()
             current_selector = main_selector
-            current_media = line.strip()
+            current_media = line
             current_block = []
-        elif re.match(r'\w[\w-]*\s*:', line):
-            current_block.append(line)
         else:
-            # New section or invalid line
             flush_block()
-            current_selector = main_selector
+            selector_ext = line.strip()
+            if selector_ext.startswith("&"):
+                current_selector = selector_ext.replace("&", main_selector)
+            elif selector_ext.startswith((">", "+", "~", "[", ":", ".")):
+                current_selector = f"{main_selector}{selector_ext}"
+            else:
+                # If the line doesn't start with any combinator/symbol, assume space is intended
+                current_selector = f"{main_selector} {selector_ext}"
             current_media = None
             current_block = []
 
     flush_block()
-
     return "\n\n".join(css_blocks)
 
 from . import presets

@@ -2,7 +2,7 @@ from anvil.js.window import document
 from anvil.js import get_dom_node
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
-from anvil.designer import in_designer
+from anvil.designer import in_designer, get_design_name
 
 events_map = {
     "hover": "mouseenter",
@@ -17,9 +17,12 @@ events_map = {
 reverse_events_map = {v: k for k, v in events_map.items()}
 
 class SuperComponent:
-    def __init__(self, form, events = [], **properties):
+    def __init__(self, form, dom = None, events = [], **properties):
         self.form = form
         self.events = events
+
+        
+
         
         self.is_container = False
         self.is_textbox = False
@@ -80,8 +83,11 @@ class SuperComponent:
 
         self.icon_stylesheet = document.createElement("style")
         get_dom_node(form).appendChild(self.icon_stylesheet)   
-            
-        self.create_dom(self.last_tag)
+
+        if not dom:
+            self.create_dom(self.last_tag)
+        else:
+            self.dom = dom
 
         self.block_stylesheet = False
         self.update_stylesheet()
@@ -91,6 +97,8 @@ class SuperComponent:
             
         if in_designer:
             self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
+            self.designer_name = "Loading"
+            self.form.add_event_handler("show", self.designer_logic)
 
     def global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
@@ -134,6 +142,9 @@ class SuperComponent:
     def placeholder(self, value):
         self._placeholder = value
         self.dom.placeholder = value
+
+        if in_designer:
+            self.toggle_ghost_label()
     
     @property
     def text_type(self):
@@ -158,22 +169,16 @@ class SuperComponent:
             return
             
         if in_designer:
-            if not self._text:
-                print("Placeholder is: ", self.placeholder)
-                print("Textarea: ", self.is_textarea)
-                if self.is_textarea and self.placeholder:
-                    print("returning")
-                    return
-                self.dom.innerText = self.form.__name__
-                self.dom.style.color = "#aaa"
-                return
-            else:
-                self.dom.style.color = ""
+            self.toggle_ghost_label()
+            
         if self._text_type == 'plain':
             self.dom.innerText = self._text
         else:
             self.dom.innerHTML = self._text
-
+        
+        if in_designer:
+            self.toggle_ghost_label()
+                
         self.update_icon()
     
     @property
@@ -546,7 +551,29 @@ class SuperComponent:
         parsed_css = css_parser(css_rules, f"#{self.uid}")
 
         self.stylesheet.textContent = parsed_css
-    
+
+    def toggle_ghost_label(self):
+        if self.is_container:
+            return
+            
+        if self.is_textbox or self.is_textarea:
+            if not self.placeholder and not self.text:
+                self.dom.placeholder = self.designer_name
+            else:
+                self.dom.placeholder = self.placeholder
+        else:
+            if not self.text:
+                
+                self.dom.innerText = self.designer_name
+                self.dom.style.color = "#aaa"
+            else:
+                self.dom.style.color = ""
+
+    def designer_logic(self, **event_args):
+        self.designer_name = get_design_name(self.form)
+        self.toggle_ghost_label()
+        
+        
     def update_other_stylesheet(self):
         if self.block_stylesheet:
             return
