@@ -1,0 +1,29 @@
+[nui-icon="true"] {
+    padding-right: 5px;
+}
+
+.nui-default-label {
+    margin: 5px 0;
+}
+
+.nui-default-btn {
+    margin: 5px 0;
+    padding: 8px 15px;
+    border-radius: 15px;
+}
+
+.nui-default-textbox {
+    border-radius: 5px;
+    border-width: solid #ccc 1px;
+    border-style: solid;
+    width: 100%;
+    padding: 8px 12px;
+}
+
+.nui-default-textarea {
+    border-radius: 5px;
+    border: solid #ccc 1px;
+    border-style: solid;
+    width: 100%;
+    padding: 8px 12px;
+}

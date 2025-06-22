@@ -98,7 +98,7 @@ class SuperComponent:
         if in_designer:
             self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
             self.designer_name = "Loading"
-            self.form.add_event_handler("show", self.designer_logic)
+            self.form.add_event_handler("show", self.on_show_design)
 
     def global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
@@ -505,9 +505,7 @@ class SuperComponent:
         
         icon_el.style.display = "inline-block"
 
-        if align in ["left", "right"]:
-            icon_el.style.verticalAlign = "middle"
-        elif align in ["top", "bottom"]:
+        if align in ["top", "bottom"]:
             icon_el.style.display = "block"
             #icon_el.style.margin = "auto"
 
@@ -569,7 +567,7 @@ class SuperComponent:
             else:
                 self.dom.style.color = ""
 
-    def designer_logic(self, **event_args):
+    def on_show_design(self, **event_args):
         self.designer_name = get_design_name(self.form)
         self.toggle_ghost_label()
         

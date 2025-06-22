@@ -1,64 +1,26 @@
 components:
 - components:
-  - components:
-    - layout_properties: {slot: default}
-      name: label_1
-      properties: {text: A}
-      type: Label
-    - layout_properties: {slot: default}
-      name: label_2
-      properties: {text: B}
-      type: Label
-    - layout_properties: {slot: default}
-      name: label_3
-      properties: {text: C}
-      type: Label
-    - layout_properties: {slot: default}
-      name: label_7
-      properties: {}
-      type: Label
-    layout_properties: {grid_position: 'TTQMUP,ILHMRA'}
-    name: container_1
-    properties:
-      background: ''
-      border_color: ''
-      border_radius: '25'
-      css: |-
-        background: blue
-
-        :hover
-        background: green
-      padding: 5 25
-    type: form:Container
-  - layout_properties: {grid_position: 'TVKMXG,RXJTRE'}
+  - layout_properties: {grid_position: 'FMTLEP,ZLRGGU'}
+    name: label_1
+    properties: {}
+    type: form:Label
+  - layout_properties: {grid_position: 'GPCKSY,MXPYCD'}
     name: button_1
     properties: {}
     type: form:Button
-  - layout_properties: {grid_position: 'GHQVMZ,NDGKGO'}
-    name: label_8
+  - layout_properties: {grid_position: 'AGMDCS,RUCDWU'}
+    name: text_box_1
+    properties:
+      preset: [default-textbox]
+    type: form:TextBox
+  - layout_properties: {grid_position: 'LCQARB,UAUBDN'}
+    name: text_area_1
     properties: {}
-    type: form:Label
-  - layout_properties: {grid_position: 'JKZNLS,UNCQLW'}
-    name: label_9
-    properties: {icon: 'fa:address-book', other_css: '', text: asdasdsadasdasd}
-    type: form:Label
+    type: form:TextArea
   layout_properties: {slot: default}
   name: column_panel_1
   properties: {}
   type: ColumnPanel
-- components:
-  - layout_properties: {slot: default}
-    name: label_4
-    properties: {text: sss}
-    type: Label
-  - layout_properties: {slot: default}
-    name: label_5
-    properties: {text: sss}
-    type: Label
-  layout_properties: {slot: default}
-  name: container_2
-  properties: {background: ''}
-  type: form:Container
 container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate

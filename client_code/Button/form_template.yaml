@@ -11,7 +11,7 @@ events:
 - {name: hover_out}
 is_package: true
 properties:
-- default_value: [default-label]
+- default_value: [default-btn]
   description: Apply a predefined style class to the component
   important: true
   name: preset

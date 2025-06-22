@@ -14,7 +14,7 @@ events:
 - {name: hover_out}
 is_package: true
 properties:
-- default_value: [default-label]
+- default_value: [default-textarea]
   description: Apply a predefined style class to the component
   important: true
   name: preset
@@ -45,7 +45,7 @@ properties:
   important: false
   name: border_size
   type: string
-- default_value: null
+- default_value: solid
   description: Defines the style of the border
   group: Border
   important: false

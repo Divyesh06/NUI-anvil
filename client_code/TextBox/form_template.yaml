@@ -53,7 +53,7 @@ properties:
   important: false
   name: border_size
   type: string
-- default_value: null
+- default_value: solid
   description: Defines the style of the border
   group: Border
   important: false
