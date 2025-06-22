@@ -91,4 +91,4 @@ properties:
 - {default_value: '', description: Defines CSS styles to apply when the user focuses on the component., group: CSS, important: true, multiline: true, name: focus_css, type: string}
 - {default_value: '', description: CSS styles for the placeholder, group: CSS, important: true, multiline: true, name: placeholder_css, type: string}
 toolbox_item:
-  icon: {}
+  icon: {dark: 'asset:designer_icons/textarea_dark.svg', light: 'asset:designer_icons/textarea_light.svg'}
