@@ -1,13 +1,25 @@
 unique_ids:
   assets:
+    designer_icons/.gitkeep: '1750576962982142073854976.47086'
+    designer_icons/button_dark.svg: '1750577725329713014907333.1924'
+    designer_icons/button_light.svg: '1750577716312904806642333.6831'
+    designer_icons/container_dark.svg: '1750577487427693423070089.7562'
+    designer_icons/container_light.svg: '1750577478492681599138320.0319'
+    designer_icons/label_dark.svg: '1750577249122691270211756.2755'
+    designer_icons/label_light.svg: '1750577233497103336718119.58745'
+    designer_icons/textarea_dark.svg: '1750577813409152046625299.40082'
+    designer_icons/textarea_light.svg: '175057782184395012385591.19818'
+    designer_icons/textbox_dark.svg: '1750577131390742433349787.5358'
+    designer_icons/textbox_light.svg: '1750577115728900615172803.6749'
     standard-page.html: VN7WC7ELQQU74HUQECKUWENPEOXPHOD2
     theme.css: TUIAO6QMCFO6UKSWQ7BDXVVFWQG2HRKB
   forms:
     Button: '1750569205023972993145026.0162'
     Container: '1750570279155106881889537.08644'
-    Form1: '1750335535972848125136337.6039'
     Form2: '1750336629258290637428035.57477'
     Label: '1750409399089219051996628.14056'
+    TextArea: '1750575435287299507265571.0862'
+    TextBox: '1750573355226117177780811.42038'
   modules:
     SuperComponent: '1750409663714462189581688.079'
     css_parser: '1750354487140288796589253.4755'

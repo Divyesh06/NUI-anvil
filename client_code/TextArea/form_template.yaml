@@ -1,16 +1,13 @@
 components: []
 container:
-  properties:
-    html: |+
-      <div anvil-slot='default' anvil-name='container-slot'>
-          <div class="placeholder anvil-designer-only" anvil-if-slot-empty="default" anvil-drop-here style="color: #999; font-style: italic">Add elements here</div>
-      </div>
-
+  properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
 custom_component: true
-custom_component_container: true
 events:
-- {default_event: true, description: When the button is clicked, name: click}
+- {description: When the component value changes, name: change}
+- {description: When the component receives any input, name: input}
+- {description: When the text box receives focus, name: focus}
+- {description: When the text box loses focuses, name: lost_focus}
 - {name: show}
 - {name: hide}
 - {name: hover}
@@ -23,7 +20,12 @@ properties:
   name: preset
   priority: 100
   type: text[]
-- {default_value: div, description: The html tag to be used in this component. Please note that all tags may not give intended results, important: true, name: html_tag, priority: 99, type: string}
+- {default_value: textarea, description: The html tag to be used in this component. Please note that all tags may not give intended results, important: true, name: html_tag, priority: 99, type: string}
+- {default_value: '', description: The text to display for this component. Can be plain text or html, group: Content, important: true, multiline: true, name: text, priority: 98, type: string}
+- {default_value: '', description: The font size for this component, group: Font, important: true, name: font_size, priority: 97, type: string}
+- {default_value: '', description: ' Sets the font family used for the text', group: Font, important: false, name: font, type: string}
+- {default_value: '', description: 'Adjusts the thickness or boldness of the text (e.g., normal, bold, 400, 600).', group: Font, important: false, name: font_weight, type: string}
+- {default_value: '', description: Sets the text color., group: Appearance, important: false, name: foreground, type: color}
 - {default_value: '', description: Sets the background color of the component, group: Appearance, important: false, name: background, type: color}
 - default_value: ''
   description: |-
@@ -55,6 +57,14 @@ properties:
 - {default_value: '', description: Sets the color of the border., group: Border, important: false, name: border_color, type: color}
 - {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, type: string}
 - {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}
+- default_value: left
+  description: Aligns the text inside the component
+  designer_hint: align-horizontal
+  group: Content
+  important: false
+  name: text_align
+  options: [left, center, right, justify]
+  type: enum
 - {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}
 - default_value: ''
   description: |-
@@ -75,7 +85,10 @@ properties:
   important: true
   name: padding
   type: string
-- {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}
-- {default_value: '', description: ' Defines CSS styles to apply when the container is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
+- {default_value: '', group: CSS, important: true, multiline: true, name: other_css, type: string}
+- {default_value: '', group: Content, important: true, name: placeholder, type: string}
+- {default_value: false, designer_hint: enabled, group: Appearance, important: true, name: enabled, type: boolean}
+- {default_value: '', description: Defines CSS styles to apply when the user focuses on the component., group: CSS, important: true, multiline: true, name: focus_css, type: string}
+- {default_value: '', description: CSS styles for the placeholder, group: CSS, important: true, multiline: true, name: placeholder_css, type: string}
 toolbox_item:
-  icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}
+  icon: {}

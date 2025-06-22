@@ -1,5 +1,6 @@
 components: []
 container:
+  event_bindings: {show: form_show}
   properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
 custom_component: true
@@ -100,3 +101,5 @@ properties:
 - {default_value: '', description: 'Directly insert the icon code. Allows using SVGs or any other icon library ', group: Icon, important: false, multiline: true, name: custom_icon, type: string}
 - {default_value: '', description: Custom styling for the icon, group: Icon, important: false, multiline: true, name: icon_css, type: string}
 - {default_value: '', group: CSS, important: true, multiline: true, name: other_css, type: string}
+toolbox_item:
+  icon: {dark: 'asset:designer_icons/label_dark.svg', light: 'asset:designer_icons/label_light.svg'}

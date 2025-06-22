@@ -1,11 +1,17 @@
-from ._anvil_designer import LabelTemplate
+from ._anvil_designer import TextBoxTemplate
 from .. import SuperComponent
 
-class Label(LabelTemplate):
+class TextBox(TextBoxTemplate):
     def __init__(self, **properties):
-        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out"], **properties)
+        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "focus", "lost_focus", "input", "change"], **properties)
+        self.is_textbox = True
         self.init_components(**properties)
-        
+
+        self.add_event("keydown", self.detect_enter_press)
+
+    def detect_enter_press(self, **event_args):
+        if event_args['event'].key == "Enter":
+            self.raise_event("pressed_enter")
 
     def __getattr__(self, name):
         try:

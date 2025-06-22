@@ -3,11 +3,15 @@ from anvil.js import get_dom_node
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer
-from anvil import alert
+
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
-    "click": "click"
+    "click": "click",
+    "change": "change",
+    "input": "input",
+    "focus": "focus",
+    "lost_focus": "blur"
 }
 
 reverse_events_map = {v: k for k, v in events_map.items()}
@@ -17,20 +21,28 @@ class SuperComponent:
         self.form = form
         self.events = events
         
+        self.is_container = False
+        self.is_textbox = False
+        self.is_textarea = False
+        
         self._html_tag = None
         self._text = None
         self._other_css = None
         self._hover_css = None
         self._active_css = None
+        self._focus_css = None
+        self._placeholder_css = None
         self._disabled_css = None
         self._text_type = None
         self._font_size = None
         self._font = None
+        self._type = None
         self._font_weight = None
         self._foreground = None
         self._background = None
         self._border_radius = None
         self._margin = None
+        self._placeholder = None
         self._padding = None
         self._border_size = None
         self._border_style = None
@@ -91,15 +103,12 @@ class SuperComponent:
     def html_tag(self, value):
         self._html_tag = value
         if value != self.last_tag:
-            children = self.dom.children
             self.create_dom(value)
-            self.dom.append(*children)
             self.last_tag = value
             self.text = self._text
-            
+            if self.is_container:
+                self.dom.innerHTML = "Container children disappeared. Please add any component anywhere to see them again"
             self.update_stylesheet()    
-        # else:
-        #     raise ValueError("Cannot change the html tag once declared")
     
     @property
     def text(self):
@@ -110,7 +119,21 @@ class SuperComponent:
     def text(self, value):
         
         self._text = value
-        self._set_text()
+
+        if not self.is_textbox:
+            self._set_text()
+        else:
+            self.dom.value = value
+
+    @property
+    def placeholder(self):
+
+        return self._placeholder
+
+    @placeholder.setter
+    def placeholder(self, value):
+        self._placeholder = value
+        self.dom.placeholder = value
     
     @property
     def text_type(self):
@@ -120,16 +143,32 @@ class SuperComponent:
     def text_type(self, value):
         self._text_type = value
         self._set_text()
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        self._type = value
+        self.dom.type = value
     
     def _set_text(self):
-        
+        if self.is_textbox:
+            return
+            
         if in_designer:
             if not self._text:
+                print("Placeholder is: ", self.placeholder)
+                print("Textarea: ", self.is_textarea)
+                if self.is_textarea and self.placeholder:
+                    print("returning")
+                    return
                 self.dom.innerText = self.form.__name__
-                self.dom.style.opacity = 0.5
+                self.dom.style.color = "#aaa"
                 return
             else:
-                self.dom.style.opacity = ""
+                self.dom.style.color = ""
         if self._text_type == 'plain':
             self.dom.innerText = self._text
         else:
@@ -287,6 +326,26 @@ class SuperComponent:
     def hover_css(self, value):
         self._hover_css = value
         self.states_css['hover'] = value
+        self.update_other_stylesheet()
+
+    @property
+    def focus_css(self):
+        return self._focus_css
+
+    @focus_css.setter
+    def focus_css(self, value):
+        self._focus_css = value
+        self.states_css['focus'] = value
+        self.update_other_stylesheet()
+
+    @property
+    def placeholder_css(self):
+        return self._placeholder_css
+
+    @placeholder_css.setter
+    def placeholder_css(self, value):
+        self._placeholder_css = value
+        self.states_css[':placeholder'] = value
         self.update_other_stylesheet()
 
     @property

@@ -3,17 +3,57 @@ components:
   - components:
     - layout_properties: {slot: default}
       name: label_3
-      properties: {}
+      properties: {text: ''}
       type: Label
     - layout_properties: {slot: default}
       name: label_1
+      properties: {text: Text 2}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_2
+      properties: {text: Text 3}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_4
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_5
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_6
       properties: {}
       type: Label
     event_bindings: {click: container_1_click}
     layout_properties: {grid_position: 'DJXSXS,ZFJNPJ'}
     name: container_1
-    properties: {active_css: 'background: red', background: '#ddd', border_radius: '20', hover_css: 'scale: 0.95', html_tag: div, padding: 10 35}
+    properties:
+      active_css: 'background: red'
+      background: '#ddd'
+      border_radius: '20'
+      enabled: true
+      hover_css: 'scale: 0.95'
+      html_tag: div
+      padding: 10 35
+      preset: [default-label]
     type: form:Container
+  - layout_properties: {grid_position: 'RMQGXI,ECKWIO'}
+    name: container_2
+    properties: {}
+    type: form:Container
+  - layout_properties: {grid_position: 'IIYGVE,BWZLUV'}
+    name: text_box_1
+    properties: {placeholder: '', text: sdaasdasdasdas}
+    type: form:TextBox
+  - layout_properties: {grid_position: 'PEMAUJ,WOXYTR'}
+    name: text_area_1
+    properties: {enabled: true, placeholder: asdasdasdasd, text: ''}
+    type: form:TextArea
+  - layout_properties: {grid_position: 'ANKRFS,PFKNCF'}
+    name: label_7
+    properties: {}
+    type: form:Label
   event_bindings: {show: content_panel_show}
   layout_properties: {slot: default}
   name: content_panel

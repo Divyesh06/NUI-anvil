@@ -4,6 +4,9 @@ from .. import SuperComponent
 class Container(ContainerTemplate):
     def __init__(self, **properties):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
+
+        self.is_container = True
+        
         self.init_components(**properties)
         self.dom.appendChild(self.dom_nodes['container-slot'])
 

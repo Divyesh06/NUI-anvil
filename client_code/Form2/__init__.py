@@ -1,5 +1,6 @@
 from ._anvil_designer import Form2Template
 from anvil.js import window
+from anvil import alert
 class Form2(Form2Template):
     def __init__(self, **properties):
         self.init_components(**properties)
@@ -15,3 +16,8 @@ class Form2(Form2Template):
 
     def container_1_click(self, **event_args):
         print("Click")
+
+
+
+    def text_box_1_pressed_enter(self, **event_args):
+        alert("Submit")
