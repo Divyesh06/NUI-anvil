@@ -2,7 +2,9 @@ components: []
 container:
   properties:
     html: |+
-      <div anvil-slot='default' anvil-name='container-slot'></div>
+      <div anvil-slot='default' anvil-name='container-slot'>
+          <div class="placeholder anvil-designer-only" anvil-if-slot-empty="default" anvil-drop-here style="color: #999; font-style: italic">Add elements here</div>
+      </div>
 
   type: HtmlTemplate
 custom_component: true

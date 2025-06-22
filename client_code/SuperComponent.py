@@ -3,7 +3,7 @@ from anvil.js import get_dom_node
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer
-
+from anvil import alert
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
@@ -91,11 +91,15 @@ class SuperComponent:
     def html_tag(self, value):
         self._html_tag = value
         if value != self.last_tag:
+            children = self.dom.children
             self.create_dom(value)
+            self.dom.append(*children)
             self.last_tag = value
             self.text = self._text
             
             self.update_stylesheet()    
+        # else:
+        #     raise ValueError("Cannot change the html tag once declared")
     
     @property
     def text(self):
