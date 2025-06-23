@@ -24,7 +24,7 @@ class SuperComponent:
         self.is_container = False
         self.is_textbox = False
         self.is_textarea = False
-        
+
         self._html_tag = None
         self._text = None
         self._other_css = None
@@ -58,13 +58,13 @@ class SuperComponent:
         self._enabled = None
         self._preset = None
         self._children_css = None
-        
+
         self.css_properties = {}
         self.states_css = {}
-        
+
         self.last_tag = None
-        
-        
+
+
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
         self._text_type = properties.get('text_type')
@@ -73,8 +73,8 @@ class SuperComponent:
         self.text_dom = None
 
         self.block_stylesheet = True
-    
-        
+
+
         self.other_stylesheet = document.createElement("style")
         get_dom_node(form).appendChild(self.other_stylesheet)   
 
@@ -97,7 +97,7 @@ class SuperComponent:
 
         for event in self.events:
             self.dom.addEventListener(events_map[event], self.global_events_handler)
-            
+
         if in_designer:
             self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
             self.designer_name = "Loading"
@@ -105,11 +105,11 @@ class SuperComponent:
 
     def global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
-        
+
     @property
     def html_tag(self):
         return self._html_tag
-    
+
     @html_tag.setter
     def html_tag(self, value):
         self._html_tag = value
@@ -120,15 +120,15 @@ class SuperComponent:
             if self.is_container:
                 self.dom.innerHTML = "Container children disappeared. Please add any component anywhere to see them again"
             self.update_stylesheet()    
-    
+
     @property
     def text(self):
-        
+
         return self._text
-    
+
     @text.setter
     def text(self, value):
-        
+
         self._text = value
 
         if not self.is_textbox:
@@ -148,11 +148,11 @@ class SuperComponent:
 
         if in_designer:
             self.toggle_ghost_label()
-    
+
     @property
     def text_type(self):
         return self._text_type
-    
+
     @text_type.setter
     def text_type(self, value):
         self._text_type = value
@@ -166,133 +166,133 @@ class SuperComponent:
     def type(self, value):
         self._type = value
         self.dom.type = value
-    
+
     def _set_text(self):
         if self.is_textbox:
             return
-            
+
         if in_designer:
             self.toggle_ghost_label()
-            
+
         if self._text_type == 'plain':
             self.dom.innerText = self._text
         else:
             self.dom.innerHTML = self._text
-        
+
         if in_designer:
             self.toggle_ghost_label()
-                
+
         self.update_icon()
-    
+
     @property
     def font_size(self):
         return self._font_size
-    
+
     @font_size.setter
     def font_size(self, value):
         self._font_size = value
         self.set_property("font-size", px_convert.convert_to_px(value))
-    
+
     @property
     def font(self):
         return self._font
-    
+
     @font.setter
     def font(self, value):
         self._font = value
         self.set_property("font-family", value)
-    
+
     @property
     def font_weight(self):
         return self._font_weight
-    
+
     @font_weight.setter
     def font_weight(self, value):
         self._font_weight = value
         self.set_property("font-weight", value)
-    
+
     @property
     def foreground(self):
         return self._foreground
-    
+
     @foreground.setter
     def foreground(self, value):
         self._foreground = value
         self.set_property("color", value)
-    
+
     @property
     def background(self):
         return self._background
-    
+
     @background.setter
     def background(self, value):
         self._background = value
         self.set_property("background-color", value)
-    
+
     @property
     def border_radius(self):
         return self._border_radius
-    
+
     @border_radius.setter
     def border_radius(self, value):
         self._border_radius = value
         value = value.split()
         value = " ".join([px_convert.convert_to_px(v) for v in value])
-    
+
         self.set_property("border-radius", value)
-    
+
     @property
     def margin(self):
         return self._margin
-    
+
     @margin.setter
     def margin(self, value):
         self._margin = value
         value = value.split()
         value = " ".join([px_convert.convert_to_px(v) for v in value])
         self.set_property("margin", value)
-    
-    
+
+
     @property
     def padding(self):
         return self._padding
-    
+
     @padding.setter
     def padding(self, value):
         self._padding = value
         value = value.split()
         value = " ".join([px_convert.convert_to_px(v) for v in value])
         self.set_property("padding", value)
-    
+
     @property
     def border_size(self):
-        
+
         return self._border_size
-    
+
     @border_size.setter
     def border_size(self, value):
         self._border_size = value
         value = value.split()
         value = " ".join([px_convert.convert_to_px(v) for v in value])
-        
+
         self.set_property("border-width", value)
 
-    
+
     @property
     def border_style(self):
         return self._border_style
-    
+
     @border_style.setter
     def border_style(self, value):
         self._border_style = value
         self.set_property("border-style", value)
 
-        
-    
+
+
     @property
     def border_color(self):
         return self._border_color
-    
+
     @border_color.setter
     def border_color(self, value):
         self._border_color = value
@@ -301,16 +301,16 @@ class SuperComponent:
     @property
     def text_align(self):
         return self._text_align
-    
+
     @text_align.setter
     def text_align(self, value):
         self._text_align = value
         self.set_property("text-align", value)
-    
+
     @property
     def css(self):
         return self._css
-    
+
     @css.setter
     def css(self, value):
         self._css = value
@@ -375,11 +375,11 @@ class SuperComponent:
         self._active_css = value
         self.states_css['active'] = value
         self.update_other_stylesheet()
-    
+
     @property
     def visible(self):
         return self._visible
-    
+
     @visible.setter
     def visible(self, value):
         self._visible = value
@@ -402,17 +402,17 @@ class SuperComponent:
     def enabled(self, value):
         self._enabled = value
         self.dom.disabled = not value
-    
+
     @property
     def preset(self):
         return self._preset
-    
+
     @preset.setter
     def preset(self, value):
         previous_presets = self._preset or []
-        
+
         previous_presets = previous_presets.copy()
-            
+
         self._preset = value
 
         for preset in previous_presets:
@@ -420,7 +420,7 @@ class SuperComponent:
 
         for preset in value:
             self.dom.classList.add(f"nui-{preset}")
-        
+
 
     @property
     def icon(self):
@@ -478,31 +478,31 @@ class SuperComponent:
         self._icon_css = value
         self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
 
-    
+
     def update_icon(self):
-        
+
         icon_el = self.dom.querySelector('[nui-icon="true"]')
         if icon_el:
             icon_el.remove()
 
         if self.custom_icon:
             icon_el = document.createElement("i")
-            
+
             icon_el.innerHTML = self.custom_icon
             self.dom.appendChild(icon_el)
-            
-            
+
+
 
         elif self.icon and ":" in self.icon:
             lib, name = self.icon.split(":", 1)
             icon_el = document.createElement("i")
-    
+
             if lib == 'bi':
                 icon_el.className = f'bi bi-{name}'
-                
+
             elif lib.startswith("fa"):
                 icon_el.className = f'{lib} fa-{name}'
-    
+
             elif lib == 'mi':
                 icon_el.className = "material-icons"
                 icon_el.textContent = name
@@ -512,10 +512,10 @@ class SuperComponent:
         else:
             return
         icon_el.setAttribute("nui-icon", "true")
-        
+
         align = self.icon_align
-        
-        
+
+
         icon_el.style.display = "inline-block"
 
         if align in ["top", "bottom"]:
@@ -532,21 +532,21 @@ class SuperComponent:
             self.dom.appendChild(icon_el)
 
     def add_event(self, event_name, event_callback):
-        
+
         def event_raiser(e):
             event_callback(sender = self.form, event = e)
-            
+
         self.dom.addEventListener(event_name, event_raiser)
 
-        
+
     def create_dom(self, tag):
         if self.dom:
             self.dom.remove()
         self.dom = document.createElement(tag)
-        
+
         self.dom.id = self.uid
         get_dom_node(self.form).appendChild(self.dom)
-        
+
     def set_property(self, name, value):
         self.css_properties[name] = value
         self.update_stylesheet()
@@ -567,7 +567,7 @@ class SuperComponent:
     def toggle_ghost_label(self):
         if self.is_container:
             return
-            
+
         if self.is_textbox or self.is_textarea:
             if not self.placeholder and not self.text:
                 self.dom.placeholder = self.designer_name
@@ -575,7 +575,7 @@ class SuperComponent:
                 self.dom.placeholder = self.placeholder
         else:
             if not self.text:
-                
+
                 self.dom.innerText = self.designer_name
                 self.dom.style.color = "#aaa"
             else:
@@ -584,8 +584,8 @@ class SuperComponent:
     def on_show_design(self, **event_args):
         self.designer_name = get_design_name(self.form)
         self.toggle_ghost_label()
-        
-        
+
+
     def update_other_stylesheet(self):
         if self.block_stylesheet:
             return
