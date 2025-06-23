@@ -6,9 +6,12 @@ class Container(ContainerTemplate):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
 
         self.is_container = True
-        
+
+ 
         self.init_components(**properties)
         self.dom.appendChild(self.dom_nodes['container-slot'])
+
+        
 
     def __getattr__(self, name):
         try:

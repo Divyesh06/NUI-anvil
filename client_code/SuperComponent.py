@@ -21,9 +21,6 @@ class SuperComponent:
         self.form = form
         self.events = events
 
-        
-
-        
         self.is_container = False
         self.is_textbox = False
         self.is_textarea = False
@@ -60,6 +57,7 @@ class SuperComponent:
         self._visible = None
         self._enabled = None
         self._preset = None
+        self._children_css = None
         
         self.css_properties = {}
         self.states_css = {}
@@ -76,13 +74,18 @@ class SuperComponent:
 
         self.block_stylesheet = True
     
-        self.stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.stylesheet)    
+        
         self.other_stylesheet = document.createElement("style")
         get_dom_node(form).appendChild(self.other_stylesheet)   
 
         self.icon_stylesheet = document.createElement("style")
         get_dom_node(form).appendChild(self.icon_stylesheet)   
+
+        self.stylesheet = document.createElement("style")
+        get_dom_node(form).appendChild(self.stylesheet)    
+
+        self.children_stylesheet = document.createElement("style")
+        get_dom_node(form).appendChild(self.children_stylesheet)   
 
         if not dom:
             self.create_dom(self.last_tag)
@@ -457,6 +460,16 @@ class SuperComponent:
         self.update_icon()
 
     @property
+    def children_css(self):
+        return self._children_css
+
+    @children_css.setter
+    def children_css(self, value):
+        self._children_css = value
+        self.children_stylesheet.textContent = css_parser(value, f'#{self.uid} [anvil-name="container-slot"]')
+
+
+    @property
     def icon_css(self):
         return self._icon_css
 
@@ -530,6 +543,7 @@ class SuperComponent:
         if self.dom:
             self.dom.remove()
         self.dom = document.createElement(tag)
+        
         self.dom.id = self.uid
         get_dom_node(self.form).appendChild(self.dom)
         
