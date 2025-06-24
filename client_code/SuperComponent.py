@@ -456,7 +456,7 @@ class SuperComponent:
 
     @icon_size.setter
     def icon_size(self, value):
-        self._icon_size = value
+        self._icon_size = px_convert.convert_to_px(value)
         self.update_icon()
 
     @property
