@@ -1,12 +1,22 @@
 components:
 - components:
-  - name: button_1
+  - name: text_box_1
     properties: {}
-    type: form:Button
+    type: form:TextBox
+  - name: label_1
+    properties: {}
+    type: form:Label
+  - name: container_1
+    properties: {}
+    type: form:Container
   layout_properties: {slot: default}
   name: linear_panel_1
   properties: {}
   type: LinearPanel
+- layout_properties: {slot: default}
+  name: button_1
+  properties: {}
+  type: form:Button
 container:
   properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
