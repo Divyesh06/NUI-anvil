@@ -1,42 +1,14 @@
 components:
 - components:
-  - layout_properties: {grid_position: 'VDTLMR,WPIJOY'}
-    name: button_1
-    properties: {width: 90vh}
-    type: form:Button
-  - layout_properties: {grid_position: 'DFTQHB,EEDSQV'}
-    name: label_1
-    properties: {}
-    type: Label
-  - layout_properties: {grid_position: 'KNDETP,YEJDSH'}
-    name: label_2
-    properties: {height: '40', text: defdfdfdfdfdfd, width: 10px}
-    type: form:Label
-  - layout_properties: {grid_position: 'BNNADX,LAMOFD'}
-    name: button_2
-    properties: {}
-    type: form:Button
-  - layout_properties: {grid_position: 'NAHPYF,ECICTP'}
-    name: text_box_2
-    properties: {}
-    type: form:TextBox
-  - layout_properties: {grid_position: 'TDIZVA,KYSZXR'}
+  - layout_properties: {grid_position: 'XZRJGR,SNSODZ'}
     name: text_box_1
-    properties: {}
+    properties:
+      attributes: []
     type: form:TextBox
-  - layout_properties: {grid_position: 'KMZMKZ,OLRAAX'}
-    name: text_area_1
-    properties: {height: '100', width: '300'}
-    type: form:TextArea
-  - components:
-    - layout_properties: {slot: default}
-      name: label_3
-      properties: {}
-      type: Label
-    layout_properties: {grid_position: 'QUWTJM,JPUNQV'}
-    name: container_1
-    properties: {height: 100px, width: 40px}
-    type: form:Container
+  - layout_properties: {grid_position: 'NRXEHX,WKCPAG'}
+    name: text_box_2
+    properties: {enabled: true, text: sdasdasd}
+    type: form:TextBox
   layout_properties: {slot: default}
   name: column_panel_1
   properties: {}

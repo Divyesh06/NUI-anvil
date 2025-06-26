@@ -2,17 +2,17 @@
     padding-right: 5px;
 }
 
-.nui-default-label {
+.default-label {
     margin: 5px 0;
 }
 
-.nui-default-btn {
+.default-btn {
     margin: 5px 0;
     padding: 8px 15px;
     border-radius: 15px;
 }
 
-.nui-default-textbox {
+.default-textbox {
     border-radius: 5px;
     border: solid #ccc 1px;
     border-style: solid;
@@ -20,7 +20,7 @@
     padding: 8px 12px;
 }
 
-.nui-default-textarea {
+.default-textarea {
     border-radius: 5px;
     border: solid #ccc 1px;
     border-style: solid;

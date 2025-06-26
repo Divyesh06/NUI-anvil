@@ -37,7 +37,7 @@ class SuperComponent:
         self._font_size = None
         self._font = None
         self._type = None
-        self._attributes = None
+        
         self._font_weight = None
         self._foreground = None
         self._background = None
@@ -425,10 +425,10 @@ class SuperComponent:
         self._preset = value
 
         for preset in previous_presets:
-            self.dom.classList.remove(f"nui-{preset}")
+            self.dom.classList.remove(preset)
 
         for preset in value:
-            self.dom.classList.add(f"nui-{preset}")
+            self.dom.classList.add(preset)
 
 
     @property
@@ -486,20 +486,6 @@ class SuperComponent:
     def icon_css(self, value):
         self._icon_css = value
         self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
-
-    @property
-    def attributes(self):
-        return self._attributes
-
-    @attributes.setter
-    def attributes(self, value):
-        self._attributes = value
-
-        for attr in value:
-            key,value = attr.split(":")
-            self.dom.setAttribute(key, value)
-            
-
 
     def _update_icon(self):
 

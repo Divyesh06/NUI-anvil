@@ -13,7 +13,7 @@ def init_presets():
     presets_css = ""
     
     for preset,css in presets.items():
-        presets_css+=f"\n{css_parser(css, f'.nui-{preset}')}"
+        presets_css+=f"\n{css_parser(css, preset)}"
 
     classes_stylesheet.textContent = presets_css
 
