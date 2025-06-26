@@ -2,10 +2,10 @@ from anvil.js import window
 import re
 
 anvil_theme_vars = window.anvilThemeVars
-def css_parser(raw_css, main_selector): #Blessed be thy ChatGPT for this logic
+def css_parser(raw_css, main_selector):
+    # Remove braces and split into lines
     raw_css = raw_css.replace('{', '').replace('}', '')
-    lines = re.split(r'[;\n]+', raw_css)
-    lines = [line for line in lines if line.strip()]
+    lines = [line.lstrip() for line in re.split(r'[;\n]+', raw_css) if line.strip()]
 
     css_blocks = []
     current_selector = main_selector
@@ -50,15 +50,15 @@ def css_parser(raw_css, main_selector): #Blessed be thy ChatGPT for this logic
             current_block = []
         else:
             flush_block()
-            raw_line = line.rstrip()  # Only strip right side
-            
+            raw_line = line.rstrip()  # Preserve leading space
             if raw_line.startswith("&"):
                 current_selector = raw_line.replace("&", main_selector)
             elif raw_line[:1] in (">", "+", "~", "[", ":", ".", "#") or raw_line.startswith(" "):
-                # If it starts with a known combinator OR a space, treat it as direct
                 current_selector = f"{main_selector}{raw_line}"
             else:
                 current_selector = f"{main_selector} {raw_line}"
+            current_media = None
+            current_block = []
 
     flush_block()
     return "\n\n".join(css_blocks)
