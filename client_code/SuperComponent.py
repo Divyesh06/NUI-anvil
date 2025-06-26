@@ -88,22 +88,22 @@ class SuperComponent:
         get_dom_node(form).appendChild(self.children_stylesheet)   
 
         if not dom:
-            self.create_dom(self.last_tag)
+            self._create_dom(self.last_tag)
         else:
             self.dom = dom
 
         self.block_stylesheet = False
-        self.update_stylesheet()
+        self._update_stylesheet()
 
         for event in self.events:
-            self.dom.addEventListener(events_map[event], self.global_events_handler)
+            self.dom.addEventListener(events_map[event], self._global_events_handler)
 
         if in_designer:
             self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
             self.designer_name = "Loading"
-            self.form.add_event_handler("show", self.on_show_design)
+            self.form.add_event_handler("show", self._on_show_design)
 
-    def global_events_handler(self, e):
+    def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
 
     @property
@@ -114,12 +114,12 @@ class SuperComponent:
     def html_tag(self, value):
         self._html_tag = value
         if value != self.last_tag:
-            self.create_dom(value)
+            self._create_dom(value)
             self.last_tag = value
             self.text = self._text
             if self.is_container:
                 self.dom.innerHTML = "Container children disappeared. Please add any component anywhere to see them again"
-            self.update_stylesheet()    
+            self._update_stylesheet()    
 
     @property
     def text(self):
@@ -147,7 +147,7 @@ class SuperComponent:
         self.dom.placeholder = value
 
         if in_designer:
-            self.toggle_ghost_label()
+            self._toggle_ghost_label()
 
     @property
     def text_type(self):
@@ -172,7 +172,7 @@ class SuperComponent:
             return
 
         if in_designer:
-            self.toggle_ghost_label()
+            self._toggle_ghost_label()
 
         if self._text_type == 'plain':
             self.dom.innerText = self._text
@@ -180,9 +180,9 @@ class SuperComponent:
             self.dom.innerHTML = self._text
 
         if in_designer:
-            self.toggle_ghost_label()
+            self._toggle_ghost_label()
 
-        self.update_icon()
+        self._update_icon()
 
     @property
     def font_size(self):
@@ -314,7 +314,7 @@ class SuperComponent:
     @css.setter
     def css(self, value):
         self._css = value
-        self.update_other_stylesheet()
+        self._update_other_stylesheet()
 
     @property
     def hover_css(self):
@@ -324,7 +324,7 @@ class SuperComponent:
     def hover_css(self, value):
         self._hover_css = value
         self.states_css['hover'] = value
-        self.update_other_stylesheet()
+        self._update_other_stylesheet()
 
     @property
     def focus_css(self):
@@ -334,7 +334,7 @@ class SuperComponent:
     def focus_css(self, value):
         self._focus_css = value
         self.states_css['focus'] = value
-        self.update_other_stylesheet()
+        self._update_other_stylesheet()
 
     @property
     def placeholder_css(self):
@@ -344,7 +344,7 @@ class SuperComponent:
     def placeholder_css(self, value):
         self._placeholder_css = value
         self.states_css[':placeholder'] = value
-        self.update_other_stylesheet()
+        self._update_other_stylesheet()
 
     @property
     def disabled_css(self):
@@ -354,7 +354,7 @@ class SuperComponent:
     def disabled_css(self, value):
         self._disabled_css = value
         self.states_css['disabled'] = value
-        self.update_other_stylesheet()
+        self._update_other_stylesheet()
 
     @property
     def active_css(self):
@@ -364,7 +364,7 @@ class SuperComponent:
     def active_css(self, value):
         self._active_css = value
         self.states_css['active'] = value
-        self.update_other_stylesheet()
+        self._update_other_stylesheet()
 
     @property
     def visible(self):
@@ -419,7 +419,7 @@ class SuperComponent:
     @icon.setter
     def icon(self, value):
         self._icon = value
-        self.update_icon()
+        self._update_icon()
 
     @property
     def custom_icon(self):
@@ -428,7 +428,7 @@ class SuperComponent:
     @custom_icon.setter
     def custom_icon(self, value):
         self._custom_icon = value
-        self.update_icon()
+        self._update_icon()
 
 
     @property
@@ -438,7 +438,7 @@ class SuperComponent:
     @icon_align.setter
     def icon_align(self, value):
         self._icon_align = value
-        self.update_icon()
+        self._update_icon()
 
     @property
     def icon_size(self):
@@ -447,7 +447,7 @@ class SuperComponent:
     @icon_size.setter
     def icon_size(self, value):
         self._icon_size = px_convert.convert_to_px(value)
-        self.update_icon()
+        self._update_icon()
 
     @property
     def children_css(self):
@@ -469,7 +469,7 @@ class SuperComponent:
         self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
 
 
-    def update_icon(self):
+    def _update_icon(self):
 
         icon_el = self.dom.querySelector('[nui-icon="true"]')
         if icon_el:
@@ -529,7 +529,7 @@ class SuperComponent:
         self.dom.addEventListener(event_name, event_raiser)
 
 
-    def create_dom(self, tag):
+    def _create_dom(self, tag):
         if self.dom:
             self.dom.remove()
         self.dom = document.createElement(tag)
@@ -539,9 +539,9 @@ class SuperComponent:
 
     def set_property(self, name, value):
         self.css_properties[name] = value
-        self.update_stylesheet()
+        self._update_stylesheet()
 
-    def update_stylesheet(self):
+    def _update_stylesheet(self):
         if self.block_stylesheet:
             return
 
@@ -554,7 +554,7 @@ class SuperComponent:
 
         self.stylesheet.textContent = parsed_css
 
-    def toggle_ghost_label(self):
+    def _toggle_ghost_label(self):
         if self.is_container:
             return
 
@@ -571,16 +571,16 @@ class SuperComponent:
             else:
                 self.dom.style.color = ""
 
-    def on_show_design(self, **event_args):
+    def _on_show_design(self, **event_args):
         self.designer_name = get_design_name(self.form)
-        self.toggle_ghost_label()
+        self._toggle_ghost_label()
 
-
-    def update_other_stylesheet(self):
+    
+    def _update_other_stylesheet(self):
         if self.block_stylesheet:
             return
 
-        other_css = self.other_css or ""
+        other_css = self.css or ""
 
         for state, css in self.states_css.items():
             if not css:
