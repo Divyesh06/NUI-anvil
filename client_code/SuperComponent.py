@@ -27,7 +27,7 @@ class SuperComponent:
 
         self._html_tag = None
         self._text = None
-        self._other_css = None
+       # self._other_css = None
         self._hover_css = None
         self._active_css = None
         self._focus_css = None
@@ -314,16 +314,6 @@ class SuperComponent:
     @css.setter
     def css(self, value):
         self._css = value
-        self.update_stylesheet()
-
-
-    @property
-    def other_css(self):
-        return self._other_css
-
-    @other_css.setter
-    def other_css(self, value):
-        self._other_css = value
         self.update_other_stylesheet()
 
     @property
