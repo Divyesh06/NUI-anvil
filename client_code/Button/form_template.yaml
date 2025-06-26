@@ -1,4 +1,12 @@
-components: []
+components:
+- components:
+  - name: button_1
+    properties: {}
+    type: form:Button
+  layout_properties: {slot: default}
+  name: linear_panel_1
+  properties: {}
+  type: LinearPanel
 container:
   properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
