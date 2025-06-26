@@ -98,6 +98,12 @@ properties:
 - {default_value: true, designer_hint: enabled, group: Appearance, important: true, name: enabled, type: boolean}
 - {default_value: '', description: Defines CSS styles to apply when the user focuses on the component., group: CSS, important: true, multiline: true, name: focus_css, type: string}
 - {default_value: '', description: CSS styles for the placeholder, group: CSS, important: true, multiline: true, name: placeholder_css, type: string}
+- {default_value: '', group: Appearance, important: false, name: height, type: string}
+- {default_value: '', group: Appearance, important: false, name: width, type: string}
+- default_value: []
+  important: true
+  name: attributes
+  type: text[]
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/textbox_dark.svg', light: 'asset:designer_icons/textbox_light.svg'}

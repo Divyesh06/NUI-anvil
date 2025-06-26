@@ -77,6 +77,8 @@ properties:
 - {default_value: '', description: ' Defines CSS styles to apply when the container is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
 - {default_value: '', description: CSS properties to apply to children of this container, group: CSS, important: true, multiline: true, name: children_css, type: string}
 - {default_value: '', group: CSS, important: true, multiline: true, name: other_css, type: string}
+- {default_value: '', group: Appearance, important: true, name: height, type: string}
+- {default_value: '', group: Appearance, important: true, name: width, type: string}
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}

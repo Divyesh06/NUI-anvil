@@ -37,6 +37,7 @@ class SuperComponent:
         self._font_size = None
         self._font = None
         self._type = None
+        self._attributes = None
         self._font_weight = None
         self._foreground = None
         self._background = None
@@ -229,6 +230,24 @@ class SuperComponent:
         self._background = value
         self.set_property("background-color", value)
 
+    @property
+    def height(self):
+        return self._height
+    
+    @height.setter
+    def height(self, value):
+        self._height = value
+        self.set_property("height", px_convert.convert_to_px(value))
+    
+    @property
+    def width(self):
+        return self._width
+    
+    @width.setter
+    def width(self, value):
+        self._width = value
+        self.set_property("width", px_convert.convert_to_px(value))
+    
     @property
     def border_radius(self):
         return self._border_radius
@@ -467,6 +486,19 @@ class SuperComponent:
     def icon_css(self, value):
         self._icon_css = value
         self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
+
+    @property
+    def attributes(self):
+        return self._attributes
+
+    @attributes.setter
+    def attributes(self, value):
+        self._attributes = value
+
+        for attr in value:
+            key,value = attr.split(":")
+            self.dom.setAttribute(key, value)
+            
 
 
     def _update_icon(self):
