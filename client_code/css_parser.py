@@ -2,7 +2,7 @@ from anvil.js import window
 import re
 
 anvil_theme_vars = window.anvilThemeVars
-def css_parser(raw_css, main_selector):
+def css_parser(raw_css, main_selector): #Blessed be thy ChatGPT for this logic
     raw_css = raw_css.replace('{', '').replace('}', '')
     lines = re.split(r'[;\n]+', raw_css)
     lines = [line for line in lines if line.strip()]

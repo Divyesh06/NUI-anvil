@@ -528,6 +528,24 @@ class SuperComponent:
 
         self.dom.addEventListener(event_name, event_raiser)
 
+    def set_property(self, name, value):
+        self.css_properties[name] = value
+        self._update_stylesheet()
+    
+    def add_preset(self, value):
+        if value not in self.preset:
+            self.preset = self.preset + [value]  
+    
+    def remove_preset(self, value):
+        if value in self.preset:
+            self.preset = [v for v in self.preset if v != value]  
+    
+    def toggle_preset(self, value):
+        if value in self.preset:
+            self.remove_preset(value)
+        else:
+            self.add_preset(value)
+        
 
     def _create_dom(self, tag):
         if self.dom:
@@ -536,10 +554,6 @@ class SuperComponent:
 
         self.dom.id = self.uid
         get_dom_node(self.form).appendChild(self.dom)
-
-    def set_property(self, name, value):
-        self.css_properties[name] = value
-        self._update_stylesheet()
 
     def _update_stylesheet(self):
         if self.block_stylesheet:

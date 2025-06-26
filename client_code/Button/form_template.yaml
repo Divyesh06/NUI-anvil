@@ -104,6 +104,8 @@ properties:
 - {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}
 - {default_value: '', description: ' Defines CSS styles to apply when the button is disabled', group: CSS, important: true, multiline: true, name: disabled_css, type: string}
 - {default_value: '', description: ' Defines CSS styles to apply when the button is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
+- {default_value: '', group: Appearance, important: true, name: height, type: string}
+- {default_value: '', group: Appearance, important: true, name: width, type: string}
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/button_dark.svg', light: 'asset:designer_icons/button_light.svg'}

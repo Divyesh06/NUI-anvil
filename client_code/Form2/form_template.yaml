@@ -4,6 +4,19 @@ components:
     name: label_1
     properties: {css: '                font-size: 30px', custom_icon: '', foreground: 'rgba(0, 0, 0, 0.6)', html_tag: div, icon: 'fa:address-book', icon_size: '', text: sss}
     type: form:Label
+  - components:
+    - layout_properties: {slot: default}
+      name: label_2
+      properties: {html_tag: option, text: asdasdasd}
+      type: form:Label
+    - layout_properties: {slot: default}
+      name: label_3
+      properties: {html_tag: option, text: sa}
+      type: form:Label
+    layout_properties: {grid_position: 'RDVDZF,JDLUFZ'}
+    name: container_1
+    properties: {html_tag: select}
+    type: form:Container
   layout_properties: {slot: default}
   name: column_panel_1
   properties: {}
