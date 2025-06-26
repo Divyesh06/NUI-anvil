@@ -4,6 +4,14 @@ components:
     name: label_1
     properties: {css: '                font-size: 30px', custom_icon: '', foreground: 'rgba(0, 0, 0, 0.6)', html_tag: div, icon: 'fa:address-book', icon_size: '', text: sss}
     type: form:Label
+  - layout_properties: {grid_position: 'NPOCUR,MYKEDK'}
+    name: button_1
+    properties: {text: button_1}
+    type: Button
+  - layout_properties: {grid_position: 'WIXZJN,AURQMK'}
+    name: button_2
+    properties: {html_tag: button}
+    type: form:Button
   layout_properties: {slot: default}
   name: column_panel_1
   properties: {}
