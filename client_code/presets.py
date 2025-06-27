@@ -36,7 +36,7 @@ default_css = """
 }
 """
 
-presets = {
+data = {
 
 }
 
@@ -44,8 +44,8 @@ presets = {
 def init_presets():
     presets_css = ""
     
-    for preset,css in presets.items():
-        presets_css+=f"\n{css_parser(css, preset)}"
+    for preset,css in data.items():
+        presets_css+=f"\n{css_parser(css, '.'+preset)}"
 
     classes_stylesheet.textContent = default_css+presets_css
 
