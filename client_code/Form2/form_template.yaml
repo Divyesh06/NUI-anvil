@@ -9,6 +9,16 @@ components:
     name: text_box_2
     properties: {background: '', css: '', enabled: true, text: sdasdasd}
     type: form:TextBox
+  - layout_properties: {grid_position: 'DEJXML,ESBNUR'}
+    name: button_1
+    properties: {align: center, text: button_1}
+    type: Button
+  - layout_properties: {grid_position: 'ELCSLX,REPRHY'}
+    name: button_2
+    properties:
+      text: "asdasdasdasdasddddddddddddd            \nasd\nas\nas\nas\nasasas"
+      text_align: center
+    type: form:Button
   layout_properties: {slot: default}
   name: column_panel_1
   properties: {}
