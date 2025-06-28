@@ -4,6 +4,7 @@ from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name
 
+
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",

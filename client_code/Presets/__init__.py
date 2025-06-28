@@ -1,4 +1,5 @@
 from ._anvil_designer import PresetsTemplate
+
 class Presets(PresetsTemplate):
     def __init__(self, **properties):
         self.init_components(**properties)

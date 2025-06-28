@@ -1,8 +1,8 @@
 from .css_parser import css_parser
 from anvil.js.window import document
 
-classes_stylesheet = document.createElement("style")
-document.body.appendChild(classes_stylesheet)
+presets_stylesheet = document.createElement("style")
+document.body.appendChild(presets_stylesheet)
 
 default_css = """
 [nui-icon="true"] {
@@ -36,15 +36,10 @@ default_css = """
 }
 """
 
-data = {
-
-}
-
-
 def init_presets():
     presets_css = ""
     
-    for preset,css in data.items():
+    for preset,css in preset.items():
         presets_css+=f"\n{css_parser(css, '.'+preset)}"
 
     classes_stylesheet.textContent = default_css+presets_css
