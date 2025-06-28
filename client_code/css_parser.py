@@ -4,6 +4,9 @@ import re
 anvil_theme_vars = window.anvilThemeVars
 def css_parser(raw_css, main_selector):
     # Remove braces and split into lines
+
+    if not raw_css:
+        return ""
     raw_css = raw_css.replace('{', '').replace('}', '')
     lines = [line.lstrip() for line in re.split(r'[;\n]+', raw_css) if line.strip()]
 

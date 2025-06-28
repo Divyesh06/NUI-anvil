@@ -10,8 +10,9 @@ class Preset(PresetTemplate):
         
 
         if in_designer:
-            self.preset_edit_button = Button()
+            self.preset_edit_button = Button(border_radius = "7")
             self.add_component(self.preset_edit_button)
+            self.timer_1.interval = 0.2
             
         self.name = None
         self.css = None
@@ -23,13 +24,19 @@ class Preset(PresetTemplate):
        
         try:
             preset_container = window.preset_container
-        except:
+            if not preset_container.parentNode:
+                document.body.prepend(preset_container)
+                
+        except Exception as e:
+            print(str(e))
             preset_container = None
             
         if not preset_container:
             preset_container = document.createElement("div")
             preset_container.style.display = "flex"
-            
+            preset_container.style.flexDirection = "row-reverse"
+            preset_container.style.gap = "5px"
+            preset_container.style.padding = "5px 10px"
             preset_container.style.left = "0"
             preset_container.style.top = "0"
             preset_container.style.width = "100vw"
@@ -59,13 +66,14 @@ class Preset(PresetTemplate):
 
     
     def init_preset(self):
-        if self.name and self.css:
+        if self.name is not None:
             self.presets_stylesheet.textContent = css_parser(self.css, f".{self.name}")\
 
         if in_designer:
             self.preset_edit_button.text = self.name
 
     def form_show(self, **event_args):
+        
         self_dom = get_dom_node(self)
         if not in_designer:
             self_dom.style.display = "none"
@@ -78,4 +86,7 @@ class Preset(PresetTemplate):
 
     def form_hide(self, **event_args):
         self.presets_stylesheet.remove()
-        #get_dom_node(self).remove()
+        get_dom_node(self).remove()
+
+    def timer_1_tick(self, **event_args):
+        self.get_preset_container()

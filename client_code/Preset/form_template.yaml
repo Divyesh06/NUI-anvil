@@ -1,7 +1,12 @@
-components: []
+components:
+- event_bindings: {tick: timer_1_tick}
+  layout_properties: {slot: default}
+  name: timer_1
+  properties: {interval: 0}
+  type: Timer
 container:
   event_bindings: {hide: form_hide, show: form_show}
-  properties: {html: ''}
+  properties: {html: <div anvil-slot="default"></div>}
   type: HtmlTemplate
 custom_component: true
 is_package: true
