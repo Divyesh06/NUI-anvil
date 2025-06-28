@@ -78,4 +78,4 @@ class Preset(PresetTemplate):
 
     def form_hide(self, **event_args):
         self.presets_stylesheet.remove()
-        get_dom_node(self).remove()
+        #get_dom_node(self).remove()

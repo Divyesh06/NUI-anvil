@@ -24,6 +24,10 @@ components:
     name: preset_2
     properties: {name: ewrewr}
     type: form:Preset
+  - layout_properties: {grid_position: 'FPCWDM,DTVUEJ'}
+    name: preset_3
+    properties: {name: dsfsdfdsfd}
+    type: form:Preset
   layout_properties: {slot: default}
   name: content_panel
   properties: {}
