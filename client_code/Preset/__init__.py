@@ -81,8 +81,9 @@ class Preset(PresetTemplate):
         else:
             get_dom_node(self).remove()
             self.get_preset_container().appendChild(get_dom_node(self))
-            
-        window.document.body.appendChild(self.presets_stylesheet)
+
+        if not self.presets_stylesheet.parentNode:
+            self_dom.appendChild(self.presets_stylesheet)
 
     def form_hide(self, **event_args):
         self.presets_stylesheet.remove()
