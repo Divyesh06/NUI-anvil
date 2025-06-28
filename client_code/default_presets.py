@@ -1,4 +1,3 @@
-from .css_parser import css_parser
 from anvil.js.window import document
 
 presets_stylesheet = document.createElement("style")
@@ -36,11 +35,5 @@ default_css = """
 }
 """
 
-def init_presets():
-    presets_css = ""
-    
-    for preset,css in preset.items():
-        presets_css+=f"\n{css_parser(css, '.'+preset)}"
-
-    classes_stylesheet.textContent = default_css+presets_css
+presets_stylesheet.textContent = default_css
 
