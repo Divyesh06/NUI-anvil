@@ -15,7 +15,7 @@ class TextBox(TextBoxTemplate):
         self.raise_event("input")
         
     def _detect_enter_press(self, **event_args):
-        if event_args['event'].key == "Enter":
+        if event_args['event'].get("key") == "Enter":
             self.raise_event("pressed_enter")
 
     def __getattr__(self, name):
