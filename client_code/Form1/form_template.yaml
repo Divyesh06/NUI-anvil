@@ -32,6 +32,10 @@ components:
     name: button_2
     properties: {text: button_2}
     type: Button
+  - layout_properties: {grid_position: 'RPWOLK,QRUJEJ'}
+    name: text_box_1
+    properties: {text: 11-06-2025, type: date}
+    type: form:TextBox
   - layout_properties: {grid_position: 'YFPTIA,PUAJAX'}
     name: text_box_2
     properties: {}

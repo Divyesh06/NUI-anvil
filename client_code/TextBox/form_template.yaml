@@ -28,7 +28,7 @@ properties:
   group: Content
   important: false
   name: type
-  options: [text, password, email, search, tel, url, number]
+  options: [text, password, email, search, tel, url, number, date, range]
   type: enum
 - {default_value: '', description: The font size for this component, group: Font, important: true, name: font_size, priority: 97, type: string}
 - {default_value: '', description: ' Sets the font family used for the text', group: Font, important: false, name: font, type: string}
