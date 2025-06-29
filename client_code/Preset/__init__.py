@@ -10,7 +10,7 @@ class Preset(PresetTemplate):
         
 
         if in_designer:
-            self.preset_edit_button = Button(border_radius = "7")
+            self.preset_edit_button = Button(border_radius = 7)
             self.add_component(self.preset_edit_button)
             self.timer_1.interval = 0.2
             
@@ -34,13 +34,16 @@ class Preset(PresetTemplate):
         if not preset_container:
             preset_container = document.createElement("div")
             preset_container.style.display = "flex"
-            preset_container.style.flexDirection = "row-reverse"
+            #preset_container.style.flexDirection = "row-reverse"
             preset_container.style.gap = "5px"
             preset_container.style.padding = "5px 10px"
             preset_container.style.left = "0"
+            preset_container.style.backgroundColor = "#141414"
+            preset_container.style.borderBottom = "solid #666 1px"
+            preset_container.style.alignItems = "center"
             preset_container.style.top = "0"
             preset_container.style.width = "100vw"
-
+            preset_container.innerHTML = "<span style = 'padding-right: 10px; font-weight: 600; color: #ddd; '>Presets:</span>"
             window.preset_container = preset_container
             document.body.prepend(preset_container)
             
