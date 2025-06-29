@@ -24,20 +24,6 @@ components:
         color: red
       name: Preset1
     type: form:Preset
-  - layout_properties: {grid_position: 'ZJBXTD,BOIIZD'}
-    name: label_1
-    properties:
-      preset: [Preset1]
-      text: Hello
-      text_align: center
-    type: form:Label
-  - layout_properties: {grid_position: 'ZJBXTD,ZUHLRX'}
-    name: label_1_copy
-    properties:
-      preset: [Preset1, Preset4]
-      text: World
-      text_align: center
-    type: form:Label
   layout_properties: {slot: default}
   name: content_panel
   properties: {}
