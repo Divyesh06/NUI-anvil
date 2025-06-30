@@ -1,4 +1,8 @@
 allow_embedding: false
+dependencies:
+- dep_id: dep_saj1ydi6veqmww
+  resolution_hints: {app_id: SCXG36SLEILVZKQE, name: AirDatePicker, package_name: AirDatePicker}
+  version: {branch: master}
 name: NUI Library
 native_deps:
   head_html: |-
