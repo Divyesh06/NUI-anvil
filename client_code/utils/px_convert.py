@@ -1,6 +1,5 @@
 def convert_to_px(value):
-    if isinstance(value, int):
-        return f"{value}px"
-    if value.isnumeric():
-        value = value+"px"
-    return value
+	A=value
+	if isinstance(A,int):return f"{A}px"
+	if A.isnumeric():A=A+'px'
+	return A
