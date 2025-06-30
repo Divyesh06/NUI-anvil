@@ -1,625 +1,234 @@
+_D='change'
+_C='focus'
+_B=' '
+_A=None
 from anvil.js.window import document
 from anvil.js import get_dom_node
-from .utils import px_convert, id_assigner
-from .css_parser import css_parser
-from anvil.designer import in_designer, get_design_name
-
-
-events_map = {
-    "hover": "mouseenter",
-    "hover_out": "mouseleave",
-    "click": "click",
-    "change": "change",
-    "input": "input",
-    "focus": "focus",
-    "lost_focus": "blur"
-}
-
-reverse_events_map = {v: k for k, v in events_map.items()}
-
+from.utils import px_convert,id_assigner
+from.css_parser import css_parser
+from anvil.designer import in_designer,get_design_name
+events_map={'hover':'mouseenter','hover_out':'mouseleave','click':'click',_D:_D,'input':'input',_C:_C,'lost_focus':'blur'}
+reverse_events_map={B:A for(A,B)in events_map.items()}
 class SuperComponent:
-    def __init__(self, form, dom = None, events = [], **properties):
-        self.form = form
-        self.events = events
-
-        self.is_container = False
-        self.is_textbox = False
-        self.is_textarea = False
-
-        self._html_tag = None
-        self._text = None
-       # self._other_css = None
-        self._hover_css = None
-        self._active_css = None
-        self._focus_css = None
-        self._placeholder_css = None
-        self._disabled_css = None
-        self._text_type = None
-        self._font_size = None
-        self._font = None
-        self._type = None
-        
-        self._font_weight = None
-        self._foreground = None
-        self._background = None
-        self._border_radius = None
-        self._margin = None
-        self._placeholder = None
-        self._padding = None
-        self._border_size = None
-        self._border_style = None
-        self._icon = None
-        self._icon_align = None
-        self._icon_size = None
-        self._icon_css = None
-        self._custom_icon =  None
-        self._border_color = None
-        self._text_align = None
-        self._css = None
-        self._visible = None
-        self._enabled = None
-        self._preset = None
-        self._children_css = None
-
-        self.css_properties = {}
-        self.states_css = {}
-
-        self.last_tag = None
-
-
-        self.uid = id_assigner.get_id()
-        self.last_tag = properties['html_tag']
-        self._text_type = properties.get('text_type')
-        self._text = properties.get('text')
-        self.dom = None
-        self.text_dom = None
-
-        self.block_stylesheet = True
-
-
-        self.other_stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.other_stylesheet)   
-
-        self.icon_stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.icon_stylesheet)   
-
-        self.stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.stylesheet)    
-
-        self.children_stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.children_stylesheet)   
-
-        if not dom:
-            self._create_dom(self.last_tag)
-        else:
-            self.dom = dom
-
-        self.block_stylesheet = False
-        self._update_stylesheet()
-
-        for event in self.events:
-            self.dom.addEventListener(events_map[event], self._global_events_handler)
-
-        if in_designer:
-            self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
-            self.designer_name = "Loading"
-            self.form.add_event_handler("show", self._on_show_design)
-
-    def _global_events_handler(self, e):
-        self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
-
-    @property
-    def html_tag(self):
-        return self._html_tag
-
-    @html_tag.setter
-    def html_tag(self, value):
-        self._html_tag = value
-        if value != self.last_tag:
-            self._create_dom(value)
-            self.last_tag = value
-            self.text = self._text
-            if self.is_container:
-                self.dom.innerHTML = "Container children disappeared. Please add any component anywhere to see them again"
-            self._update_stylesheet()    
-
-    @property
-    def text(self):
-
-        return self._text
-
-    @text.setter
-    def text(self, value):
-
-        self._text = value
-
-        if not self.is_textbox:
-            self._set_text()
-        else:
-            self.dom.value = value
-
-    @property
-    def placeholder(self):
-
-        return self._placeholder
-
-    @placeholder.setter
-    def placeholder(self, value):
-        self._placeholder = value
-        self.dom.placeholder = value
-
-        if in_designer:
-            self._toggle_ghost_label()
-
-    @property
-    def text_type(self):
-        return self._text_type
-
-    @text_type.setter
-    def text_type(self, value):
-        self._text_type = value
-        self._set_text()
-
-    @property
-    def type(self):
-        return self._type
-
-    @type.setter
-    def type(self, value):
-        self._type = value
-        self.dom.type = value
-
-    def _set_text(self):
-        if self.is_textbox:
-            return
-
-        if in_designer:
-            self._toggle_ghost_label()
-
-        if self._text_type == 'plain':
-            self.dom.innerText = self._text
-        else:
-            self.dom.innerHTML = self._text
-
-        if in_designer:
-            self._toggle_ghost_label()
-
-        self._update_icon()
-
-    @property
-    def font_size(self):
-        return self._font_size
-
-    @font_size.setter
-    def font_size(self, value):
-        self._font_size = value
-        self.set_property("font-size", px_convert.convert_to_px(value))
-
-    @property
-    def font(self):
-        return self._font
-
-    @font.setter
-    def font(self, value):
-        self._font = value
-        self.set_property("font-family", value)
-
-    @property
-    def font_weight(self):
-        return self._font_weight
-
-    @font_weight.setter
-    def font_weight(self, value):
-        self._font_weight = value
-        self.set_property("font-weight", value)
-
-    @property
-    def foreground(self):
-        return self._foreground
-
-    @foreground.setter
-    def foreground(self, value):
-        self._foreground = value
-        self.set_property("color", value.replace(" ", "_"))
-
-    @property
-    def background(self):
-        return self._background
-
-    @background.setter
-    def background(self, value):
-        self._background = value
-        self.set_property("background-color", value.replace(" ", "_"))
-
-    @property
-    def height(self):
-        return self._height
-    
-    @height.setter
-    def height(self, value):
-        self._height = value
-        self.set_property("height", px_convert.convert_to_px(value))
-    
-    @property
-    def width(self):
-        return self._width
-    
-    @width.setter
-    def width(self, value):
-        self._width = value
-        self.set_property("width", px_convert.convert_to_px(value))
-    
-    @property
-    def border_radius(self):
-        return self._border_radius
-
-    @border_radius.setter
-    def border_radius(self, value):
-        self._border_radius = value
-        
-        value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
-
-        self.set_property("border-radius", value)
-
-    @property
-    def margin(self):
-        return self._margin
-
-    @margin.setter
-    def margin(self, value):
-        self._margin = value
-        
-        value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
-        self.set_property("margin", value)
-
-
-    @property
-    def padding(self):
-        return self._padding
-
-    @padding.setter
-    def padding(self, value):
-        self._padding = value
-        
-        value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
-        self.set_property("padding", value)
-
-    @property
-    def border_size(self):
-
-        return self._border_size
-
-    @border_size.setter
-    def border_size(self, value):
-        self._border_size = value
-        
-        value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
-
-        self.set_property("border-width", value)
-
-
-    @property
-    def border_style(self):
-        return self._border_style
-
-    @border_style.setter
-    def border_style(self, value):
-        self._border_style = value
-        self.set_property("border-style", value)
-
-
-
-    @property
-    def border_color(self):
-        return self._border_color
-
-    @border_color.setter
-    def border_color(self, value):
-        self._border_color = value
-        self.set_property("border-color", value.replace(" ","_"))
-
-    @property
-    def text_align(self):
-        return self._text_align
-
-    @text_align.setter
-    def text_align(self, value):
-        self._text_align = value
-        self.set_property("text-align", value)
-
-    @property
-    def css(self):
-        return self._css
-
-    @css.setter
-    def css(self, value):
-        self._css = value
-        self._update_other_stylesheet()
-
-    @property
-    def hover_css(self):
-        return self._hover_css
-
-    @hover_css.setter
-    def hover_css(self, value):
-        self._hover_css = value
-        self.states_css['hover'] = value
-        self._update_other_stylesheet()
-
-    @property
-    def focus_css(self):
-        return self._focus_css
-
-    @focus_css.setter
-    def focus_css(self, value):
-        self._focus_css = value
-        self.states_css['focus'] = value
-        self._update_other_stylesheet()
-
-    @property
-    def placeholder_css(self):
-        return self._placeholder_css
-
-    @placeholder_css.setter
-    def placeholder_css(self, value):
-        self._placeholder_css = value
-        self.states_css[':placeholder'] = value
-        self._update_other_stylesheet()
-
-    @property
-    def disabled_css(self):
-        return self._disabled_css
-
-    @disabled_css.setter
-    def disabled_css(self, value):
-        self._disabled_css = value
-        self.states_css['disabled'] = value
-        self._update_other_stylesheet()
-
-    @property
-    def active_css(self):
-        return self._active_css
-
-    @active_css.setter
-    def active_css(self, value):
-        self._active_css = value
-        self.states_css['active'] = value
-        self._update_other_stylesheet()
-
-    @property
-    def visible(self):
-        return self._visible
-
-    @visible.setter
-    def visible(self, value):
-        self._visible = value
-        if not in_designer:
-            if not value:
-                self.set_property("display", "none")
-            else:
-                self.set_property("display", "")
-        else:
-            if not value:
-                self.set_property("opacity", "0.3")
-            else:
-                self.set_property("opacity", "1")
-
-    @property
-    def enabled(self):
-        return self._enabled
-
-    @enabled.setter
-    def enabled(self, value):
-        self._enabled = value
-        self.dom.disabled = not value
-
-    @property
-    def preset(self):
-        return self._preset
-
-    @preset.setter
-    def preset(self, value):
-        previous_presets = self._preset or []
-
-        previous_presets = previous_presets.copy()
-
-        self._preset = value
-
-        for preset in previous_presets:
-            self.dom.classList.remove(preset)
-
-        for preset in value:
-            self.dom.classList.add(preset)
-
-
-    @property
-    def icon(self):
-        return self._icon
-
-    @icon.setter
-    def icon(self, value):
-        self._icon = value
-        self._update_icon()
-
-    @property
-    def custom_icon(self):
-        return self._custom_icon
-
-    @custom_icon.setter
-    def custom_icon(self, value):
-        self._custom_icon = value
-        self._update_icon()
-
-
-    @property
-    def icon_align(self):
-        return self._icon_align
-
-    @icon_align.setter
-    def icon_align(self, value):
-        self._icon_align = value
-        self._update_icon()
-
-    @property
-    def icon_size(self):
-        return self._icon_size
-
-    @icon_size.setter
-    def icon_size(self, value):
-        self._icon_size = px_convert.convert_to_px(value)
-        self._update_icon()
-
-    @property
-    def children_css(self):
-        return self._children_css
-
-    @children_css.setter
-    def children_css(self, value):
-        self._children_css = value
-        self.children_stylesheet.textContent = css_parser(value, f'#{self.uid} [anvil-name="container-slot"]')
-
-
-    @property
-    def icon_css(self):
-        return self._icon_css
-
-    @icon_css.setter
-    def icon_css(self, value):
-        self._icon_css = value
-        self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
-
-    def _update_icon(self):
-
-        icon_el = self.dom.querySelector('[nui-icon="true"]')
-        if icon_el:
-            icon_el.remove()
-
-        if self.custom_icon:
-            icon_el = document.createElement("i")
-
-            icon_el.innerHTML = self.custom_icon
-            self.dom.appendChild(icon_el)
-
-
-
-        elif self.icon and ":" in self.icon:
-            lib, name = self.icon.split(":", 1)
-            icon_el = document.createElement("i")
-
-            if lib == 'bi':
-                icon_el.className = f'bi bi-{name}'
-
-            elif lib.startswith("fa"):
-                icon_el.className = f'{lib} fa-{name}'
-
-            elif lib == 'mi':
-                icon_el.className = "material-icons"
-                icon_el.textContent = name
-
-            icon_el.style.fontSize = self.icon_size
-
-        else:
-            return
-        icon_el.setAttribute("nui-icon", "true")
-
-        align = self.icon_align
-
-
-        icon_el.style.display = "inline-block"
-
-        if align in ["top", "bottom"]:
-            icon_el.style.display = "block"
-            #icon_el.style.margin = "auto"
-
-        if align == "left":
-            self.dom.insertBefore(icon_el, self.dom.firstChild)
-        elif align == "right":
-            self.dom.appendChild(icon_el)
-        elif align == "top":
-            self.dom.insertBefore(icon_el, self.dom.firstChild)
-        elif align == "bottom":
-            self.dom.appendChild(icon_el)
-
-    def add_event(self, event_name, event_callback):
-
-        def event_raiser(e):
-            event_callback(sender = self.form, event = e)
-
-        self.dom.addEventListener(event_name, event_raiser)
-
-    def set_property(self, name, value):
-        self.css_properties[name] = value
-        self._update_stylesheet()
-    
-    def add_preset(self, value):
-        if value not in self.preset:
-            self.preset = self.preset + [value]  
-    
-    def remove_preset(self, value):
-        if value in self.preset:
-            self.preset = [v for v in self.preset if v != value]  
-    
-    def toggle_preset(self, value):
-        if value in self.preset:
-            self.remove_preset(value)
-        else:
-            self.add_preset(value)
-        
-
-    def _create_dom(self, tag):
-        if self.dom:
-            self.dom.remove()
-        self.dom = document.createElement(tag)
-
-        self.dom.id = self.uid
-        get_dom_node(self.form).appendChild(self.dom)
-
-    def _update_stylesheet(self):
-        if self.block_stylesheet:
-            return
-
-        properties = self.css_properties 
-
-        css_rules = "\n".join(f"{key}: {value}" for key, value in properties.items())
-        css_rules+="\n"+ (self.css or "")
-
-        parsed_css = css_parser(css_rules, f"#{self.uid}")
-
-        self.stylesheet.textContent = parsed_css
-
-    def _toggle_ghost_label(self):
-        if self.is_container:
-            return
-
-        if self.is_textbox or self.is_textarea:
-            if not self.placeholder and not self.text:
-                self.dom.placeholder = self.designer_name
-            else:
-                self.dom.placeholder = self.placeholder
-        else:
-            if not self.text:
-
-                self.dom.innerText = self.designer_name
-                self.dom.style.color = "#aaa"
-            else:
-                self.dom.style.color = ""
-
-    def _on_show_design(self, **event_args):
-        self.designer_name = get_design_name(self.form)
-        self._toggle_ghost_label()
-
-    
-    def _update_other_stylesheet(self):
-        if self.block_stylesheet:
-            return
-
-        other_css = self.css or ""
-
-        for state, css in self.states_css.items():
-            if not css:
-                continue
-            other_css+=f"\n:{state}\n{(css)}"
-
-        parsed_css = css_parser(other_css, f"#{self.uid}")
-
-        self.other_stylesheet.textContent = parsed_css
+	def __init__(A,form,dom=_A,events=[],**E):
+		D='style';C=False;B=form;A.form=B;A.events=events;A.is_container=C;A.is_textbox=C;A.is_textarea=C;A._html_tag=_A;A._text=_A;A._hover_css=_A;A._active_css=_A;A._focus_css=_A;A._placeholder_css=_A;A._disabled_css=_A;A._text_type=_A;A._font_size=_A;A._font=_A;A._type=_A;A._font_weight=_A;A._foreground=_A;A._background=_A;A._border_radius=_A;A._margin=_A;A._placeholder=_A;A._padding=_A;A._border_size=_A;A._border_style=_A;A._icon=_A;A._icon_align=_A;A._icon_size=_A;A._icon_css=_A;A._custom_icon=_A;A._border_color=_A;A._text_align=_A;A._css=_A;A._visible=_A;A._enabled=_A;A._preset=_A;A._children_css=_A;A.css_properties={};A.states_css={};A.last_tag=_A;A.uid=id_assigner.get_id();A.last_tag=E['html_tag'];A._text_type=E.get('text_type');A._text=E.get('text');A.dom=_A;A.text_dom=_A;A.block_stylesheet=True;A.other_stylesheet=document.createElement(D);get_dom_node(B).appendChild(A.other_stylesheet);A.icon_stylesheet=document.createElement(D);get_dom_node(B).appendChild(A.icon_stylesheet);A.stylesheet=document.createElement(D);get_dom_node(B).appendChild(A.stylesheet);A.children_stylesheet=document.createElement(D);get_dom_node(B).appendChild(A.children_stylesheet)
+		if not dom:A._create_dom(A.last_tag)
+		else:A.dom=dom
+		A.block_stylesheet=C;A._update_stylesheet()
+		for F in A.events:A.dom.addEventListener(events_map[F],A._global_events_handler)
+		if in_designer:A.css_properties['transition']='all 0.25s ease-in-out';A.designer_name='Loading';A.form.add_event_handler('show',A._on_show_design)
+	def _global_events_handler(A,e):A.form.raise_event(reverse_events_map[e.type],sender=A.form,event=e)
+	@property
+	def html_tag(self):return self._html_tag
+	@html_tag.setter
+	def html_tag(self,value):
+		B=value;A=self;A._html_tag=B
+		if B!=A.last_tag:
+			A._create_dom(B);A.last_tag=B;A.text=A._text
+			if A.is_container:A.dom.innerHTML='Container children disappeared. Please add any component anywhere to see them again'
+			A._update_stylesheet()
+	@property
+	def text(self):return self._text
+	@text.setter
+	def text(self,value):
+		B=value;A=self;A._text=B
+		if not A.is_textbox:A._set_text()
+		else:A.dom.value=B
+	@property
+	def placeholder(self):return self._placeholder
+	@placeholder.setter
+	def placeholder(self,value):
+		B=value;A=self;A._placeholder=B;A.dom.placeholder=B
+		if in_designer:A._toggle_ghost_label()
+	@property
+	def text_type(self):return self._text_type
+	@text_type.setter
+	def text_type(self,value):self._text_type=value;self._set_text()
+	@property
+	def type(self):return self._type
+	@type.setter
+	def type(self,value):A=value;self._type=A;self.dom.type=A
+	def _set_text(A):
+		if A.is_textbox:return
+		if in_designer:A._toggle_ghost_label()
+		if A._text_type=='plain':A.dom.innerText=A._text
+		else:A.dom.innerHTML=A._text
+		if in_designer:A._toggle_ghost_label()
+		A._update_icon()
+	@property
+	def font_size(self):return self._font_size
+	@font_size.setter
+	def font_size(self,value):A=value;self._font_size=A;self.set_property('font-size',px_convert.convert_to_px(A))
+	@property
+	def font(self):return self._font
+	@font.setter
+	def font(self,value):A=value;self._font=A;self.set_property('font-family',A)
+	@property
+	def font_weight(self):return self._font_weight
+	@font_weight.setter
+	def font_weight(self,value):A=value;self._font_weight=A;self.set_property('font-weight',A)
+	@property
+	def foreground(self):return self._foreground
+	@foreground.setter
+	def foreground(self,value):A=value;self._foreground=A;self.set_property('color',A.replace(_B,'_'))
+	@property
+	def background(self):return self._background
+	@background.setter
+	def background(self,value):A=value;self._background=A;self.set_property('background-color',A.replace(_B,'_'))
+	@property
+	def height(self):return self._height
+	@height.setter
+	def height(self,value):A=value;self._height=A;self.set_property('height',px_convert.convert_to_px(A))
+	@property
+	def width(self):return self._width
+	@width.setter
+	def width(self,value):A=value;self._width=A;self.set_property('width',px_convert.convert_to_px(A))
+	@property
+	def border_radius(self):return self._border_radius
+	@border_radius.setter
+	def border_radius(self,value):A=value;self._border_radius=A;A=_B.join([px_convert.convert_to_px(A)for A in A.split()])if isinstance(A,str)else px_convert.convert_to_px(A);self.set_property('border-radius',A)
+	@property
+	def margin(self):return self._margin
+	@margin.setter
+	def margin(self,value):A=value;self._margin=A;A=_B.join([px_convert.convert_to_px(A)for A in A.split()])if isinstance(A,str)else px_convert.convert_to_px(A);self.set_property('margin',A)
+	@property
+	def padding(self):return self._padding
+	@padding.setter
+	def padding(self,value):A=value;self._padding=A;A=_B.join([px_convert.convert_to_px(A)for A in A.split()])if isinstance(A,str)else px_convert.convert_to_px(A);self.set_property('padding',A)
+	@property
+	def border_size(self):return self._border_size
+	@border_size.setter
+	def border_size(self,value):A=value;self._border_size=A;A=_B.join([px_convert.convert_to_px(A)for A in A.split()])if isinstance(A,str)else px_convert.convert_to_px(A);self.set_property('border-width',A)
+	@property
+	def border_style(self):return self._border_style
+	@border_style.setter
+	def border_style(self,value):A=value;self._border_style=A;self.set_property('border-style',A)
+	@property
+	def border_color(self):return self._border_color
+	@border_color.setter
+	def border_color(self,value):A=value;self._border_color=A;self.set_property('border-color',A.replace(_B,'_'))
+	@property
+	def text_align(self):return self._text_align
+	@text_align.setter
+	def text_align(self,value):A=value;self._text_align=A;self.set_property('text-align',A)
+	@property
+	def css(self):return self._css
+	@css.setter
+	def css(self,value):self._css=value;self._update_other_stylesheet()
+	@property
+	def hover_css(self):return self._hover_css
+	@hover_css.setter
+	def hover_css(self,value):B=value;A=self;A._hover_css=B;A.states_css['hover']=B;A._update_other_stylesheet()
+	@property
+	def focus_css(self):return self._focus_css
+	@focus_css.setter
+	def focus_css(self,value):B=value;A=self;A._focus_css=B;A.states_css[_C]=B;A._update_other_stylesheet()
+	@property
+	def placeholder_css(self):return self._placeholder_css
+	@placeholder_css.setter
+	def placeholder_css(self,value):B=value;A=self;A._placeholder_css=B;A.states_css[':placeholder']=B;A._update_other_stylesheet()
+	@property
+	def disabled_css(self):return self._disabled_css
+	@disabled_css.setter
+	def disabled_css(self,value):B=value;A=self;A._disabled_css=B;A.states_css['disabled']=B;A._update_other_stylesheet()
+	@property
+	def active_css(self):return self._active_css
+	@active_css.setter
+	def active_css(self,value):B=value;A=self;A._active_css=B;A.states_css['active']=B;A._update_other_stylesheet()
+	@property
+	def visible(self):return self._visible
+	@visible.setter
+	def visible(self,value):
+		D='opacity';C='display';B=value;A=self;A._visible=B
+		if not in_designer:
+			if not B:A.set_property(C,'none')
+			else:A.set_property(C,'')
+		elif not B:A.set_property(D,'0.3')
+		else:A.set_property(D,'1')
+	@property
+	def enabled(self):return self._enabled
+	@enabled.setter
+	def enabled(self,value):A=value;self._enabled=A;self.dom.disabled=not A
+	@property
+	def preset(self):return self._preset
+	@preset.setter
+	def preset(self,value):
+		D=value;A=self;B=A._preset or[];B=B.copy();A._preset=D
+		for C in B:A.dom.classList.remove(C)
+		for C in D:A.dom.classList.add(C)
+	@property
+	def icon(self):return self._icon
+	@icon.setter
+	def icon(self,value):self._icon=value;self._update_icon()
+	@property
+	def custom_icon(self):return self._custom_icon
+	@custom_icon.setter
+	def custom_icon(self,value):self._custom_icon=value;self._update_icon()
+	@property
+	def icon_align(self):return self._icon_align
+	@icon_align.setter
+	def icon_align(self,value):self._icon_align=value;self._update_icon()
+	@property
+	def icon_size(self):return self._icon_size
+	@icon_size.setter
+	def icon_size(self,value):self._icon_size=px_convert.convert_to_px(value);self._update_icon()
+	@property
+	def children_css(self):return self._children_css
+	@children_css.setter
+	def children_css(self,value):B=value;A=self;A._children_css=B;A.children_stylesheet.textContent=css_parser(B,f'#{A.uid} [anvil-name="container-slot"]')
+	@property
+	def icon_css(self):return self._icon_css
+	@icon_css.setter
+	def icon_css(self,value):B=value;A=self;A._icon_css=B;A.icon_stylesheet.textContent=css_parser(B,f"#{A.uid} [nui-icon=true]")
+	def _update_icon(B):
+		G='bottom';F='top';A=B.dom.querySelector('[nui-icon="true"]')
+		if A:A.remove()
+		if B.custom_icon:A=document.createElement('i');A.innerHTML=B.custom_icon;B.dom.appendChild(A)
+		elif B.icon and':'in B.icon:
+			D,E=B.icon.split(':',1);A=document.createElement('i')
+			if D=='bi':A.className=f"bi bi-{E}"
+			elif D.startswith('fa'):A.className=f"{D} fa-{E}"
+			elif D=='mi':A.className='material-icons';A.textContent=E
+			A.style.fontSize=B.icon_size
+		else:return
+		A.setAttribute('nui-icon','true');C=B.icon_align;A.style.display='inline-block'
+		if C in[F,G]:A.style.display='block'
+		if C=='left':B.dom.insertBefore(A,B.dom.firstChild)
+		elif C=='right':B.dom.appendChild(A)
+		elif C==F:B.dom.insertBefore(A,B.dom.firstChild)
+		elif C==G:B.dom.appendChild(A)
+	def add_event(A,event_name,event_callback):
+		def B(e):event_callback(sender=A.form,event=e)
+		A.dom.addEventListener(event_name,B)
+	def set_property(A,name,value):A.css_properties[name]=value;A._update_stylesheet()
+	def add_preset(A,value):
+		B=value
+		if B not in A.preset:A.preset=A.preset+[B]
+	def remove_preset(A,value):
+		B=value
+		if B in A.preset:A.preset=[A for A in A.preset if A!=B]
+	def toggle_preset(A,value):
+		B=value
+		if B in A.preset:A.remove_preset(B)
+		else:A.add_preset(B)
+	def _create_dom(A,tag):
+		if A.dom:A.dom.remove()
+		A.dom=document.createElement(tag);A.dom.id=A.uid;get_dom_node(A.form).appendChild(A.dom)
+	def _update_stylesheet(A):
+		if A.block_stylesheet:return
+		C=A.css_properties;B='\n'.join(f"{A}: {B}"for(A,B)in C.items());B+='\n'+(A.css or'');D=css_parser(B,f"#{A.uid}");A.stylesheet.textContent=D
+	def _toggle_ghost_label(A):
+		if A.is_container:return
+		if A.is_textbox or A.is_textarea:
+			if not A.placeholder and not A.text:A.dom.placeholder=A.designer_name
+			else:A.dom.placeholder=A.placeholder
+		elif not A.text:A.dom.innerText=A.designer_name;A.dom.style.color='#aaa'
+		else:A.dom.style.color=''
+	def _on_show_design(A,**B):A.designer_name=get_design_name(A.form);A._toggle_ghost_label()
+	def _update_other_stylesheet(A):
+		if A.block_stylesheet:return
+		B=A.css or''
+		for(D,C)in A.states_css.items():
+			if not C:continue
+			B+=f"\n:{D}\n{C}"
+		E=css_parser(B,f"#{A.uid}");A.other_stylesheet.textContent=E
