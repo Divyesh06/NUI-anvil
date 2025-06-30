@@ -13,6 +13,10 @@ And add it to your dependencies.
 
 For faster loading time, you can switch the dependency version to `minified` branch
 
+## How to Contribute
+
+To contribute to this library, you can create a fork of this repository, edit it in the Anvil Editor, and submit a pull request.
+
 ____
 
 You may post any issues or feature requests in the forum here
