@@ -100,7 +100,6 @@ properties:
 - {default_value: '', description: Size of the icon, group: Icon, important: false, name: icon_size, type: string}
 - {default_value: '', description: 'Directly insert the icon code. Allows using SVGs or any other icon library ', group: Icon, important: false, multiline: true, name: custom_icon, type: string}
 - {default_value: '', description: Custom styling for the icon, group: Icon, important: false, multiline: true, name: icon_css, type: string}
-- {default_value: '', group: CSS, important: true, multiline: true, name: other_css, type: string}
 - {default_value: '', group: Appearance, important: false, name: height, type: string}
 - {default_value: '', group: Appearance, important: false, name: width, type: string}
 toolbox_item:

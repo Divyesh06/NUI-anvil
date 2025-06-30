@@ -28,7 +28,7 @@ def css_parser(raw_css, main_selector):
                     css_var = anvil_theme_vars.get(theme_key)
                 if css_var:
                     parts[i] = f"var({css_var})"
-        print(parts)
+        
         return " ".join(parts)
 
     def flush_block():
