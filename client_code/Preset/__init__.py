@@ -27,8 +27,8 @@ class Preset(PresetTemplate):
             if not preset_container.parentNode:
                 document.body.prepend(preset_container)
                 
-        except Exception as e:
-            print(str(e))
+        except:
+            
             preset_container = None
             
         if not preset_container:
@@ -69,8 +69,9 @@ class Preset(PresetTemplate):
 
     
     def init_preset(self):
+        
         if self.name is not None:
-            self.presets_stylesheet.textContent = css_parser(self.css, f".{self.name}")\
+            self.presets_stylesheet.textContent = css_parser(self.css, f".{self.name}")
 
         if in_designer:
             self.preset_edit_button.text = self.name

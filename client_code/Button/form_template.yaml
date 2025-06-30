@@ -100,7 +100,6 @@ properties:
 - {default_value: '', description: Size of the icon, group: Icon, important: false, name: icon_size, type: string}
 - {default_value: '', description: 'Directly insert the icon code. Allows using SVGs or any other icon library ', group: Icon, important: false, multiline: true, name: custom_icon, type: string}
 - {default_value: '', description: Custom styling for the icon, group: Icon, important: false, multiline: true, name: icon_css, type: string}
-- {default_value: '', group: CSS, important: true, multiline: true, name: other_css, type: string}
 - {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}
 - {default_value: '', description: ' Defines CSS styles to apply when the button is disabled', group: CSS, important: true, multiline: true, name: disabled_css, type: string}
 - {default_value: '', description: ' Defines CSS styles to apply when the button is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
