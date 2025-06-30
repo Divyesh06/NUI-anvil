@@ -220,7 +220,7 @@ class SuperComponent:
     @foreground.setter
     def foreground(self, value):
         self._foreground = value
-        self.set_property("color", value)
+        self.set_property("color", value.replace(" ", "_"))
 
     @property
     def background(self):
@@ -229,7 +229,7 @@ class SuperComponent:
     @background.setter
     def background(self, value):
         self._background = value
-        self.set_property("background-color", value)
+        self.set_property("background-color", value.replace(" ", "_"))
 
     @property
     def height(self):
@@ -316,7 +316,7 @@ class SuperComponent:
     @border_color.setter
     def border_color(self, value):
         self._border_color = value
-        self.set_property("border-color", value)
+        self.set_property("border-color", value.replace(" ","_"))
 
     @property
     def text_align(self):

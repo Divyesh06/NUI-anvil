@@ -1,5 +1,4 @@
 color_scheme:
-  colors:
-  - {color: '#15f4ee', name: Primary 500}
+  colors: []
   preset_groups: []
 roles: []

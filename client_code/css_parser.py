@@ -16,11 +16,20 @@ def css_parser(raw_css, main_selector):
     current_block = []
 
     def replace_theme_vars(value):
-        if value.startswith("theme:"):
-            theme_key = value[len("theme:"):].strip()
-            css_var = anvil_theme_vars.get(theme_key)
-            return f"var({css_var})" if css_var else value
-        return value
+        if "theme:" not in value:
+            return value
+        parts = value.split()
+        
+        for i, part in enumerate(parts):
+            if part.startswith("theme:"):
+                theme_key = part[len("theme:"):].strip()
+                css_var = anvil_theme_vars.get(theme_key.replace("_"," "))
+                if not css_var:
+                    css_var = anvil_theme_vars.get(theme_key)
+                if css_var:
+                    parts[i] = f"var({css_var})"
+        print(parts)
+        return " ".join(parts)
 
     def flush_block():
         if not current_block:
