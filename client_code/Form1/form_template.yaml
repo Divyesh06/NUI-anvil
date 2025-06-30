@@ -32,6 +32,11 @@ components:
     name: button_2
     properties: {text: button_2}
     type: Button
+  - components: []
+    layout_properties: {grid_position: 'IVSHWO,LEGOIT'}
+    name: container_1
+    properties: {html_tag: ul}
+    type: form:Container
   - layout_properties: {grid_position: 'YFPTIA,PUAJAX'}
     name: text_box_2
     properties: {}

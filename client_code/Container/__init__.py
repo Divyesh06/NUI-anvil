@@ -1,5 +1,6 @@
 from ._anvil_designer import ContainerTemplate
 from .. import SuperComponent
+from anvil.designer import in_designer
 
 class Container(ContainerTemplate):
     def __init__(self, **properties):
@@ -7,9 +8,12 @@ class Container(ContainerTemplate):
 
         self.is_container = True
 
- 
+        
         self.init_components(**properties)
         self.dom.appendChild(self.dom_nodes['container-slot'])
+
+        if in_designer:
+            self.set_property("min-height", "40px")
 
         
 
