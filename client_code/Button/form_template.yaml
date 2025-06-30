@@ -1,17 +1,110 @@
-{components: [], container: {properties: {html: <div anvil-slot='default'></div>}, type: HtmlTemplate}, custom_component: true, events: [{default_event: true, description: When the button is clicked, name: click}, {name: show}, {name: hide}, {name: hover}, {name: hover_out}], is_package: true, properties: [{default_value: [default-btn], description: Apply a predefined style class to the component, important: true, name: preset, priority: 100, type: 'text[]'}, {default_value: button, description: The html tag to be used in this component. Please note that all tags may not give intended results, important: true, name: html_tag, priority: 99, type: string}, {default_value: '', description: The text to display for this component. Can be plain text or html, group: Content, important: true, multiline: true, name: text, priority: 98, type: string}, {default_value: plain, description: Determines whether to parse the text as plain text or html, group: Content, important: false, name: text_type, options: [plain, html], type: enum}, {default_value: '', description: The font size for this component, group: Font, important: true, name: font_size, priority: 97, type: string}, {default_value: '', description: ' Sets the font family used for the text', group: Font, important: false, name: font, type: string}, {default_value: '', description: 'Adjusts the thickness or boldness of the text (e.g., normal, bold, 400, 600).', group: Font, important: false, name: font_weight, type: string}, {default_value: '', description: Sets the text color., group: Appearance, important: false, name: foreground, type: color}, {default_value: '', description: Sets the background color of the component, group: Appearance, important: false, name: background, type: color}, {default_value: '', description: 'Rounds the corners of the component
-
-        Ex. For consistent radius for all sides - 20
-
-        Ex. For different radius for different sides - 20 30% 20 10', group: Border, important: false, name: border_radius, type: string}, {default_value: '', description: 'Sets the width of the border
-
-        Ex. For consistent width for all sides - 5
-
-        Ex. For different widths for different sides - 5 0 10 2', group: Border, important: false, name: border_size, type: string}, {default_value: null, description: Defines the style of the border, group: Border, important: false, include_none_option: true, name: border_style, none_option_label: no border, options: [solid, dotted, dashed, double, groove, ridge, inset, outset], type: enum}, {default_value: '', description: Sets the color of the border., group: Border, important: false, name: border_color, type: color}, {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, type: string}, {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}, {default_value: left, description: Aligns the text inside the component, designer_hint: align-horizontal, group: Content, important: false, name: text_align, options: [left, center, right, justify], type: enum}, {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}, {default_value: '', description: 'Sets the outer spacing around the component
-
-        Ex. For consistent margin on all sides - 20
-
-        Ex. For different margin for different sides - 20 30px 20 10', group: Layout, important: true, name: margin, priority: 95, type: string}, {default_value: '', description: 'Sets the inner spacing between content and border
-
-        Ex. For consistent padding on all sides - 20
-
-        Ex. For different padding for different sides - 20 30px 20 10', group: Layout, important: true, name: padding, type: string}, {default_value: '', description: 'The icon used for this. Supports Font Awesome, Bootstrap Icons, Material Icons, Feather Icons, Lucide or any image url', group: Icon, important: true, name: icon, priority: 96, type: icon}, {default_value: left, description: Sets the alignment of the icon, group: Icon, important: false, name: icon_align, options: [left, right, top, bottom], type: enum}, {default_value: '', description: Size of the icon, group: Icon, important: false, name: icon_size, type: string}, {default_value: '', description: 'Directly insert the icon code. Allows using SVGs or any other icon library ', group: Icon, important: false, multiline: true, name: custom_icon, type: string}, {default_value: '', description: Custom styling for the icon, group: Icon, important: false, multiline: true, name: icon_css, type: string}, {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}, {default_value: '', description: ' Defines CSS styles to apply when the button is disabled', group: CSS, important: true, multiline: true, name: disabled_css, type: string}, {default_value: '', description: ' Defines CSS styles to apply when the button is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}, {default_value: '', group: Appearance, important: false, name: height, type: string}, {default_value: '', group: Appearance, important: false, name: width, type: string}], toolbox_item: {group: NUI Components, icon: {dark: 'asset:designer_icons/button_dark.svg', light: 'asset:designer_icons/button_light.svg'}}}
+components: []
+container:
+  properties: {html: <div anvil-slot='default'></div>}
+  type: HtmlTemplate
+custom_component: true
+events:
+- {default_event: true, description: When the button is clicked, name: click}
+- {name: show}
+- {name: hide}
+- {name: hover}
+- {name: hover_out}
+is_package: true
+properties:
+- default_value: [default-btn]
+  description: Apply a predefined style class to the component
+  important: true
+  name: preset
+  priority: 100
+  type: text[]
+- {default_value: button, description: The html tag to be used in this component. Please note that all tags may not give intended results, important: true, name: html_tag, priority: 99, type: string}
+- {default_value: '', description: The text to display for this component. Can be plain text or html, group: Content, important: true, multiline: true, name: text, priority: 98, type: string}
+- default_value: plain
+  description: Determines whether to parse the text as plain text or html
+  group: Content
+  important: false
+  name: text_type
+  options: [plain, html]
+  type: enum
+- {default_value: '', description: The font size for this component, group: Font, important: true, name: font_size, priority: 97, type: string}
+- {default_value: '', description: ' Sets the font family used for the text', group: Font, important: false, name: font, type: string}
+- {default_value: '', description: 'Adjusts the thickness or boldness of the text (e.g., normal, bold, 400, 600).', group: Font, important: false, name: font_weight, type: string}
+- {default_value: '', description: Sets the text color., group: Appearance, important: false, name: foreground, type: color}
+- {default_value: '', description: Sets the background color of the component, group: Appearance, important: false, name: background, type: color}
+- default_value: ''
+  description: |-
+    Rounds the corners of the component
+    Ex. For consistent radius for all sides - 20
+    Ex. For different radius for different sides - 20 30% 20 10
+  group: Border
+  important: false
+  name: border_radius
+  type: string
+- default_value: ''
+  description: |-
+    Sets the width of the border
+    Ex. For consistent width for all sides - 5
+    Ex. For different widths for different sides - 5 0 10 2
+  group: Border
+  important: false
+  name: border_size
+  type: string
+- default_value: null
+  description: Defines the style of the border
+  group: Border
+  important: false
+  include_none_option: true
+  name: border_style
+  none_option_label: no border
+  options: [solid, dotted, dashed, double, groove, ridge, inset, outset]
+  type: enum
+- {default_value: '', description: Sets the color of the border., group: Border, important: false, name: border_color, type: color}
+- {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, type: string}
+- {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}
+- default_value: left
+  description: Aligns the text inside the component
+  designer_hint: align-horizontal
+  group: Content
+  important: false
+  name: text_align
+  options: [left, center, right, justify]
+  type: enum
+- {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}
+- default_value: ''
+  description: |-
+    Sets the outer spacing around the component
+    Ex. For consistent margin on all sides - 20
+    Ex. For different margin for different sides - 20 30px 20 10
+  group: Layout
+  important: true
+  name: margin
+  priority: 95
+  type: string
+- default_value: ''
+  description: |-
+    Sets the inner spacing between content and border
+    Ex. For consistent padding on all sides - 20
+    Ex. For different padding for different sides - 20 30px 20 10
+  group: Layout
+  important: true
+  name: padding
+  type: string
+- {default_value: '', description: 'The icon used for this. Supports Font Awesome, Bootstrap Icons, Material Icons, Feather Icons, Lucide or any image url', group: Icon, important: true, name: icon, priority: 96, type: icon}
+- default_value: left
+  description: Sets the alignment of the icon
+  group: Icon
+  important: false
+  name: icon_align
+  options: [left, right, top, bottom]
+  type: enum
+- {default_value: '', description: Size of the icon, group: Icon, important: false, name: icon_size, type: string}
+- {default_value: '', description: 'Directly insert the icon code. Allows using SVGs or any other icon library ', group: Icon, important: false, multiline: true, name: custom_icon, type: string}
+- {default_value: '', description: Custom styling for the icon, group: Icon, important: false, multiline: true, name: icon_css, type: string}
+- {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}
+- {default_value: '', description: ' Defines CSS styles to apply when the button is disabled', group: CSS, important: true, multiline: true, name: disabled_css, type: string}
+- {default_value: '', description: ' Defines CSS styles to apply when the button is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
+- {default_value: '', group: Appearance, important: false, name: height, type: string}
+- {default_value: '', group: Appearance, important: false, name: width, type: string}
+toolbox_item:
+  group: NUI Components
+  icon: {dark: 'asset:designer_icons/button_dark.svg', light: 'asset:designer_icons/button_light.svg'}

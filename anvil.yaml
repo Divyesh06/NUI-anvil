@@ -1,1 +1,16 @@
-{allow_embedding: false, dependencies: [], name: NUI Library, native_deps: {head_html: ''}, package_name: NUI, runtime_options: {client_version: '3', server_spec: {base: python310-minimal}, server_version: python3-sandbox, version: 2}, services: [{client_config: {}, server_config: {}, source: /runtime/services/tables.yml}], startup: {module: Button, type: form}, startup_form: null}
+allow_embedding: false
+dependencies: []
+name: NUI Library
+native_deps: {head_html: ''}
+package_name: NUI
+runtime_options:
+  client_version: '3'
+  server_spec: {base: python310-minimal}
+  server_version: python3-sandbox
+  version: 2
+services:
+- client_config: {}
+  server_config: {}
+  source: /runtime/services/tables.yml
+startup: {module: Button, type: form}
+startup_form: null
