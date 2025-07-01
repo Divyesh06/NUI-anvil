@@ -11,8 +11,6 @@ To learn more about NUI, check out the docs at https://nui-for-anvil.gitbook.io/
 Clone the app - https://anvil.works/build#clone:3ACFHAQDBLLJX7FL=3N3YRJYIK4O23JVOG3HYCGPY
 And add it to your dependencies. 
 
-For faster loading time, you can switch the dependency version to `minified` branch
-
 ## How to Contribute
 
 To contribute to this library, you can create a fork of this repository, edit it in the Anvil Editor, and submit a pull request.
