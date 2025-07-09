@@ -22,7 +22,15 @@ properties:
   priority: 100
   type: text[]
 - {default_value: input, description: The html tag to be used in this component. Please note that all tags may not give intended results, important: true, name: html_tag, priority: 99, type: string}
-- {default_value: '', description: The text to display for this component. Can be plain text or html, group: Content, important: true, multiline: true, name: text, priority: 98, type: string}
+- binding_writeback_events: [input]
+  default_value: ''
+  description: The text to display for this component. Can be plain text or html
+  group: Content
+  important: true
+  multiline: true
+  name: text
+  priority: 98
+  type: string
 - default_value: text
   description: Determines the input type of the text box
   group: Content
