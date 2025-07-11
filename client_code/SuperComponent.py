@@ -395,9 +395,11 @@ class SuperComponent:
         self._visible = value
         if not in_designer:
             if not value:
-                self.set_property("display", "none")
+                self.dom.style.background = "red"
+                self.dom.style.display = "none"
             else:
-                self.set_property("display", "")
+                self.dom.style.background = ""
+                self.dom.style.display = ""
         else:
             if not value:
                 self.set_property("opacity", "0.3")
