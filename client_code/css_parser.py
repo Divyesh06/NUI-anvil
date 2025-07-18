@@ -57,19 +57,21 @@ def css_parser(raw_css, main_selector):
             current_block.append(line)
         elif line.startswith("@"):
             flush_block()
-            current_selector = main_selector
             current_media = line
+            current_selector = main_selector
             current_block = []
         else:
             flush_block()
-            raw_line = line.rstrip()  # Preserve leading space
+            raw_line = line.rstrip()
+
             if raw_line.startswith("&"):
                 current_selector = raw_line.replace("&", main_selector)
             elif raw_line[:1] in (">", "+", "~", "[", ":", ".", "#") or raw_line.startswith(" "):
                 current_selector = f"{main_selector}{raw_line}"
             else:
                 current_selector = f"{main_selector} {raw_line}"
-            current_media = None
+
+            # 👇 DO NOT reset current_media here
             current_block = []
 
     flush_block()

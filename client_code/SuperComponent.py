@@ -583,7 +583,7 @@ class SuperComponent:
         properties = self.css_properties 
 
         css_rules = "\n".join(f"{key}: {value}" for key, value in properties.items())
-        css_rules+="\n"+ (self.css or "")
+       
 
         parsed_css = css_parser(css_rules, f"#{self.uid}")
 
