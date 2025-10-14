@@ -78,6 +78,8 @@ properties:
 - {default_value: '', description: CSS properties to apply to children of this container, group: CSS, important: true, multiline: true, name: children_css, type: string}
 - {default_value: '', group: Appearance, important: true, name: height, type: string}
 - {default_value: '', group: Appearance, important: true, name: width, type: string}
+- {default_value: '', important: true, name: text, type: string}
+- {important: true, name: attrs, type: object}
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}

@@ -16,3 +16,5 @@ class Button(ButtonTemplate):
     def __setattr__(self, name, value):
         object.__setattr__(self, name, value)
         setattr(self.super_comp, name, value)
+
+    

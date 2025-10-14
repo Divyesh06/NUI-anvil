@@ -1,6 +1,8 @@
 from ._anvil_designer import ContainerTemplate
 from .. import SuperComponent
 from anvil.designer import in_designer
+from anvil import alert
+from anvil.js import get_dom_node
 
 class Container(ContainerTemplate):
     def __init__(self, **properties):
@@ -27,3 +29,9 @@ class Container(ContainerTemplate):
     def __setattr__(self, name, value):
         object.__setattr__(self, name, value)
         setattr(self.super_comp, name, value)
+
+    def add_component(self, comp, **slot):
+        
+        self.dom.appendChild(get_dom_node(comp).querySelector(".nui"))
+        for stylesheet in get_dom_node(comp).querySelectorAll("style"):
+            self.dom.appendChild(stylesheet)

@@ -3,7 +3,7 @@ from anvil.js import get_dom_node
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name
-
+from anvil import alert
 
 events_map = {
     "hover": "mouseenter",
@@ -71,6 +71,9 @@ class SuperComponent:
         self.last_tag = properties['html_tag']
         self._text_type = properties.get('text_type')
         self._text = properties.get('text')
+
+        
+       
         self.dom = None
         self.text_dom = None
 
@@ -105,6 +108,9 @@ class SuperComponent:
             self.designer_name = "Loading"
             self.form.add_event_handler("show", self._on_show_design)
 
+        for key,value in properties['attrs'].items():
+            self.dom.setAttribute(key, value)
+
     def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
 
@@ -130,7 +136,7 @@ class SuperComponent:
 
     @text.setter
     def text(self, value):
-
+        
         self._text = value
 
         if not self.is_textbox:
@@ -176,10 +182,10 @@ class SuperComponent:
         if in_designer:
             self._toggle_ghost_label()
 
-        if self._text_type == 'plain':
-            self.dom.innerText = self._text
-        else:
-            self.dom.innerHTML = self._text
+       
+        self.dom.innerText = self._text
+        # else:
+        #     self.dom.innerHTML = self._text
 
         if in_designer:
             self._toggle_ghost_label()
@@ -574,6 +580,7 @@ class SuperComponent:
         self.dom = document.createElement(tag)
 
         self.dom.id = self.uid
+        self.dom.classList.add("nui")
         get_dom_node(self.form).appendChild(self.dom)
 
     def _update_stylesheet(self):
