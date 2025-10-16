@@ -18,6 +18,7 @@ class Container(ContainerTemplate):
             self.set_property("min-height", "40px")
 
         
+        
 
     def __getattr__(self, name):
         try:
@@ -30,8 +31,3 @@ class Container(ContainerTemplate):
         object.__setattr__(self, name, value)
         setattr(self.super_comp, name, value)
 
-    def add_component(self, comp, **slot):
-        
-        self.dom.appendChild(get_dom_node(comp).querySelector(".nui"))
-        for stylesheet in get_dom_node(comp).querySelectorAll("style"):
-            self.dom.appendChild(stylesheet)

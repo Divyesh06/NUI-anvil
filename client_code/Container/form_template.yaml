@@ -80,6 +80,11 @@ properties:
 - {default_value: '', group: Appearance, important: true, name: width, type: string}
 - {default_value: '', important: true, name: text, type: string}
 - {important: true, name: attrs, type: object}
+- default_value: false
+  description: "[BETA] Components added to this container mantain a true HTML structure without any wrappers from Anvil. \nThis patches the anvil's default method and is unstable"
+  important: true
+  name: true_html_structure
+  type: boolean
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}

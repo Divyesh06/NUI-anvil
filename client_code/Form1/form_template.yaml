@@ -5,12 +5,12 @@ components:
     properties: {html_tag: span, text: Hello}
     type: form:Label
   - layout_properties: {slot: default}
-    name: label_2
+    name: label_1_copy
     properties: {html_tag: span, text: World}
     type: form:Label
-  layout_properties: {grid_position: 'MGRSWP,DNVZBW'}
+  layout_properties: {grid_position: 'KYZILN,GWNZXL'}
   name: container_1
-  properties: {html_tag: p}
+  properties: {border_style: null, true_html_structure: true}
   type: form:Container
 container: {type: ColumnPanel}
 is_package: true

@@ -1,5 +1,5 @@
 from anvil.js.window import document
-from anvil.js import get_dom_node
+from anvil.js import get_dom_node, window
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name
@@ -59,6 +59,7 @@ class SuperComponent:
         self._visible = None
         self._enabled = None
         self._preset = None
+        self._true_html_structure = None
         self._children_css = None
 
         self.css_properties = {}
@@ -107,13 +108,25 @@ class SuperComponent:
             self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
             self.designer_name = "Loading"
             self.form.add_event_handler("show", self._on_show_design)
+         
 
-        for key,value in properties['attrs'].items():
-            self.dom.setAttribute(key, value)
+        # for key,value in properties['attrs'].items():
+        #     self.dom.setAttribute(key, value)
+
+        self._add_component = form.add_component
 
     def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
 
+    def _refresh_components(self):
+
+        components = self.form.get_components()
+        self.form.clear()
+        for comp in components:
+            self.form.add_component(comp)
+                
+            
+    
     @property
     def html_tag(self):
         return self._html_tag
@@ -128,6 +141,32 @@ class SuperComponent:
             if self.is_container:
                 self.dom.innerHTML = "Container children disappeared. Please add any component anywhere to see them again"
             self._update_stylesheet()    
+
+    @property
+    def true_html_structure(self):
+        return self._true_html_structure
+
+    @true_html_structure.setter
+    def true_html_structure(self, value):
+        self._true_html_structure = value
+        if value:
+            if not in_designer:
+                self.form.add_component = self.add_to_html_structure
+
+     
+
+    def add_to_html_structure(self, child, **slot):
+        child_dom = get_dom_node(child)
+        child_dom_nui = child_dom.querySelector(".nui")
+        self._add_component(child)
+        child_dom.remove()
+        if child_dom_nui:
+            self.dom.appendChild(child_dom_nui)
+        for stylesheet in child_dom.querySelectorAll("style"):
+            child_dom_nui.appendChild(stylesheet)
+
+        for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
+            slot.remove()
 
     @property
     def text(self):
