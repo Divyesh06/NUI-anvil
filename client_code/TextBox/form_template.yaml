@@ -100,6 +100,10 @@ properties:
 - {default_value: '', group: Appearance, important: false, name: height, type: string}
 - {default_value: '', group: Appearance, important: false, name: width, type: string}
 - {default_value: '', group: CSS, important: true, multiline: true, name: disabled_css, type: string}
+- default_value: []
+  important: true
+  name: attributes
+  type: text[]
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/textbox_dark.svg', light: 'asset:designer_icons/textbox_light.svg'}

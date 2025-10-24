@@ -102,6 +102,10 @@ properties:
 - {default_value: '', description: Custom styling for the icon, group: Icon, important: false, multiline: true, name: icon_css, type: string}
 - {default_value: '', group: Appearance, important: false, name: height, type: string}
 - {default_value: '', group: Appearance, important: false, name: width, type: string}
+- default_value: []
+  important: true
+  name: attributes
+  type: text[]
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/label_dark.svg', light: 'asset:designer_icons/label_light.svg'}

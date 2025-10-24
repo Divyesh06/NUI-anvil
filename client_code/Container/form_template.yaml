@@ -85,6 +85,10 @@ properties:
   important: true
   name: true_html_structure
   type: boolean
+- default_value: []
+  important: true
+  name: attributes
+  type: text[]
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}

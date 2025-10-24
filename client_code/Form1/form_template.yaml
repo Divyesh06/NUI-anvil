@@ -22,7 +22,11 @@ components:
   type: Label
 - layout_properties: {grid_position: 'YMMLFX,AGYDQN'}
   name: button_3
-  properties: {}
+  properties:
+    attributes: ['src : https://www.w3schools.com/howto/imsg_avatar.png', 'alt: Personsdsdsddsdsdsdsdsfsdfdfdfdfd']
+    enabled: true
+    html_tag: img
+    text: sdsdsdsd
   type: form:Button
 - layout_properties: {grid_position: 'JVYMEE,UGUDFZ'}
   name: text_box_1

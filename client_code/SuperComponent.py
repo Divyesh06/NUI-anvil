@@ -61,18 +61,19 @@ class SuperComponent:
         self._preset = None
         self._true_html_structure = None
         self._children_css = None
-
+        self._added_attrs = []
         self.css_properties = {}
         self.states_css = {}
 
         self.last_tag = None
 
 
+
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
         self._text_type = properties.get('text_type')
         self._text = properties.get('text')
-
+        
         
        
         self.dom = None
@@ -108,7 +109,8 @@ class SuperComponent:
             self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
             self.designer_name = "Loading"
             self.form.add_event_handler("show", self._on_show_design)
-         
+
+        
 
         # for key,value in properties['attrs'].items():
         #     self.dom.setAttribute(key, value)
@@ -535,6 +537,26 @@ class SuperComponent:
         self._icon_css = value
         self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
 
+    @property
+    def attributes(self):
+        return self._attributes
+
+    @attributes.setter
+    def attributes(self, value):
+        self._attributes = value
+
+        for attr in self._added_attrs:
+            self.dom.removeAttribute(attr)
+
+        print(self._attributes)
+        for attr in self._attributes:
+            attr_key, attr_value = attr.split(":", 1)
+            attr_key = attr_key.strip()
+            attr_value = attr_value.strip()
+            self._added_attrs.append(attr_key)
+            self.dom.setAttribute(attr_key, attr_value)
+
+    
     def _update_icon(self):
 
         icon_el = self.dom.querySelector('[nui-icon="true"]')
