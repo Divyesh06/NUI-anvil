@@ -65,13 +65,13 @@ properties:
 - {default_value: '', description: Sets the color of the border., group: Border, important: false, name: border_color, type: color}
 - {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, type: string}
 - {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}
-- default_value: left
+- default_value: default
   description: Aligns the text inside the component
   designer_hint: align-horizontal
   group: Content
   important: false
   name: text_align
-  options: [left, center, right, justify]
+  options: [default, left, center, right, justify]
   type: enum
 - {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}
 - default_value: ''
