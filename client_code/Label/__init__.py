@@ -4,7 +4,7 @@ from anvil import alert
 class Label(LabelTemplate):
     def __init__(self, **properties):
         
-        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out"], **properties)
+        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
         self.init_components(**properties)
         
 

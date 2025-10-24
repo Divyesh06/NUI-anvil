@@ -9,6 +9,7 @@ events:
 - {name: hide}
 - {name: hover}
 - {name: hover_out}
+- {name: click}
 is_package: true
 properties:
 - default_value: [default-label]
