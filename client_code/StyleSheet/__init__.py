@@ -57,7 +57,7 @@ class StyleSheet(StyleSheetTemplate):
         self.init_preset()
 
     def init_preset(self):
-        self.presets_stylesheet.textContent = css_parser(self.css, "")
+        self.presets_stylesheet.textContent = self.css
             
 
         if in_designer:
