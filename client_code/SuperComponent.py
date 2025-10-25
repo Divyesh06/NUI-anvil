@@ -4,8 +4,7 @@ from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name
 from anvil import alert
-from .Preset import Preset
-from .StyleSheet import StyleSheet
+
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
@@ -160,7 +159,8 @@ class SuperComponent:
 
     def add_to_html_structure(self, child, **slot):
         
-        
+        from .Preset import Preset
+        from .StyleSheet import StyleSheet
         if isinstance(child, Preset) or isinstance(child, StyleSheet):
            
             self.dom.appendChild(child.presets_stylesheet)
