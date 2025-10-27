@@ -148,11 +148,11 @@ class SuperComponent:
         from .StyleSheet import StyleSheet
         from .PresetsContainer import PresetsContainer
         if isinstance(child, Preset) or isinstance(child, StyleSheet):
+            
             self.dom.appendChild(child.presets_stylesheet)
             
         elif isinstance(child, PresetsContainer):
-            for comp in child.get_components():
-                self.add_to_html_structure(comp)
+            self._add_component(child)
             return
 
         child_dom = get_dom_node(child)
