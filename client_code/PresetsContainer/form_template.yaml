@@ -2,7 +2,7 @@ components: []
 container:
   properties:
     html: |+
-      <div class='preset-container'>
+      <div class='preset-container' style="display: none">
           <span style='margin-right: 10px'>Presets</span>
           <div anvil-slot-repeat='default' anvil-name='container-slot'></div>
 

@@ -152,8 +152,8 @@ class SuperComponent:
             self.dom.appendChild(child.presets_stylesheet)
             
         elif isinstance(child, PresetsContainer):
-            self._add_component(child)
-            return
+            self.dom.appendChild(get_dom_node(child).querySelector(".preset-container"))
+            
 
         child_dom = get_dom_node(child)
         child_dom_nui = child_dom.querySelector(".nui")
@@ -161,10 +161,10 @@ class SuperComponent:
         child_dom.remove()
         if child_dom_nui:
             self.dom.appendChild(child_dom_nui)
-        for stylesheet in child_dom.querySelectorAll("style"):
-            child_dom_nui.appendChild(stylesheet)
-        for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-            slot.remove()
+            for stylesheet in child_dom.querySelectorAll("style"):
+                child_dom_nui.appendChild(stylesheet)
+            for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
+                slot.remove()
         
 
     @property
