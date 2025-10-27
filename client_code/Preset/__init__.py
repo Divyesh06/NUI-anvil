@@ -84,18 +84,18 @@ class Preset(PresetTemplate):
         if not in_designer:
             self_dom.style.display = "none"
             
-        else:
-            self.get_preset_container()
-            self_dom.style.position = "fixed"
-            self_dom.style.top = "10px"
-            try:
-                window.preset_btn_left_offset
-            except:
-                window.preset_btn_left_offset = 60
-            left_offset = window.preset_btn_left_offset
-            self_dom.style.zIndex = 10000
-            self_dom.style.left = f"{left_offset + 10}px"
-            window.preset_btn_left_offset+= self_dom.offsetWidth
+        # else:
+        #     self.get_preset_container()
+        #     self_dom.style.position = "fixed"
+        #     self_dom.style.top = "10px"
+        #     try:
+        #         window.preset_btn_left_offset
+        #     except:
+        #         window.preset_btn_left_offset = 60
+        #     left_offset = window.preset_btn_left_offset
+        #     self_dom.style.zIndex = 10000
+        #     self_dom.style.left = f"{left_offset + 10}px"
+        #     window.preset_btn_left_offset+= self_dom.offsetWidth
             
 
         if not self.presets_stylesheet.parentNode:
@@ -106,4 +106,5 @@ class Preset(PresetTemplate):
         get_dom_node(self).remove()
 
     def timer_1_tick(self, **event_args):
-        self.get_preset_container()
+        pass
+        #self.get_preset_container()

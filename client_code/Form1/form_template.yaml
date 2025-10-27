@@ -1,0 +1,5 @@
+components: []
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true
