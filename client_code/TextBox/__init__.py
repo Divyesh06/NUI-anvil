@@ -4,6 +4,7 @@ from anvil import *
 class TextBox(TextBoxTemplate):
     def __init__(self, **properties):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "focus", "lost_focus", "change"], **properties)
+        self.remove_from_parent = self.super_comp.remove_from_parent
         self.is_textbox = True
         self.add_event("input", self._set_text_on_input)
         self.init_components(**properties)

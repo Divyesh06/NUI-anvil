@@ -7,7 +7,7 @@ from anvil.js import get_dom_node
 class Container(ContainerTemplate):
     def __init__(self, **properties):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
-
+        
         self.is_container = True
 
         

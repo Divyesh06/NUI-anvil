@@ -4,6 +4,7 @@ from .. import SuperComponent
 class Button(ButtonTemplate):
     def __init__(self, **properties):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
+        self.remove_from_parent = self.super_comp.remove_from_parent
         self.init_components(**properties)
 
     def __getattr__(self, name):

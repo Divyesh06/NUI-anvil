@@ -97,6 +97,8 @@ class SuperComponent:
 
         self._add_component = form.add_component
         self._remove_component = form.remove_from_parent
+        
+        
 
     def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender=self.form, event=e)
@@ -134,8 +136,10 @@ class SuperComponent:
                 self.form.add_component = self.add_to_html_structure
 
     def remove_from_parent(self):
-        if getattr(self.parent, "true_html_structure"):
-            self.parent.dom.removeChild(self.dom)
+        parent = self.form.parent
+        if getattr(parent, "true_html_structure", False):
+            self._remove_component()
+            parent.dom.removeChild(self.dom)
         else:
             self._remove_component()
 
@@ -154,6 +158,7 @@ class SuperComponent:
             child_dom_nui.appendChild(stylesheet)
         for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
             slot.remove()
+        
 
     @property
     def text(self):
@@ -521,7 +526,7 @@ class SuperComponent:
         self._attributes = value
         for attr in self._added_attrs:
             self.dom.removeAttribute(attr)
-        print(self._attributes)
+      
         for attr in self._attributes:
             attr_key, attr_value = attr.split(":", 1)
             attr_key = attr_key.strip()
