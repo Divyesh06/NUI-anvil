@@ -11,6 +11,10 @@ class Preset(PresetTemplate):
 
         if in_designer:
             self.preset_edit_button = Button(border_radius = 7)
+            self.preset_edit_button.dom.setAttribute("data-anvil-selectable", True)
+            self.preset_edit_button.dom.setAttribute("data-anvil-component-name", "preset__9")
+            self.preset_edit_button.dom.setAttribute("anvil-design-form-component", "")
+            self.preset_edit_button.dom.setAttribute("anvil-design-form-component=""", "")
             self.add_component(self.preset_edit_button)
             self.timer_1.interval = 0.2
             
@@ -19,7 +23,13 @@ class Preset(PresetTemplate):
         self.presets_stylesheet = document.createElement("style")
 
         self.init_components(**properties)
-        
+
+        window.addEventListener("keydown", self.key_down)
+
+    def key_down(self, event):
+        if event.key == "p" :
+            print("called p")
+            self.toggle_preset(True)
     def get_preset_container(self):
        
         try:
@@ -33,6 +43,7 @@ class Preset(PresetTemplate):
             
         if not preset_container:
             preset_container = document.createElement("div")
+            preset_container.style.className = "anvil-container"
             preset_container.style.display = "flex"
             #preset_container.style.flexDirection = "row-reverse"
             preset_container.style.gap = "5px"
@@ -46,9 +57,15 @@ class Preset(PresetTemplate):
             preset_container.innerHTML = "<span style = 'padding-right: 10px; font-weight: 600; color: #ddd; '>Presets:</span>"
             window.preset_container = preset_container
             document.body.prepend(preset_container)
+            #preset_container.addEventListener("click", self.toggle_preset)
             
         return preset_container
-            
+
+    def toggle_preset(self):
+        print("caleld toggle")
+        self.get_preset_container().appendChild(get_dom_node(self))
+       
+    
     @property
     def name(self):
         return self._name
@@ -82,9 +99,7 @@ class Preset(PresetTemplate):
         if not in_designer:
             self_dom.style.display = "none"
             
-        else:
-            get_dom_node(self).remove()
-            self.get_preset_container().appendChild(get_dom_node(self))
+        self.get_preset_container().appendChild(get_dom_node(self.preset_edit_button))
 
         if not self.presets_stylesheet.parentNode:
             self_dom.appendChild(self.presets_stylesheet)
@@ -95,3 +110,5 @@ class Preset(PresetTemplate):
 
     def timer_1_tick(self, **event_args):
         self.get_preset_container()
+
+    
