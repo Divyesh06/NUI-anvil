@@ -69,8 +69,18 @@ class StyleSheet(StyleSheetTemplate):
             self_dom.style.display = "none"
 
         else:
-            get_dom_node(self).remove()
-            self.get_preset_container().appendChild(get_dom_node(self))
+            self.get_preset_container()
+            self_dom.style.position = "fixed"
+            self_dom.style.top = "10px"
+            try:
+                window.preset_btn_left_offset
+            except:
+                window.preset_btn_left_offset = 60
+            left_offset = window.preset_btn_left_offset
+            self_dom.style.zIndex = 10000
+            self_dom.style.left = f"{left_offset + 10}px"
+            window.preset_btn_left_offset+= self_dom.offsetWidth
+
 
         if not self.presets_stylesheet.parentNode:
             self_dom.appendChild(self.presets_stylesheet)
