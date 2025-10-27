@@ -96,7 +96,7 @@ class SuperComponent:
         #     self.dom.setAttribute(key, value)
 
         self._add_component = form.add_component
-        self._remove_component = form.remove_component
+        self._remove_component = form.remove_from_parent
 
     def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender=self.form, event=e)
