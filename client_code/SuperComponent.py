@@ -146,8 +146,15 @@ class SuperComponent:
     def add_to_html_structure(self, child, **slot):
         from .Preset import Preset
         from .StyleSheet import StyleSheet
+        from .PresetsContainer import PresetsContainer
         if isinstance(child, Preset) or isinstance(child, StyleSheet):
             self.dom.appendChild(child.presets_stylesheet)
+            
+        elif isinstance(child, PresetsContainer):
+            for comp in child.get_components():
+                self.add_to_html_structure(comp)
+            return
+
         child_dom = get_dom_node(child)
         child_dom_nui = child_dom.querySelector(".nui")
         self._add_component(child)
