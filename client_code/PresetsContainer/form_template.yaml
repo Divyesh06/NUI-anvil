@@ -1,32 +1,7 @@
-components:
-- components:
-  - layout_properties: {slot: default}
-    name: label_1
-    properties: {foreground: '#ddd', text: 'Presets:'}
-    type: form:Label
-  layout_properties: {slot: default}
-  name: container_1
-  properties:
-    background: '#1f1f1f'
-    css: |-
-      display: flex
-      algn-items: center
-      flex-direction: row
-      position: fixed
-      width: 100vw;
-      top: 0
-      padding: 5px 10px
-      left: 0
-    visible: false
-  type: form:Container
+components: []
 container:
   properties:
-    html: |
-      <div class='container'>
-          Presets
-          <div anvil-slot-repeat='default' anvil-name='container-slot'></div>
-
-      </div>
+    html: "<div class='preset-container'>\n    <span style='margin-right: 10px'>Presets</span>\n    <div anvil-slot-repeat='default' anvil-name='container-slot'></div>\n\n</div>\n\n<div style = \"height: 50px\"</div>\n\n<style>\n    .preset-container {\n        gap: 10px;\n        background: #1f1f1f;\n        position: fixed;\n        width: 100vw;\n        left: 0;\n        top: 0;\n        padding: 0 10px;\n        color: #ddd;\n        height: 50px;\n        display: flex;\n        align-items: center\n        \n    }\n\n    .preset-container button{\n        color: black;\n\n    }\n</style>"
   type: HtmlTemplate
 custom_component: true
 custom_component_container: true

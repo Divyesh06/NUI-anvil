@@ -4,14 +4,13 @@ from anvil.js.window import document
 from ..css_parser import css_parser
 from anvil.designer import in_designer
 from ..Button import Button
-
+from ..Label import Label
 class Preset(PresetTemplate):
     def __init__(self, **properties):
         
 
         if in_designer:
             self.preset_edit_button = Button(border_radius = 7)
-            self.preset_edit_button.set_property("margin-right", "10px")
             self.add_component(self.preset_edit_button)
             self.timer_1.interval = 0.2
             
@@ -57,6 +56,9 @@ class Preset(PresetTemplate):
 
         if not self.presets_stylesheet.parentNode:
             self_dom.appendChild(self.presets_stylesheet)
+
+        if self.parent.__class__.__name__ != "PresetsContainer":
+            self.add_component(Label(text = "Add to PresetsContainer for easier access"))
 
     def form_hide(self, **event_args):
         self.presets_stylesheet.remove()
