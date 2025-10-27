@@ -139,7 +139,7 @@ class SuperComponent:
         parent = self.form.parent
         if getattr(parent, "true_html_structure", False):
             self._remove_component()
-            parent.dom.removeChild(self.dom)
+            self.dom.remove()
         else:
             self._remove_component()
 

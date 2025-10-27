@@ -8,4 +8,4 @@ class PresetsContainer(PresetsContainerTemplate):
         if not in_designer:
             self.visible = False
         else:
-            document.body.style.marginTop = "50px"
+            document.body.style.marginTop = "70px"
