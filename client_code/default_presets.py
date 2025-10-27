@@ -15,6 +15,7 @@ default_css = """
 .default-btn {
     margin: 5px 0;
     padding: 8px 15px;
+    border: none;
     border-radius: 15px;
 }
 

@@ -18,17 +18,15 @@ events_map = {
 reverse_events_map = {v: k for k, v in events_map.items()}
 
 class SuperComponent:
-    def __init__(self, form, dom = None, events = [], **properties):
+    def __init__(self, form, dom=None, events=[], **properties):
         self.form = form
         self.events = events
-
         self.is_container = False
         self.is_textbox = False
         self.is_textarea = False
-
         self._html_tag = None
         self._text = None
-       # self._other_css = None
+        # self._other_css = None
         self._hover_css = None
         self._active_css = None
         self._focus_css = None
@@ -38,7 +36,6 @@ class SuperComponent:
         self._font_size = None
         self._font = None
         self._type = None
-        
         self._font_weight = None
         self._foreground = None
         self._background = None
@@ -52,7 +49,7 @@ class SuperComponent:
         self._icon_align = None
         self._icon_size = None
         self._icon_css = None
-        self._custom_icon =  None
+        self._custom_icon = None
         self._border_color = None
         self._text_align = None
         self._css = None
@@ -64,35 +61,20 @@ class SuperComponent:
         self._added_attrs = []
         self.css_properties = {}
         self.states_css = {}
-
         self.last_tag = None
-
-
-
         self.uid = id_assigner.get_id()
         self.last_tag = properties['html_tag']
         self._text_type = properties.get('text_type')
         self._text = properties.get('text')
-        
-        
-       
         self.dom = None
         self.text_dom = None
-
         self.block_stylesheet = True
 
-
-        self.other_stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.other_stylesheet)   
-
-        self.icon_stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.icon_stylesheet)   
-
-        self.stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.stylesheet)    
-
-        self.children_stylesheet = document.createElement("style")
-        get_dom_node(form).appendChild(self.children_stylesheet)   
+        # Initialize stylesheets as None - they'll be created only when needed
+        self.other_stylesheet = None
+        self.icon_stylesheet = None
+        self.stylesheet = None
+        self.children_stylesheet = None
 
         if not dom:
             self._create_dom(self.last_tag)
@@ -106,11 +88,9 @@ class SuperComponent:
             self.dom.addEventListener(events_map[event], self._global_events_handler)
 
         if in_designer:
-            self.css_properties['transition'] = "all 0.25s ease-in-out" #For smoother UI building
+            self.css_properties['transition'] = "all 0.25s ease-in-out"  # For smoother UI building
             self.designer_name = "Loading"
             self.form.add_event_handler("show", self._on_show_design)
-
-        
 
         # for key,value in properties['attrs'].items():
         #     self.dom.setAttribute(key, value)
@@ -118,17 +98,14 @@ class SuperComponent:
         self._add_component = form.add_component
 
     def _global_events_handler(self, e):
-        self.form.raise_event(reverse_events_map[e.type], sender = self.form, event = e)
+        self.form.raise_event(reverse_events_map[e.type], sender=self.form, event=e)
 
     def _refresh_components(self):
-
         components = self.form.get_components()
         self.form.clear()
         for comp in components:
             self.form.add_component(comp)
-                
-            
-    
+
     @property
     def html_tag(self):
         return self._html_tag
@@ -142,7 +119,7 @@ class SuperComponent:
             self.text = self._text
             if self.is_container:
                 self.dom.innerHTML = "Container children disappeared. Please add any component anywhere to see them again"
-            self._update_stylesheet()    
+            self._update_stylesheet()
 
     @property
     def true_html_structure(self):
@@ -155,18 +132,12 @@ class SuperComponent:
             if not in_designer:
                 self.form.add_component = self.add_to_html_structure
 
-     
-
     def add_to_html_structure(self, child, **slot):
-        
         from .Preset import Preset
         from .StyleSheet import StyleSheet
         if isinstance(child, Preset) or isinstance(child, StyleSheet):
-           
             self.dom.appendChild(child.presets_stylesheet)
-
         child_dom = get_dom_node(child)
-            
         child_dom_nui = child_dom.querySelector(".nui")
         self._add_component(child)
         child_dom.remove()
@@ -174,20 +145,16 @@ class SuperComponent:
             self.dom.appendChild(child_dom_nui)
         for stylesheet in child_dom.querySelectorAll("style"):
             child_dom_nui.appendChild(stylesheet)
-
         for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
             slot.remove()
 
     @property
     def text(self):
-
         return self._text
 
     @text.setter
     def text(self, value):
-        
         self._text = value
-
         if not self.is_textbox:
             self._set_text()
         else:
@@ -195,14 +162,12 @@ class SuperComponent:
 
     @property
     def placeholder(self):
-
         return self._placeholder
 
     @placeholder.setter
     def placeholder(self, value):
         self._placeholder = value
         self.dom.placeholder = value
-
         if in_designer:
             self._toggle_ghost_label()
 
@@ -227,18 +192,13 @@ class SuperComponent:
     def _set_text(self):
         if self.is_textbox:
             return
-
         if in_designer:
             self._toggle_ghost_label()
-
-       
         self.dom.innerText = self._text
         # else:
         #     self.dom.innerHTML = self._text
-
         if in_designer:
             self._toggle_ghost_label()
-
         self._update_icon()
 
     @property
@@ -289,21 +249,21 @@ class SuperComponent:
     @property
     def height(self):
         return self._height
-    
+
     @height.setter
     def height(self, value):
         self._height = value
         self.set_property("height", px_convert.convert_to_px(value))
-    
+
     @property
     def width(self):
         return self._width
-    
+
     @width.setter
     def width(self, value):
         self._width = value
         self.set_property("width", px_convert.convert_to_px(value))
-    
+
     @property
     def border_radius(self):
         return self._border_radius
@@ -311,9 +271,7 @@ class SuperComponent:
     @border_radius.setter
     def border_radius(self, value):
         self._border_radius = value
-        
         value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
-
         self.set_property("border-radius", value)
 
     @property
@@ -323,10 +281,8 @@ class SuperComponent:
     @margin.setter
     def margin(self, value):
         self._margin = value
-        
         value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
         self.set_property("margin", value)
-
 
     @property
     def padding(self):
@@ -335,23 +291,18 @@ class SuperComponent:
     @padding.setter
     def padding(self, value):
         self._padding = value
-        
         value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
         self.set_property("padding", value)
 
     @property
     def border_size(self):
-
         return self._border_size
 
     @border_size.setter
     def border_size(self, value):
         self._border_size = value
-        
         value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
-
         self.set_property("border-width", value)
-
 
     @property
     def border_style(self):
@@ -362,8 +313,6 @@ class SuperComponent:
         self._border_style = value
         self.set_property("border-style", value)
 
-
-
     @property
     def border_color(self):
         return self._border_color
@@ -371,7 +320,7 @@ class SuperComponent:
     @border_color.setter
     def border_color(self, value):
         self._border_color = value
-        self.set_property("border-color", value.replace(" ","_"))
+        self.set_property("border-color", value.replace(" ", "_"))
 
     @property
     def text_align(self):
@@ -477,17 +426,12 @@ class SuperComponent:
     @preset.setter
     def preset(self, value):
         previous_presets = self._preset or []
-
         previous_presets = previous_presets.copy()
-
         self._preset = value
-
         for preset in previous_presets:
             self.dom.classList.remove(preset)
-
         for preset in value:
             self.dom.classList.add(preset)
-
 
     @property
     def icon(self):
@@ -506,7 +450,6 @@ class SuperComponent:
     def custom_icon(self, value):
         self._custom_icon = value
         self._update_icon()
-
 
     @property
     def icon_align(self):
@@ -533,8 +476,16 @@ class SuperComponent:
     @children_css.setter
     def children_css(self, value):
         self._children_css = value
-        self.children_stylesheet.textContent = css_parser(value, f'#{self.uid} [anvil-name="container-slot"]')
-
+        if value:
+            if not self.children_stylesheet:
+                self.children_stylesheet = document.createElement("style")
+                get_dom_node(self.form).appendChild(self.children_stylesheet)
+            self.children_stylesheet.textContent = css_parser(value, f'#{self.uid} [anvil-name="container-slot"]')
+        elif self.children_stylesheet:
+            self.children_stylesheet.textContent = ""
+            # Optionally remove the stylesheet entirely if you want to clean up:
+            # self.children_stylesheet.remove()
+            # self.children_stylesheet = None
 
     @property
     def icon_css(self):
@@ -543,7 +494,16 @@ class SuperComponent:
     @icon_css.setter
     def icon_css(self, value):
         self._icon_css = value
-        self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
+        if value:
+            if not self.icon_stylesheet:
+                self.icon_stylesheet = document.createElement("style")
+                get_dom_node(self.form).appendChild(self.icon_stylesheet)
+            self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
+        elif self.icon_stylesheet:
+            self.icon_stylesheet.textContent = ""
+            # Optionally remove the stylesheet entirely if you want to clean up:
+            # self.icon_stylesheet.remove()
+            # self.icon_stylesheet = None
 
     @property
     def attributes(self):
@@ -552,10 +512,8 @@ class SuperComponent:
     @attributes.setter
     def attributes(self, value):
         self._attributes = value
-
         for attr in self._added_attrs:
             self.dom.removeAttribute(attr)
-
         print(self._attributes)
         for attr in self._attributes:
             attr_key, attr_value = attr.split(":", 1)
@@ -564,90 +522,70 @@ class SuperComponent:
             self._added_attrs.append(attr_key)
             self.dom.setAttribute(attr_key, attr_value)
 
-    
     def _update_icon(self):
-
         icon_el = self.dom.querySelector('[nui-icon="true"]')
         if icon_el:
             icon_el.remove()
-
         if self.custom_icon:
             icon_el = document.createElement("i")
-
             icon_el.innerHTML = self.custom_icon
             self.dom.appendChild(icon_el)
-
-
-
         elif self.icon and ":" in self.icon:
             lib, name = self.icon.split(":", 1)
             icon_el = document.createElement("i")
-
             if lib == 'bi':
                 icon_el.className = f'bi bi-{name}'
-
             elif lib.startswith("fa"):
                 icon_el.className = f'{lib} fa-{name}'
-
             elif lib == 'mi':
                 icon_el.className = "material-icons"
                 icon_el.textContent = name
-
-            icon_el.style.fontSize = self.icon_size
-
-        else:
-            return
-        icon_el.setAttribute("nui-icon", "true")
-
-        align = self.icon_align
-
-
-        icon_el.style.display = "inline-block"
-
-        if align in ["top", "bottom"]:
-            icon_el.style.display = "block"
-            #icon_el.style.margin = "auto"
-
-        if align == "left":
-            self.dom.insertBefore(icon_el, self.dom.firstChild)
-        elif align == "right":
-            self.dom.appendChild(icon_el)
-        elif align == "top":
-            self.dom.insertBefore(icon_el, self.dom.firstChild)
-        elif align == "bottom":
-            self.dom.appendChild(icon_el)
+                icon_el.style.fontSize = self.icon_size
+            else:
+                return
+            icon_el.setAttribute("nui-icon", "true")
+            align = self.icon_align
+            icon_el.style.display = "inline-block"
+            if align in ["top", "bottom"]:
+                icon_el.style.display = "block"
+            # icon_el.style.margin = "auto"
+            if align == "left":
+                self.dom.insertBefore(icon_el, self.dom.firstChild)
+            elif align == "right":
+                self.dom.appendChild(icon_el)
+            elif align == "top":
+                self.dom.insertBefore(icon_el, self.dom.firstChild)
+            elif align == "bottom":
+                self.dom.appendChild(icon_el)
 
     def add_event(self, event_name, event_callback):
-
         def event_raiser(e):
-            event_callback(sender = self.form, event = e)
+            event_callback(sender=self.form, event=e)
 
         self.dom.addEventListener(event_name, event_raiser)
 
     def set_property(self, name, value):
         self.css_properties[name] = value
         self._update_stylesheet()
-    
+
     def add_preset(self, value):
         if value not in self.preset:
-            self.preset = self.preset + [value]  
-    
+            self.preset = self.preset + [value]
+
     def remove_preset(self, value):
         if value in self.preset:
-            self.preset = [v for v in self.preset if v != value]  
-    
+            self.preset = [v for v in self.preset if v != value]
+
     def toggle_preset(self, value):
         if value in self.preset:
             self.remove_preset(value)
         else:
             self.add_preset(value)
-        
 
     def _create_dom(self, tag):
         if self.dom:
             self.dom.remove()
         self.dom = document.createElement(tag)
-
         self.dom.id = self.uid
         self.dom.classList.add("nui")
         get_dom_node(self.form).appendChild(self.dom)
@@ -655,20 +593,26 @@ class SuperComponent:
     def _update_stylesheet(self):
         if self.block_stylesheet:
             return
-
-        properties = self.css_properties 
-
-        css_rules = "\n".join(f"{key}: {value}" for key, value in properties.items())
-       
-
-        parsed_css = css_parser(css_rules, f"#{self.uid}")
-
-        self.stylesheet.textContent = parsed_css
+            
+        properties = self.css_properties
+        css_rules = "\n".join(f"{key}: {value}" for key, value in properties.items() if value)
+        
+        if css_rules:  # Only create stylesheet if there are actual rules
+            if not self.stylesheet:
+                self.stylesheet = document.createElement("style")
+                get_dom_node(self.form).appendChild(self.stylesheet)
+            parsed_css = css_parser(css_rules, f"#{self.uid}")
+            self.stylesheet.textContent = parsed_css
+        elif self.stylesheet:
+            # Clear the stylesheet if no rules exist
+            self.stylesheet.textContent = ""
+            # Optionally remove the stylesheet entirely if you want to clean up:
+            # self.stylesheet.remove()
+            # self.stylesheet = None
 
     def _toggle_ghost_label(self):
         if self.is_container:
             return
-
         if self.is_textbox or self.is_textarea:
             if not self.placeholder and not self.text:
                 self.dom.placeholder = self.designer_name
@@ -676,7 +620,6 @@ class SuperComponent:
                 self.dom.placeholder = self.placeholder
         else:
             if not self.text:
-
                 self.dom.innerText = self.designer_name
                 self.dom.style.color = "#aaa"
             else:
@@ -686,18 +629,22 @@ class SuperComponent:
         self.designer_name = get_design_name(self.form)
         self._toggle_ghost_label()
 
-    
     def _update_other_stylesheet(self):
         if self.block_stylesheet:
             return
-
+            
         other_css = self.css or ""
-
         for state, css in self.states_css.items():
             if not css:
                 continue
-            other_css+=f"\n:{state}\n{(css)}"
-
-        parsed_css = css_parser(other_css, f"#{self.uid}")
-
-        self.other_stylesheet.textContent = parsed_css
+            other_css += f"\n:{state}\n{(css)}"
+            
+        if other_css.strip():  # Only create/update if there's actual CSS content
+            if not self.other_stylesheet:
+                self.other_stylesheet = document.createElement("style")
+                get_dom_node(self.form).appendChild(self.other_stylesheet)
+            parsed_css = css_parser(other_css, f"#{self.uid}")
+            self.other_stylesheet.textContent = parsed_css
+        elif self.other_stylesheet:
+           
+            self.other_stylesheet.textContent = ""
