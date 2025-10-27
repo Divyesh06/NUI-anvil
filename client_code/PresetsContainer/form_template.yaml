@@ -1,7 +1,7 @@
 components: []
 container:
   properties:
-    html: "<div class='preset-container'>\n    <span style='margin-right: 10px'>Presets</span>\n    <div anvil-slot-repeat='default' anvil-name='container-slot'></div>\n\n</div>\n\n<div style = \"height: 50px\"</div>\n\n<style>\n    .preset-container {\n        gap: 10px;\n        background: #1f1f1f;\n        position: fixed;\n        width: 100vw;\n        left: 0;\n        top: 0;\n        padding: 0 10px;\n        color: #ddd;\n        height: 50px;\n        display: flex;\n        align-items: center\n        \n    }\n\n    .preset-container button{\n        color: black;\n\n    }\n</style>"
+    html: "<div class='preset-container'>\n    <span style='margin-right: 10px'>Presets</span>\n    <div anvil-slot-repeat='default' anvil-name='container-slot'></div>\n\n</div>\n\n\n<style>\n    .preset-container {\n        gap: 10px;\n        z-index: 99999999;\n        background: #1f1f1f;\n        position: fixed;\n        width: 100vw;\n        left: 0;\n        top: 0;\n        padding: 0 10px;\n        color: #ddd;\n        height: 50px;\n        display: flex;\n        align-items: center\n        \n    }\n\n    .preset-container button{\n        color: black;\n\n    }\n</style>\n\n"
   type: HtmlTemplate
 custom_component: true
 custom_component_container: true
