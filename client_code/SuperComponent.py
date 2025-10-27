@@ -96,6 +96,7 @@ class SuperComponent:
         #     self.dom.setAttribute(key, value)
 
         self._add_component = form.add_component
+        self._remove_component = form.remove_component
 
     def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender=self.form, event=e)
@@ -131,6 +132,12 @@ class SuperComponent:
         if value:
             if not in_designer:
                 self.form.add_component = self.add_to_html_structure
+
+    def remove_from_parent(self):
+        if getattr(self.parent, "true_html_structure"):
+            self.parent.dom.removeChild(self.dom)
+        else:
+            self._remove_component()
 
     def add_to_html_structure(self, child, **slot):
         from .Preset import Preset
