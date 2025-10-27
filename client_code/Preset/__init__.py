@@ -11,6 +11,7 @@ class Preset(PresetTemplate):
 
         if in_designer:
             self.preset_edit_button = Button(border_radius = 7)
+            self.preset_edit_button.set_property("margin-right", "10px")
             self.add_component(self.preset_edit_button)
             self.timer_1.interval = 0.2
             
@@ -36,6 +37,7 @@ class Preset(PresetTemplate):
             preset_container.style.display = "flex"
             #preset_container.style.flexDirection = "row-reverse"
             preset_container.style.gap = "5px"
+            preset_container.style.height = "50px"
             preset_container.style.padding = "5px 10px"
             preset_container.style.left = "0"
             preset_container.style.backgroundColor = "#141414"
@@ -83,8 +85,18 @@ class Preset(PresetTemplate):
             self_dom.style.display = "none"
             
         else:
-            get_dom_node(self).remove()
-            self.get_preset_container().appendChild(get_dom_node(self))
+            self.get_preset_container()
+            self_dom.style.position = "fixed"
+            self_dom.style.top = "10px"
+            try:
+                window.preset_btn_left_offset
+            except:
+                window.preset_btn_left_offset = 60
+            left_offset = window.preset_btn_left_offset
+            self_dom.style.zIndex = 10000
+            self_dom.style.left = f"{left_offset + 10}px"
+            window.preset_btn_left_offset+= self_dom.offsetWidth
+            
 
         if not self.presets_stylesheet.parentNode:
             self_dom.appendChild(self.presets_stylesheet)
