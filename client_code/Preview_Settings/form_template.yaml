@@ -1,7 +1,21 @@
 components:
 - layout_properties: {slot: default}
   name: button_1
-  properties: {border_color: '#10bed5', border_radius: 50%, border_size: '2', border_style: solid, font_size: '20', height: '60', icon: 'fa:eye', icon_align: bottom, icon_css: 'margin-left: 5', padding: '', text: ' ', width: '60'}
+  properties:
+    background: white
+    border_color: '#10bed5'
+    border_radius: 50%
+    border_size: '2'
+    border_style: solid
+    css: "position: fixed\nright "
+    font_size: '20'
+    height: '60'
+    icon: fa:eye
+    icon_align: bottom
+    icon_css: 'margin-left: 3px'
+    padding: ''
+    text: ' '
+    width: '60'
   type: form:Button
 container:
   event_bindings: {show: form_show}
