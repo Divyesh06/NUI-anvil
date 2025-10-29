@@ -1,16 +1,17 @@
 components:
 - components:
   - components:
-    - name: image_1
-      properties: {}
-      type: form:Image
+    - layout_properties: {}
+      name: image_1
+      properties: {height: 32}
+      type: Image
     layout_properties: {grid_position: 'DYLIEN,LEELHB'}
     name: linear_panel_1
     properties: {}
     type: LinearPanel
   - layout_properties: {grid_position: 'BUAYVY,ORIRBN'}
     name: preview_settings_1
-    properties: {inflate_container: true, true_view: false}
+    properties: {inflate_container: true, inflate_containers: true, true_view: false}
     type: form:Preview_Settings
   - components:
     - layout_properties: {slot: default}

@@ -30,13 +30,13 @@ class Preview_Settings(Preview_SettingsTemplate):
         true_view.raise_all(value)
         
     @property
-    def inflate_container(self):
-        return self._inflate_container
+    def inflate_containers(self):
+        return self._inflate_containers
 
-    @inflate_container.setter
-    def inflate_container(self, value):
-        self._inflate_container = value
-        if self._inflate_container:
+    @inflate_containers.setter
+    def inflate_containers(self, value):
+        self._inflate_containers = value
+        if self._inflate_containers:
            window.document.body.classList.add("inflate")
         else:
             window.document.body.classList.remove("inflate")
