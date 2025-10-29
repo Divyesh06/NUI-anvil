@@ -1,6 +1,6 @@
 components: []
 container:
-  event_bindings: {show: form_show}
+  event_bindings: {}
   properties: {html: <div anvil-slot='default'></div>}
   type: HtmlTemplate
 custom_component: true

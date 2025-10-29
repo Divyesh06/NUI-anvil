@@ -18,10 +18,10 @@ events_map = {
 reverse_events_map = {v: k for k, v in events_map.items()}
 
 class SuperComponent:
-    def __init__(self, form, dom=None, events=[], **properties):
+    def __init__(self, form, dom=None, events=[], is_container = False,**properties):
         self.form = form
         self.events = events
-        self.is_container = False
+        self.is_container = is_container
         self.is_textbox = False
         self.is_textarea = False
         self._html_tag = None
@@ -678,6 +678,7 @@ class SuperComponent:
         self.dom.id = self.uid
         self.dom.classList.add("nui")
         if self.is_container and in_designer:
+            print('yes')
             self.dom.classList.add("nui-container")
         get_dom_node(self.form).appendChild(self.dom)
 

@@ -5,17 +5,20 @@ from ..utils import true_view
 from anvil.designer import in_designer
 class Preview_Settings(Preview_SettingsTemplate):
     def __init__(self, **properties):
-        self.init_components(**properties)
+        
         if not in_designer:
             return
 
+        self.visible = True
         self.inflate_stylesheet = window.document.createElement("style")
         self.inflate_stylesheet.textContent = """
-.nui-container.inflate {
+.inflate .nui-container  {
     padding: 20px;
 }      
 """
-        
+        window.document.head.appendChild(self.inflate_stylesheet)
+        self.init_components(**properties)
+        self.set_event_handler("show", self.form_show)
 
     @property
     def true_view(self):
@@ -28,12 +31,15 @@ class Preview_Settings(Preview_SettingsTemplate):
         
     @property
     def inflate_container(self):
-        return self._inflate_contains
+        return self._inflate_container
 
     @inflate_container.setter
     def inflate_container(self, value):
         self._inflate_container = value
-        if se
+        if self._inflate_container:
+           window.document.body.classList.add("inflate")
+        else:
+            window.document.body.classList.remove("inflate")
 
     def form_show(self, **event_args):
         true_view.raise_all(self._true_view)

@@ -5,9 +5,9 @@ from ..utils import true_view
 
 class Container(ContainerTemplate):
     def __init__(self, **properties):
-        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
+        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], is_container = True,**properties)
         
-        self.is_container = True
+
 
         
         self.init_components(**properties)
