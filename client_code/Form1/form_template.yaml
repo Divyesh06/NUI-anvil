@@ -18,11 +18,16 @@ components:
     type: form:Link
   - layout_properties: {grid_position: 'VAUUFM,ZBBFBW'}
     name: text_box_1
-    properties: {}
+    properties:
+      attributes: ['type: file']
+      border_style: null
+      preset: []
+      text: sdsdsd
+      type: search
     type: form:TextBox
   - layout_properties: {grid_position: 'QIFTWC,IIZSNY'}
     name: text_area_1
-    properties: {}
+    properties: {border_style: dotted}
     type: form:TextArea
   - layout_properties: {grid_position: 'ZWFKWN,VSWBYH'}
     name: image_2
