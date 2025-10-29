@@ -1,12 +1,11 @@
-components: []
+components:
+- layout_properties: {slot: default}
+  name: button_1
+  properties: {border_color: '#10bed5', border_radius: 50%, border_size: '2', border_style: solid, height: '60', icon: 'fa:eye', icon_align: bottom, padding: '', text: ' ', width: '60'}
+  type: form:Button
 container:
   event_bindings: {show: form_show}
-  properties:
-    html: |-
-      <center style="font-style:italic; color:#888; margin: 3em;">
-        (Insert your custom HTML here)
-      </center>
-      <div anvil-slot="default"></div>
+  properties: {html: <div anvil-slot="default"></div>}
   type: HtmlTemplate
 custom_component: true
 is_package: true
