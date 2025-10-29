@@ -677,6 +677,8 @@ class SuperComponent:
         self.dom = document.createElement(tag)
         self.dom.id = self.uid
         self.dom.classList.add("nui")
+        if self.is_container and in_designer:
+            self.dom.classList.add("nui-container")
         get_dom_node(self.form).appendChild(self.dom)
 
     def _update_stylesheet(self):
