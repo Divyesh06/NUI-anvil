@@ -14,4 +14,7 @@ class Preview_Settings(Preview_SettingsTemplate):
     def true_view(self, value):
         self._true_view = value
         true_view.raise_all(value)
+
+    def form_show(self, **event_args):
+        true_view.raise_all(self._true_view)
         

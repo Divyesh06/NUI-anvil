@@ -22,11 +22,13 @@ class Container(ContainerTemplate):
                 if state:
                     self.css_properties.pop("min-height", None)
                     self._update_stylesheet()
+                    if self.true_html_structure:
+                        self.switch_to_html_structure()
                 else:
                     self.set_property("min-height", "40px")
+                    if self.true_html_structure:
+                        self.add_component = self._add_component
 
-        
-        
 
     def __getattr__(self, name):
         try:

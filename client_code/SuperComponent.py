@@ -141,6 +141,11 @@ class SuperComponent:
             if not in_designer:
                 self.form.add_component = self.add_to_html_structure
 
+    def switch_to_html_structure(self):
+        self.form.add_component = self.add_to_html_structure
+        for component in self.form.get_components():
+            self.add_to_html_structure(component)
+    
     @property
     def alt(self):
         return self._alt
@@ -208,6 +213,7 @@ class SuperComponent:
             self._remove_component()
 
     def add_to_html_structure(self, child, **slot):
+        
         from .Preset import Preset
         from .StyleSheet import StyleSheet
         from .PresetsContainer import PresetsContainer
@@ -221,7 +227,7 @@ class SuperComponent:
 
         child_dom = get_dom_node(child)
         child_dom_nui = child_dom.querySelector(".nui")
-        self._add_component(child)
+        
         child_dom.remove()
         if child_dom_nui:
             self.dom.appendChild(child_dom_nui)
