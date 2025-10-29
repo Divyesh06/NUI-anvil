@@ -2,9 +2,13 @@ from ._anvil_designer import Preview_SettingsTemplate
 from anvil import *
 from anvil.js import window
 from ..utils import true_view
+from anvil.designer import in_designer
 class Preview_Settings(Preview_SettingsTemplate):
     def __init__(self, **properties):
         self.init_components(**properties)
+        if not in_designer:
+            return
+            
 
     @property
     def true_view(self):
