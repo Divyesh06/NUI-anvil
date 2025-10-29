@@ -101,6 +101,8 @@ class SuperComponent:
 
         self._add_component = form.add_component
         self._remove_component = form.remove_from_parent
+
+ 
         
         
 
