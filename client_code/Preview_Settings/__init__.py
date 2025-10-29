@@ -8,7 +8,9 @@ class Preview_Settings(Preview_SettingsTemplate):
         self.init_components(**properties)
         if not in_designer:
             return
-            
+
+        self.inflate_stylesheet = window.document.createElement("style")
+        self.inflate_stylesheet.type = "text/css"
 
     @property
     def true_view(self):
