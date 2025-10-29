@@ -56,6 +56,7 @@ class SuperComponent:
         self._text_align = None
         self._css = None
         self._href = None
+        self._target = None
         self._visible = None
         self._enabled = None
         self._preset = None
@@ -153,6 +154,14 @@ class SuperComponent:
     @href.setter
     def href(self, value):
         self.dom.href = value
+
+    @property
+    def target(self):
+        return self._target
+
+    @target.setter
+    def target(self, value):
+        self.dom.target = value
 
     @property
     def source(self):
