@@ -55,6 +55,7 @@ class SuperComponent:
         self._border_color = None
         self._text_align = None
         self._css = None
+        self._href = None
         self._visible = None
         self._enabled = None
         self._preset = None
@@ -144,7 +145,15 @@ class SuperComponent:
     @alt.setter
     def alt(self, value):
         self.dom.alt = value
-            
+
+    @property
+    def href(self):
+        return self._href
+
+    @href.setter
+    def href(self, value):
+        self.dom.href = value
+
     @property
     def source(self):
         return self._source

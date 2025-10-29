@@ -86,7 +86,7 @@ properties:
   name: true_html_structure
   type: boolean
 - default_value: []
-  important: true
+  important: false
   name: attributes
   type: text[]
 toolbox_item:

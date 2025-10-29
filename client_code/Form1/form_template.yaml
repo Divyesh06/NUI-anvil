@@ -4,6 +4,10 @@ components:
     name: image_1
     properties: {alt: '', display_mode: null, height: '200', source: 'https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/shiraishi_ryoko.png', width: '200'}
     type: form:Image
+  - layout_properties: {grid_position: 'FPBXIG,NHCVRS'}
+    name: link_2
+    properties: {href: 'https://google.com', text: Test}
+    type: form:Link
   layout_properties: {slot: default}
   name: content_panel
   properties: {}
