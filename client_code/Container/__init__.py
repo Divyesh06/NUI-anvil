@@ -1,8 +1,7 @@
 from ._anvil_designer import ContainerTemplate
 from .. import SuperComponent
 from anvil.designer import in_designer
-from anvil import alert
-from anvil.js import get_dom_node
+from ..utils import true_view
 
 class Container(ContainerTemplate):
     def __init__(self, **properties):
@@ -13,9 +12,18 @@ class Container(ContainerTemplate):
         
         self.init_components(**properties)
         self.dom.appendChild(self.dom_nodes['container-slot'])
-
+        
         if in_designer:
+            
             self.set_property("min-height", "40px")
+
+            @true_view.true_view
+            def true_view_toggle(state):
+                if state:
+                    self.css_properties.pop("min-height", None)
+                    self._update_stylesheet()
+                else:
+                    self.set_property("min-height", "40px")
 
         
         

@@ -3,7 +3,7 @@ from anvil.js import get_dom_node, window
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name
-from anvil import Media
+from anvil import Media, alert
 
 events_map = {
     "hover": "mouseenter",
@@ -135,7 +135,9 @@ class SuperComponent:
     @true_html_structure.setter
     def true_html_structure(self, value):
         self._true_html_structure = value
+        alert(value)
         if value:
+            alert("True")
             if not in_designer:
                 self.form.add_component = self.add_to_html_structure
 
