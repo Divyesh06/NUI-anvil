@@ -135,9 +135,9 @@ class SuperComponent:
     @true_html_structure.setter
     def true_html_structure(self, value):
         self._true_html_structure = value
-        alert(value)
+      
         if value:
-            alert("True")
+         
             if not in_designer:
                 self.form.add_component = self.add_to_html_structure
 
