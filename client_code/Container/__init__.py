@@ -1,11 +1,13 @@
 from ._anvil_designer import ContainerTemplate
 from .. import SuperComponent
 from anvil.designer import in_designer
+from anvil import alert
+from anvil.js import get_dom_node
 
 class Container(ContainerTemplate):
     def __init__(self, **properties):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
-
+        
         self.is_container = True
 
         
@@ -15,6 +17,7 @@ class Container(ContainerTemplate):
         if in_designer:
             self.set_property("min-height", "40px")
 
+        
         
 
     def __getattr__(self, name):
@@ -27,3 +30,4 @@ class Container(ContainerTemplate):
     def __setattr__(self, name, value):
         object.__setattr__(self, name, value)
         setattr(self.super_comp, name, value)
+

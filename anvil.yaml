@@ -1,6 +1,6 @@
 allow_embedding: false
 dependencies: []
-name: NUI Library
+name: NUI HTML Library
 native_deps: {head_html: ''}
 package_name: NUI
 runtime_options:
@@ -12,5 +12,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: Button, type: form}
+startup: {module: PresetsContainer, type: form}
 startup_form: null

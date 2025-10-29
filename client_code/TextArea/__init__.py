@@ -4,6 +4,7 @@ from .. import SuperComponent
 class TextArea(TextAreaTemplate):
     def __init__(self, **properties):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "focus", "lost_focus", "change"], **properties)
+        self.remove_from_parent = self.super_comp.remove_from_parent
         self.is_textarea = True
         self.init_components(**properties)
         self.add_event("input", self._set_text_on_input)

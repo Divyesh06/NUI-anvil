@@ -1,0 +1,39 @@
+components: []
+container:
+  properties:
+    html: |+
+      <div class='preset-container' style="display: none">
+          <span style='margin-right: 10px'>Presets</span>
+          <div anvil-slot-repeat='default' anvil-name='container-slot'></div>
+
+      </div>
+
+
+      <style>
+          .preset-container {
+              gap: 10px;
+              z-index: 99999999;
+              background: #1f1f1f;
+              position: fixed;
+              width: 100vw;
+              left: 0;
+              top: 0;
+              padding: 10px;
+              color: #ddd;
+              height: 70px;
+              display: flex;
+              align-items: center;
+              overflow-x: auto;
+          }
+
+          .preset-container button{
+              color: black;
+              white-space: nowrap;
+
+          }
+      </style>
+
+  type: HtmlTemplate
+custom_component: true
+custom_component_container: true
+is_package: true

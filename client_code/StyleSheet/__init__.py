@@ -1,34 +1,20 @@
-from ._anvil_designer import PresetTemplate
+from ._anvil_designer import StyleSheetTemplate
 from anvil.js import get_dom_node, window
 from anvil.js.window import document
 from ..css_parser import css_parser
-from anvil.designer import in_designer
+from anvil.designer import in_designer, get_design_name
 from ..Button import Button
 from ..Label import Label
-class Preset(PresetTemplate):
+
+class StyleSheet(StyleSheetTemplate):
     def __init__(self, **properties):
-        
-
         if in_designer:
-            self.preset_edit_button = Button(border_radius = 7)
+            self.preset_edit_button = Button(border_radius=7)
             self.add_component(self.preset_edit_button)
-            self.timer_1.interval = 0.2
-            
-        self.name = None
-        self.css = None
+           
         self.presets_stylesheet = document.createElement("style")
-
+        self.css = None
         self.init_components(**properties)
-
-            
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, value):
-        self._name = value
-        self.init_preset()
 
     @property
     def css(self):
@@ -39,17 +25,14 @@ class Preset(PresetTemplate):
         self._css = value
         self.init_preset()
 
-    
     def init_preset(self):
-        
-        if self.name is not None:
-            self.presets_stylesheet.textContent = css_parser(self.css, f".{self.name}")
+        self.presets_stylesheet.textContent = self.css
+            
 
         if in_designer:
-            self.preset_edit_button.text = self.name
+            self.preset_edit_button.text = get_design_name(self) or "StyleSheet"
 
     def form_show(self, **event_args):
-        
         self_dom = get_dom_node(self)
         if not in_designer:
             self_dom.style.display = "none"            
@@ -59,6 +42,10 @@ class Preset(PresetTemplate):
 
         if self.parent.__class__.__name__ != "PresetsContainer":
             self.add_component(Label(text = "Add to PresetsContainer for easier access"))
+
+
+        if in_designer:
+            self.preset_edit_button.text = get_design_name(self) or "StyleSheet"
 
     def form_hide(self, **event_args):
         self.presets_stylesheet.remove()

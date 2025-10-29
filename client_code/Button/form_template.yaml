@@ -61,11 +61,12 @@ properties:
 - {default_value: '', description: Sets the color of the border., group: Border, important: false, name: border_color, type: color}
 - {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, type: string}
 - {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}
-- default_value: left
+- default_value: null
   description: Aligns the text inside the component
   designer_hint: align-horizontal
   group: Content
   important: false
+  include_none_option: true
   name: text_align
   options: [left, center, right, justify]
   type: enum
@@ -105,6 +106,10 @@ properties:
 - {default_value: '', description: ' Defines CSS styles to apply when the button is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
 - {default_value: '', group: Appearance, important: false, name: height, type: string}
 - {default_value: '', group: Appearance, important: false, name: width, type: string}
+- default_value: []
+  important: true
+  name: attributes
+  type: text[]
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/button_dark.svg', light: 'asset:designer_icons/button_light.svg'}
