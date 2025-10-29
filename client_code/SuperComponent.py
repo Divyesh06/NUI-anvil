@@ -3,7 +3,7 @@ from anvil.js import get_dom_node, window
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name
-from anvil import alert
+from anvil import Media
 
 events_map = {
     "hover": "mouseenter",
@@ -26,7 +26,9 @@ class SuperComponent:
         self.is_textarea = False
         self._html_tag = None
         self._text = None
-        # self._other_css = None
+        self._source = None
+        self._alt = None
+        self._display_mode = None
         self._hover_css = None
         self._active_css = None
         self._focus_css = None
@@ -135,6 +137,48 @@ class SuperComponent:
             if not in_designer:
                 self.form.add_component = self.add_to_html_structure
 
+    @property
+    def alt(self):
+        return self._alt
+
+    @alt.setter
+    def alt(self, value):
+        self.dom.alt = value
+            
+    @property
+    def source(self):
+        return self._source
+
+    @source.setter
+    def source(self, value):
+        if isinstance(value, str):
+            self.dom.src = value
+        elif isinstance(value, Media):
+            self.dom.src = window.URL.createObjectURL(window.Blob([value.get_bytes()], {type: value.content_type}))
+        elif value:
+            raise ValueError("Unsupported type of source")
+
+    @property
+    def display_mode(self):
+        return self._display_mode
+
+    @display_mode.setter
+    def display_mode(self, value):
+        self.set_property("object-fit", value)
+
+    @property
+    def source(self):
+        return self._source
+
+    @source.setter
+    def source(self, value):
+        if isinstance(value, str):
+            self.dom.src = value
+        elif isinstance(value, Media):
+            self.dom.src = window.URL.createObjectURL(window.Blob([value.get_bytes()], {type: value.content_type}))
+        elif value:
+            raise ValueError("Unsupported type of source")
+        
     def remove_from_parent(self):
         parent = self.form.parent
         if getattr(parent, "true_html_structure", False):
