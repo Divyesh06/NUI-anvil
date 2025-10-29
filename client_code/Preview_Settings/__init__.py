@@ -12,8 +12,8 @@ class Preview_Settings(Preview_SettingsTemplate):
         self.visible = True
         self.inflate_stylesheet = window.document.createElement("style")
         self.inflate_stylesheet.textContent = """
-.inflate .nui-container  {
-    padding: 20px;
+.inflate .nui-container, .inflate .anvil-container:not(.html-templated-panel)  {
+    padding: 25px;
 }      
 """
         window.document.head.appendChild(self.inflate_stylesheet)
