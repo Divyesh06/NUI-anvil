@@ -10,7 +10,10 @@ class Preview_Settings(Preview_SettingsTemplate):
             return
 
         self.inflate_stylesheet = window.document.createElement("style")
-        self.inflate_stylesheet.type = "text/css"
+        self.inflate_stylesheet.textContent = """
+        
+"""
+        self.inflate_container.appendChild(self.inflate_stylesheet)
 
     @property
     def true_view(self):
