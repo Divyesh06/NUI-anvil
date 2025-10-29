@@ -11,9 +11,11 @@ class Preview_Settings(Preview_SettingsTemplate):
 
         self.inflate_stylesheet = window.document.createElement("style")
         self.inflate_stylesheet.textContent = """
-        
+.nui-container.inflate {
+    padding: 20px;
+}      
 """
-        self.inflate_container.appendChild(self.inflate_stylesheet)
+        
 
     @property
     def true_view(self):
@@ -28,10 +30,10 @@ class Preview_Settings(Preview_SettingsTemplate):
     def inflate_container(self):
         return self._inflate_contains
 
-    @true_view.setter
-    def true_view(self, value):
-        self._true_view = value
-        true_view.raise_all(value)
+    @inflate_container.setter
+    def inflate_container(self, value):
+        self._inflate_container = value
+        if se
 
     def form_show(self, **event_args):
         true_view.raise_all(self._true_view)
