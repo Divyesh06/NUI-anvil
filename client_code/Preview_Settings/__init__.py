@@ -9,6 +9,32 @@ class Preview_Settings(Preview_SettingsTemplate):
         if not in_designer:
             return
 
+        self.html = """
+<div class="nui-preview-icon">
+    <i class="fa fa-eye" ></i>
+</div>
+
+<style>
+.anvil-container:has(>.nui-preview-icon) {
+    z-index: 999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    font-size: 18px;
+    color: #555;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: solid #11abeb 2px;
+    border-radius: 50%;
+}
+    
+</style>        
+"""
+
         self.visible = True
         self.inflate_stylesheet = window.document.createElement("style")
         self.inflate_stylesheet.textContent = """
@@ -16,6 +42,7 @@ class Preview_Settings(Preview_SettingsTemplate):
     padding: 25px;
 }      
 """
+
         window.document.head.appendChild(self.inflate_stylesheet)
         self.init_components(**properties)
         self.set_event_handler("show", self.form_show)

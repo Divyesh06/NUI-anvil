@@ -107,8 +107,10 @@ class SuperComponent:
         def true_view_toggle(state):
             self.true_view = state
             self._toggle_ghost_label()
-           
-                
+            if self._true_html_structure:
+                self._add_component = self.add_to_html_structure
+                self.switch_to_html_structure()
+                    
         
 
     def _global_events_handler(self, e):
