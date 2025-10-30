@@ -31,6 +31,7 @@ class PresetsContainer(PresetsContainerTemplate):
     background: #1f1f1f;
     padding: 10px 65px 10px 10px;
     color: #ddd;
+    width: 100%;
     height: 75px;
     display: flex;
     align-items: center;

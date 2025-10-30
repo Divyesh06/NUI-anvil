@@ -232,8 +232,8 @@ class SuperComponent:
             self.form._add_component(child, **slot)
 
         else:
-           
-            self.form._add_component(child, **slot)
+            if not child.parent:
+                self.form._add_component(child, **slot)
 
             index = self.form.get_components().index(child)
 
@@ -247,6 +247,9 @@ class SuperComponent:
                         slot.remove()
 
                 self.dom.insertBefore(child_dom_nui, self.dom.children[index])
+
+                for style in child_dom.querySelectorAll('style'):
+                    child_dom_nui.appendChild(style)
         
 
     @property
