@@ -226,10 +226,10 @@ class SuperComponent:
             self._remove_component()
 
     def add_to_html_structure(self, child, **slot):
-        print("Calling add_to_html_structure")
+        
         if not hasattr(child, "is_nui"):
-
-            self.form._add_component(child, **slot)
+            if not child.parent:
+                self.form._add_component(child, **slot)
 
         else:
             if not child.parent:
