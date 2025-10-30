@@ -11,7 +11,7 @@ components:
     type: LinearPanel
   - layout_properties: {grid_position: 'BUAYVY,ORIRBN'}
     name: preview_settings_1
-    properties: {inflate_container: true, inflate_containers: true, true_view: false}
+    properties: {inflate_container: true, inflate_containers: false, true_view: false}
     type: form:Preview_Settings
   - components:
     - layout_properties: {slot: default}
@@ -41,7 +41,7 @@ components:
       type: form:Label
     - layout_properties: {slot: default}
       name: label_6
-      properties: {}
+      properties: {text: ''}
       type: form:Label
     layout_properties: {grid_position: 'AGQPEX,TUXFXZ'}
     name: container_2
@@ -50,13 +50,38 @@ components:
   - components:
     - layout_properties: {slot: default}
       name: link_1
-      properties: {}
+      properties: {text: dfdfdfdfdfd}
       type: form:Link
     layout_properties: {grid_position: 'SLJORP,TVRUHR'}
     name: container_3
     properties: {}
     type: form:Container
-  - layout_properties: {grid_position: 'KCAWNF,ERGWRE'}
+  - components:
+    - layout_properties: {slot: default}
+      name: preset_1
+      properties: {name: sadasdsadasdsadsdasdsadasd}
+      type: form:Preset
+    - layout_properties: {slot: default}
+      name: style_sheet_1
+      properties: {css: ''}
+      type: form:StyleSheet
+    - layout_properties: {slot: default}
+      name: preset_1_copy
+      properties: {name: sadasdsadasdsadsdasdsadasd}
+      type: form:Preset
+    - layout_properties: {slot: default}
+      name: preset_1_copy_copy
+      properties: {name: sadasdsadasdsadsdasdsadasd}
+      type: form:Preset
+    - layout_properties: {slot: default}
+      name: preset_1_copy_copy_2
+      properties: {name: sadasdsadasdsadsdasdsadasd}
+      type: form:Preset
+    - layout_properties: {slot: default}
+      name: preset_1_copy_copy_3
+      properties: {name: sadasdsadasdsadsdasdsadasd}
+      type: form:Preset
+    layout_properties: {grid_position: 'KCAWNF,ERGWRE'}
     name: presets_container_1
     properties: {}
     type: form:PresetsContainer

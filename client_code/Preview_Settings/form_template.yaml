@@ -8,5 +8,5 @@ container:
 custom_component: true
 is_package: true
 properties:
-- {default_binding_prop: true, default_value: false, description: Shows the exact view of the current form, important: true, name: true_view, type: boolean}
-- {default_value: false, important: true, name: inflate_containers, type: boolean}
+- {default_binding_prop: true, default_value: false, description: Tries to show the exact view of the current form (This may make some components unselectable), important: true, name: true_view, type: boolean}
+- {default_value: false, description: Adds padding around all containers to make it easy to select or drag stuff into them, important: true, name: inflate_containers, type: boolean}

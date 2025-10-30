@@ -12,18 +12,19 @@ container:
       <style>
           .preset-container {
               gap: 10px;
+              padding-right: 80px;
               z-index: 99999999;
               background: #1f1f1f;
               position: fixed;
               width: 100vw;
               left: 0;
               top: 0;
-              padding: 10px;
+              padding: 10px 65px 10px 10px;
               color: #ddd;
-              height: 70px;
+              height: 75px;
               display: flex;
               align-items: center;
-              overflow-x: auto;
+              overflow: auto hidden;
           }
 
           .preset-container button{

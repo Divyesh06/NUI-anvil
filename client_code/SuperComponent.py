@@ -4,7 +4,7 @@ from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name
 from anvil import Media, alert
-
+from .utils import true_view
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
@@ -79,6 +79,7 @@ class SuperComponent:
         self.icon_stylesheet = None
         self.stylesheet = None
         self.children_stylesheet = None
+        self.true_view = False
 
         if not dom:
             self._create_dom(self.last_tag)
@@ -101,7 +102,13 @@ class SuperComponent:
 
         self._add_component = form.add_component
         self._remove_component = form.remove_from_parent
-        
+
+        @true_view.true_view
+        def true_view_toggle(state):
+            self.true_view = state
+            self._toggle_ghost_label()
+           
+                
         
 
     def _global_events_handler(self, e):
@@ -705,17 +712,20 @@ class SuperComponent:
     def _toggle_ghost_label(self):
         if self.is_container:
             return
+
+            
         if self.is_textbox or self.is_textarea:
-            if not self.placeholder and not self.text:
+            if not self.placeholder and not self.text and not self.true_view:
                 self.dom.placeholder = self.designer_name
             else:
                 self.dom.placeholder = self.placeholder
         else:
-            if not self.text:
+            if not self.text and not self.true_view:
                 self.dom.innerText = self.designer_name
                 self.dom.style.color = "#aaa"
             else:
                 self.dom.style.color = ""
+                self.dom.innerText = self.text
 
     def _on_show_design(self, **event_args):
         self.designer_name = get_design_name(self.form)
