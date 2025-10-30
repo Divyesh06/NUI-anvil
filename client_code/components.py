@@ -5,3 +5,5 @@ from .TextArea import TextArea
 from .TextBox import TextBox
 from .StyleSheet import StyleSheet
 from .PresetsContainer import PresetsContainer
+from .Link import Link
+from .Image import Image

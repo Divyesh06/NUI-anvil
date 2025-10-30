@@ -7,7 +7,7 @@ components:
   - layout_properties: {grid_position: 'BUAYVY,ORIRBN'}
     name: preview_settings_1
     properties: {inflate_container: true, inflate_containers: true, true_view: false}
-    type: form:Preview_Settings
+    type: form:PreviewSettings
   - components:
     - layout_properties: {slot: default}
       name: image_1
