@@ -12,8 +12,7 @@ class Preset(PresetTemplate):
         if in_designer:
             self.preset_edit_button = Button(border_radius = 7)
             self.add_component(self.preset_edit_button)
-            self.timer_1.interval = 0.2
-            
+         
         self.name = None
         self.css = None
         self.presets_stylesheet = document.createElement("style")
