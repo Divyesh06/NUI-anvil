@@ -11,34 +11,98 @@ components:
     type: LinearPanel
   - layout_properties: {grid_position: 'BUAYVY,ORIRBN'}
     name: preview_settings_1
-    properties: {inflate_container: true, inflate_containers: false, true_view: false}
+    properties: {inflate_container: true, inflate_containers: false, true_view: true}
     type: form:Preview_Settings
   - components:
+    - layout_properties: {slot: default}
+      name: label_2
+      properties: {html_tag: span, text: World}
+      type: form:Label
     - layout_properties: {slot: default}
       name: label_1
       properties: {html_tag: span, text: Hello}
       type: form:Label
     - layout_properties: {slot: default}
-      name: label_2
-      properties: {html_tag: span, text: World}
+      name: label_5
+      properties: {text: He}
       type: form:Label
     - layout_properties: {slot: default}
       name: label_3
       properties: {text: sdsdsdsds}
       type: form:Label
     - layout_properties: {slot: default}
+      name: label_18
+      properties: {}
+      type: form:Label
+    - layout_properties: {slot: default}
       name: label_4
       properties: {text: sdsdsdsdsdsdsdsd}
+      type: form:Label
+    - layout_properties: {slot: default}
+      name: label_7
+      properties: {text: Anvil Label}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_16
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_20
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_21
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_8
+      properties: {text: sdsdsdsdsds}
+      type: form:Label
+    - layout_properties: {slot: default}
+      name: label_17
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_9
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_19
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_10
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_11
+      properties: {text: sdsdsd}
+      type: form:Label
+    - layout_properties: {slot: default}
+      name: label_12
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_13
+      properties: {}
+      type: Label
+    - layout_properties: {slot: default}
+      name: label_14
+      properties: {text: sadasdasdasd}
+      type: Label
+    - layout_properties: {slot: default}
+      name: link_2
+      properties: {href: google.com, text: sdsdsds}
+      type: form:Link
+    - layout_properties: {slot: default}
+      name: label_15
+      properties: {text: asdasdasd}
       type: form:Label
     layout_properties: {grid_position: 'TVGVHP,FBRVCA'}
     name: container_1
     properties: {background: '#ffd6d6', true_html_structure: true}
     type: form:Container
   - components:
-    - layout_properties: {slot: default}
-      name: label_5
-      properties: {text: He}
-      type: form:Label
     - layout_properties: {slot: default}
       name: label_6
       properties: {text: ''}

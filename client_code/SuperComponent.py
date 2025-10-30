@@ -24,6 +24,7 @@ class SuperComponent:
         self.is_container = is_container
         self.is_textbox = False
         self.is_textarea = False
+        self.is_nui = True
         self._html_tag = None
         self._text = None
         self._source = None
@@ -100,6 +101,10 @@ class SuperComponent:
         # for key,value in properties['attrs'].items():
         #     self.dom.setAttribute(key, value)
 
+        
+
+        
+
         self._add_component = form.add_component
         self._remove_component = form.remove_from_parent
 
@@ -108,10 +113,11 @@ class SuperComponent:
             self.true_view = state
             self._toggle_ghost_label()
             if self._true_html_structure:
-                self._add_component = self.add_to_html_structure
-                self.switch_to_html_structure()
-                    
-        
+                if state:
+                    pass
+                    # self.form.add_component = self.add_to_html_structure
+                    # print(self.form.add_component)
+             
 
     def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender=self.form, event=e)
@@ -146,14 +152,13 @@ class SuperComponent:
         self._true_html_structure = value
       
         if value:
-         
-            if not in_designer:
+            if not in_designer or self.true_view:
                 self.form.add_component = self.add_to_html_structure
 
     def switch_to_html_structure(self):
         self.form.add_component = self.add_to_html_structure
-        for component in self.form.get_components():
-            self.add_to_html_structure(component)
+        # for component in self.form.get_components():
+        #     self.add_to_html_structure(component)
     
     @property
     def alt(self):
@@ -222,28 +227,27 @@ class SuperComponent:
             self._remove_component()
 
     def add_to_html_structure(self, child, **slot):
-        
-        from .Preset import Preset
-        from .StyleSheet import StyleSheet
-        from .PresetsContainer import PresetsContainer
-        if isinstance(child, Preset) or isinstance(child, StyleSheet):
-            
-            self.dom.appendChild(child.presets_stylesheet)
-            
-        elif isinstance(child, PresetsContainer):
-            self.dom.appendChild(get_dom_node(child).querySelector(".preset-container"))
-            
+        print("calling add_to_html_structure")
+        if not hasattr(child, "is_nui"):
 
-        child_dom = get_dom_node(child)
-        child_dom_nui = child_dom.querySelector(".nui")
-        
-        child_dom.remove()
-        if child_dom_nui:
-            self.dom.appendChild(child_dom_nui)
-            for stylesheet in child_dom.querySelectorAll("style"):
-                child_dom_nui.appendChild(stylesheet)
-            for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                slot.remove()
+            self._add_component(child, **slot)
+
+        else:
+           
+            self._add_component(child, **slot)
+
+            index = self.form.get_components().index(child)
+
+            child_dom = get_dom_node(child)
+            child_dom_nui = child_dom.querySelector(".nui")
+            
+            if child_dom_nui:
+                
+                for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
+                    if slot.contains(child_dom_nui):
+                        slot.remove()
+
+                self.dom.insertBefore(child_dom_nui, self.dom.children[index])
         
 
     @property
@@ -687,7 +691,7 @@ class SuperComponent:
         self.dom.id = self.uid
         self.dom.classList.add("nui")
         if self.is_container and in_designer:
-            print('yes')
+           
             self.dom.classList.add("nui-container")
         get_dom_node(self.form).appendChild(self.dom)
 
