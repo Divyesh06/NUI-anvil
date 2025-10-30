@@ -54,7 +54,9 @@ class Preview_Settings(Preview_SettingsTemplate):
     @true_view.setter
     def true_view(self, value):
         self._true_view = value
+        window.true_view = value
         true_view.raise_all(value)
+        
         
     @property
     def inflate_containers(self):

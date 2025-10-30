@@ -103,20 +103,22 @@ class SuperComponent:
 
         
 
-        
-
-        self._add_component = form.add_component
-        self._remove_component = form.remove_from_parent
-
         @true_view.true_view
         def true_view_toggle(state):
             self.true_view = state
             self._toggle_ghost_label()
-            if self._true_html_structure:
-                if state:
-                    pass
-                    # self.form.add_component = self.add_to_html_structure
-                    # print(self.form.add_component)
+            print('Setting true_view to', state)
+
+
+        self._add_component = form.add_component
+        self._remove_component = form.remove_from_parent
+
+        
+            # if self._true_html_structure:
+            #     if state:
+            #         pass
+            #         # self.form.add_component = self.add_to_html_structure
+            #         # print(self.form.add_component)
              
 
     def _global_events_handler(self, e):
@@ -150,10 +152,7 @@ class SuperComponent:
     @true_html_structure.setter
     def true_html_structure(self, value):
         self._true_html_structure = value
-      
-        if value:
-            if not in_designer or self.true_view:
-                self.form.add_component = self.add_to_html_structure
+
 
     def switch_to_html_structure(self):
         self.form.add_component = self.add_to_html_structure
@@ -227,14 +226,14 @@ class SuperComponent:
             self._remove_component()
 
     def add_to_html_structure(self, child, **slot):
-        print("calling add_to_html_structure")
+        print("Calling add_to_html_structure")
         if not hasattr(child, "is_nui"):
 
-            self._add_component(child, **slot)
+            self.form._add_component(child, **slot)
 
         else:
            
-            self._add_component(child, **slot)
+            self.form._add_component(child, **slot)
 
             index = self.form.get_components().index(child)
 
