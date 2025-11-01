@@ -689,13 +689,14 @@ class SuperComponent:
         self.dom.addEventListener(event_name, event_raiser)
 
     def add_attribute(self, name, value = ""):
-        self._added_attrs.append(name)
+        if name not in self._added_attrs:
+            self._added_attrs.append(name)
         self.dom.setAttribute(name, value)
 
     def remove_attribute(self, name):
         if name in self._added_attrs:
             self._added_attrs.remove(name)
-            self.dom.removeAttribute(name)
+        self.dom.removeAttribute(name)
 
     def set_property(self, name, value):
         self.css_properties[name] = value
