@@ -11,7 +11,7 @@ events:
 - {name: hover_out}
 is_package: true
 properties:
-- default_value: []
+- default_value: [default-link]
   description: Apply a predefined style class to the component
   important: true
   name: preset
@@ -118,4 +118,4 @@ properties:
   type: enum
 toolbox_item:
   group: NUI Components
-  icon: {dark: 'asset:designer_icons/button_dark.svg', light: 'asset:designer_icons/button_light.svg'}
+  icon: {dark: 'asset:designer_icons/link_dark.svg', light: 'asset:designer_icons/link_light.svg'}

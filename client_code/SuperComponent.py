@@ -98,28 +98,16 @@ class SuperComponent:
             self.designer_name = "Loading"
             self.form.add_event_handler("show", self._on_show_design)
 
-        # for key,value in properties['attrs'].items():
-        #     self.dom.setAttribute(key, value)
-
-        
-
         @true_view.true_view
         def true_view_toggle(state):
             self.true_view = state
             self._toggle_ghost_label()
-            print('Setting true_view to', state)
+            
 
 
         self._add_component = form.add_component
         self._remove_component = form.remove_from_parent
 
-        
-            # if self._true_html_structure:
-            #     if state:
-            #         pass
-            #         # self.form.add_component = self.add_to_html_structure
-            #         # print(self.form.add_component)
-             
 
     def _global_events_handler(self, e):
         self.form.raise_event(reverse_events_map[e.type], sender=self.form, event=e)
@@ -152,12 +140,10 @@ class SuperComponent:
     @true_html_structure.setter
     def true_html_structure(self, value):
         self._true_html_structure = value
-
-
-    def switch_to_html_structure(self):
-        self.form.add_component = self.add_to_html_structure
-        # for component in self.form.get_components():
-        #     self.add_to_html_structure(component)
+        if value and (not in_designer or self.true_view):
+            self.form.add_component = self.add_to_html_structure
+        else:
+            self.form.add_component = self._add_component
     
     @property
     def alt(self):
@@ -228,18 +214,26 @@ class SuperComponent:
     def add_to_html_structure(self, child, **slot):
         
         if not hasattr(child, "is_nui"):
-            if not child.parent:
+            if in_designer:
+                if not child.parent:
+                    self.form._add_component(child, **slot)
+
+            else:
                 self.form._add_component(child, **slot)
 
         else:
-            if not child.parent:
-                self.form._add_component(child, **slot)
+            if in_designer:
+                if not child.parent:
+                    self.form._add_component(child, **slot)
 
+            else:
+                self.form._add_component(child, **slot)
+            
             index = self.form.get_components().index(child)
 
             child_dom = get_dom_node(child)
-            child_dom_nui = child_dom.querySelector(".nui")
-            
+            child_dom_nui = child.dom
+
             if child_dom_nui:
                 
                 for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):

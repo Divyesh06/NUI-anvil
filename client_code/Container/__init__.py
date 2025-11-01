@@ -7,8 +7,7 @@ from anvil.js import window,get_dom_node
 class Container(ContainerTemplate):
     def __init__(self, **properties):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], is_container = True,**properties)
-        self._add_component = self.add_component
-        self.add_component = self.add_component_patch
+
         self.init_components(**properties)
         self.dom.appendChild(self.dom_nodes['container-slot'])
         self.true_view = False
@@ -29,6 +28,7 @@ class Container(ContainerTemplate):
                     
                 else:
                     self.set_property("min-height", "40px")
+                    
             
                 
                 
@@ -43,13 +43,4 @@ class Container(ContainerTemplate):
     def __setattr__(self, name, value):
         object.__setattr__(self, name, value)
         setattr(self.super_comp, name, value)
-
-    def add_component_patch(self, component, **kwargs):
-        true_view = getattr(window, "true_view", False)
-        if self.true_html_structure and (not in_designer or true_view):
-
-            self.super_comp.add_to_html_structure(component)
-        else:
-            self._add_component(component, **kwargs)
-        
 

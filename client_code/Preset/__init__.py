@@ -5,11 +5,13 @@ from ..css_parser import css_parser
 from anvil.designer import in_designer
 from ..Button import Button
 from ..Label import Label
+
 class Preset(PresetTemplate):
     def __init__(self, **properties):
         
 
         if in_designer:
+            self.visible = True
             self.preset_edit_button = Button(border_radius = 7)
             self.add_component(self.preset_edit_button)
          

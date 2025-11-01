@@ -1,7 +1,7 @@
 components: []
 container:
   event_bindings: {hide: form_hide, show: form_show}
-  properties: {html: <div anvil-slot="default"></div>}
+  properties: {html: <div anvil-slot="default"></div>, visible: false}
   type: HtmlTemplate
 custom_component: true
 is_package: true

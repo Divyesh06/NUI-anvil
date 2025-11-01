@@ -12,7 +12,7 @@ events:
 - {name: click}
 is_package: true
 properties:
-- default_value: [default-label]
+- default_value: [default-image]
   description: Apply a predefined style class to the component
   important: true
   name: preset
@@ -86,4 +86,4 @@ properties:
   type: text[]
 toolbox_item:
   group: NUI Components
-  icon: {dark: 'asset:designer_icons/label_dark.svg', light: 'asset:designer_icons/label_light.svg'}
+  icon: {dark: 'asset:designer_icons/image_dark.svg', light: 'asset:designer_icons/image_light.svg'}
