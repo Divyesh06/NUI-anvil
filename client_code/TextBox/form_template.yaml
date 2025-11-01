@@ -75,8 +75,7 @@ properties:
   options: [left, center, right, justify]
   type: enum
 - {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}
-- default_value: ''
-  description: |-
+- description: |-
     Sets the outer spacing around the component
     Ex. For consistent margin on all sides - 20
     Ex. For different margin for different sides - 20 30px 20 10
@@ -84,7 +83,7 @@ properties:
   important: true
   name: margin
   priority: 95
-  type: string
+  type: margin
 - default_value: ''
   description: |-
     Sets the inner spacing between content and border

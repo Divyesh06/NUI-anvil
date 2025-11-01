@@ -73,7 +73,7 @@ properties:
     Ex. For consistent margin on all sides - 20
     Ex. For different margin for different sides - 20 30px 20 10
   group: Layout
-  important: true
+  important: false
   name: margin
   priority: 95
   type: string
@@ -83,7 +83,7 @@ properties:
     Ex. For consistent padding on all sides - 20
     Ex. For different padding for different sides - 20 30px 20 10
   group: Layout
-  important: true
+  important: false
   name: padding
   type: string
 - {default_value: '', group: Content, important: true, name: placeholder, type: string}
@@ -97,6 +97,7 @@ properties:
   important: false
   name: attributes
   type: text[]
+- {group: Layout, important: true, name: spacing, type: spacing}
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/textarea_dark.svg', light: 'asset:designer_icons/textarea_light.svg'}

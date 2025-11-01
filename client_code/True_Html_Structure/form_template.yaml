@@ -1,10 +1,6 @@
 components:
 - components:
-  - components:
-    - layout_properties: {slot: default}
-      name: preset_1
-      properties: {css: b, name: Hello}
-      type: form:Preset
+  - components: []
     layout_properties: {grid_position: 'FSUUWW,BZEOKK'}
     name: presets_container_1
     properties: {}
@@ -25,7 +21,16 @@ components:
     - event_bindings: {show: label_1_show}
       layout_properties: {slot: default}
       name: label_1
-      properties: {css: 'color: red', html_tag: span, text: Hello}
+      properties:
+        css: 'color: red'
+        html_tag: div
+        margin: 0 0 10 0
+        padding: 0 0 0 0
+        preset: [Hello]
+        spacing:
+          margin: ['', '0', '10', '0']
+          padding: ['0', '', '', '0']
+        text: Hello
       type: form:Label
     - layout_properties: {slot: default}
       name: label_2
@@ -35,6 +40,11 @@ components:
     name: container_2
     properties: {true_html_structure: true}
     type: form:Container
+  - layout_properties: {grid_position: 'DSUVCP,QFVHKR'}
+    name: text_box_1
+    properties:
+      margin: ['30', null, null, null]
+    type: form:TextBox
   - event_bindings: {click: button_1_click}
     layout_properties: {grid_position: 'NTAMWW,RVTCLU'}
     name: button_1
@@ -50,6 +60,7 @@ components:
   properties: {}
   type: ColumnPanel
 container:
+  event_bindings: {show: form_show}
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
 is_package: true

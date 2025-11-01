@@ -77,7 +77,7 @@ properties:
     Ex. For consistent margin on all sides - 20
     Ex. For different margin for different sides - 20 30px 20 10
   group: Layout
-  important: true
+  important: false
   name: margin
   priority: 95
   type: string
@@ -87,7 +87,7 @@ properties:
     Ex. For consistent padding on all sides - 20
     Ex. For different padding for different sides - 20 30px 20 10
   group: Layout
-  important: true
+  important: false
   name: padding
   type: string
 - {default_value: '', description: 'The icon used for this. Supports Font Awesome, Bootstrap Icons, Material Icons, Feather Icons, Lucide or any image url', group: Icon, important: true, name: icon, priority: 96, type: icon}
@@ -116,6 +116,12 @@ properties:
   name: target
   options: [_blank, _self, _parent, _top]
   type: enum
+- default_value:
+    margin: [null, null, null, null]
+  group: Layout
+  important: true
+  name: spacing
+  type: spacing
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/link_dark.svg', light: 'asset:designer_icons/link_light.svg'}

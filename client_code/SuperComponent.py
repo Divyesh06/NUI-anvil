@@ -2,7 +2,7 @@ from anvil.js.window import document
 from anvil.js import get_dom_node, window
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
-from anvil.designer import in_designer, get_design_name
+from anvil.designer import in_designer, get_design_name, update_component_properties
 from anvil import Media, alert
 from .utils import true_view
 events_map = {
@@ -381,7 +381,12 @@ class SuperComponent:
         self._margin = value
         if not value:
             return
-        value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
+
+        if isinstance(value, list):
+            value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
+            
+        else:
+            value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
         self.set_property("margin", value)
 
     @property
@@ -397,6 +402,40 @@ class SuperComponent:
         value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
         self.set_property("padding", value)
 
+
+    @property
+    def spacing(self):
+        return self._spacing
+
+    @spacing.setter
+    def spacing(self, value):
+        self._spacing = value
+        if not value:
+            return
+        if "padding" in value:
+           
+            if isinstance(value['padding'], list):
+                self.padding = " ".join([str(i if i else 0) for i in value['padding']])
+               
+            else:
+                self.padding = px_convert.convert_to_px(value['padding'])
+            if in_designer:
+                try:
+                    update_component_properties(self.form, {"padding": self.padding})
+                except:pass #Happens when form is not in view
+               
+            
+        if "margin" in value:
+
+            if isinstance(value['margin'], list):
+                self.margin = " ".join([str(i if i else 0) for i in value['margin']])
+            else:
+                self.margin = px_convert.convert_to_px(value['margin'])
+            if in_designer:
+                try:
+                    update_component_properties(self.form, {"margin": self.margin})
+                except:pass #Happens when form is not in view
+                    
     @property
     def border_size(self):
         return self._border_size
