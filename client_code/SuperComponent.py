@@ -379,6 +379,8 @@ class SuperComponent:
     @margin.setter
     def margin(self, value):
         self._margin = value
+        if not value:
+            return
         value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
         self.set_property("margin", value)
 
@@ -389,6 +391,9 @@ class SuperComponent:
     @padding.setter
     def padding(self, value):
         self._padding = value
+        if not value:
+            return
+            
         value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
         self.set_property("padding", value)
 

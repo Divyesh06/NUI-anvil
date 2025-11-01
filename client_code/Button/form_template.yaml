@@ -110,6 +110,7 @@ properties:
   important: false
   name: attributes
   type: text[]
+slots: {}
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/button_dark.svg', light: 'asset:designer_icons/button_light.svg'}
