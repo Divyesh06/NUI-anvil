@@ -54,25 +54,23 @@ properties:
 - {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, priority: 1, type: string}
 - {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}
 - {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}
-- default_value: ''
-  description: |-
+- description: |-
     Sets the outer spacing around the component
     Ex. For consistent margin on all sides - 20
     Ex. For different margin for different sides - 20 30px 20 10
   group: Layout
-  important: false
+  important: true
   name: margin
   priority: 95
-  type: string
-- default_value: ''
-  description: |-
+  type: margin
+- description: |-
     Sets the inner spacing between content and border
     Ex. For consistent padding on all sides - 20
     Ex. For different padding for different sides - 20 30px 20 10
   group: Layout
-  important: false
+  important: true
   name: padding
-  type: string
+  type: padding
 - {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}
 - {default_value: '', description: ' Defines CSS styles to apply when the container is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
 - {default_value: '', description: CSS properties to apply to children of this container, group: CSS, important: true, multiline: true, name: children_css, type: string}
@@ -89,7 +87,6 @@ properties:
   important: false
   name: attributes
   type: text[]
-- {group: Layout, important: true, name: spacing, type: spacing}
 toolbox_item:
   group: NUI Components
   icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}

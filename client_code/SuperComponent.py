@@ -398,32 +398,14 @@ class SuperComponent:
         self._padding = value
         if not value:
             return
+
+        if isinstance(value, list):
+            value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
             
-        value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
+        else:
+            value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
         self.set_property("padding", value)
 
-
-    @property
-    def spacing(self):
-        return self._spacing
-
-    @spacing.setter
-    def spacing(self, value):
-        self._spacing = value
-        if not value:
-            return
-        if "padding" in value:
-           
-            if isinstance(value['padding'], list):
-                self.padding = " ".join([str(i if i else 0) for i in value['padding']])
-               
-            else:
-                self.padding = px_convert.convert_to_px(value['padding'])
-            if in_designer:
-                try:
-                    update_component_properties(self.form, {"padding": self.padding})
-                except:pass #Happens when form is not in view
-               
             
         if "margin" in value:
 
@@ -705,6 +687,15 @@ class SuperComponent:
             event_callback(sender=self.form, event=e)
 
         self.dom.addEventListener(event_name, event_raiser)
+
+    def add_attribute(self, name, value = ""):
+        self._added_attrs.append(name)
+        self.dom.setAttribute(name, value)
+
+    def remove_attribute(self, name):
+        if name in self._added_attrs:
+            self._added_attrs.remove(name)
+            self.dom.removeAttribute(name)
 
     def set_property(self, name, value):
         self.css_properties[name] = value

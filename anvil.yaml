@@ -13,5 +13,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: True_Html_Structure, type: form}
+startup: {module: PresetsContainer, type: form}
 startup_form: null
