@@ -74,7 +74,7 @@ class SuperComponent:
         self.dom = None
         self.text_dom = None
         self.block_stylesheet = True
-
+        self.stylesheets = []
         # Initialize stylesheets as None - they'll be created only when needed
         self.other_stylesheet = None
         self.icon_stylesheet = None
@@ -208,6 +208,8 @@ class SuperComponent:
         if getattr(parent, "true_html_structure", False):
             self._remove_component()
             self.dom.remove()
+            for stylesheet in self.stylesheets:
+                stylesheet.remove()
         else:
             self._remove_component()
 
@@ -242,8 +244,8 @@ class SuperComponent:
 
                 self.dom.insertBefore(child_dom_nui, self.dom.children[index])
 
-                for style in child_dom.querySelectorAll('style'):
-                    self.dom.appendChild(style)
+                for stylesheet in child.stylesheets:
+                    self.dom.appendChild(stylesheet)
         
 
     @property
@@ -292,7 +294,7 @@ class SuperComponent:
             return
         if in_designer:
             self._toggle_ghost_label()
-        self.dom.innerText = self._text
+        self.dom.textContent = self._text
         # else:
         #     self.dom.innerHTML = self._text
         if in_designer:
@@ -604,7 +606,12 @@ class SuperComponent:
             if not self.children_stylesheet:
                 self.children_stylesheet = document.createElement("style")
                 get_dom_node(self.form).appendChild(self.children_stylesheet)
-            self.children_stylesheet.textContent = css_parser(value, f'#{self.uid} [anvil-name="container-slot"]')
+                self.stylesheets.append(self.children_stylesheet)
+
+            if not self.true_html_structure:
+                self.children_stylesheet.textContent = css_parser(value, f'#{self.uid}>[anvil-name="container-slot"]')
+            else:
+                self.children_stylesheet.textContent = css_parser(value, f'#{self.uid}>*')
         elif self.children_stylesheet:
             self.children_stylesheet.textContent = ""
             # Optionally remove the stylesheet entirely if you want to clean up:
@@ -622,6 +629,7 @@ class SuperComponent:
             if not self.icon_stylesheet:
                 self.icon_stylesheet = document.createElement("style")
                 get_dom_node(self.form).appendChild(self.icon_stylesheet)
+                self.stylesheets.append(self.icon_stylesheet)
             self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
         elif self.icon_stylesheet:
             self.icon_stylesheet.textContent = ""
@@ -739,6 +747,7 @@ class SuperComponent:
             if not self.stylesheet:
                 self.stylesheet = document.createElement("style")
                 get_dom_node(self.form).appendChild(self.stylesheet)
+                self.stylesheets.append(self.stylesheet)
             parsed_css = css_parser(css_rules, f"#{self.uid}")
             self.stylesheet.textContent = parsed_css
         elif self.stylesheet:
@@ -760,11 +769,11 @@ class SuperComponent:
                 self.dom.placeholder = self.placeholder
         else:
             if not self.text and not self.true_view:
-                self.dom.innerText = self.designer_name
+                self.dom.textContent = self.designer_name
                 self.dom.style.color = "#aaa"
             else:
                 self.dom.style.color = ""
-                self.dom.innerText = self.text
+                self.dom.textContent = self.text
 
     def _on_show_design(self, **event_args):
         self.designer_name = get_design_name(self.form)
@@ -784,6 +793,7 @@ class SuperComponent:
             if not self.other_stylesheet:
                 self.other_stylesheet = document.createElement("style")
                 get_dom_node(self.form).appendChild(self.other_stylesheet)
+                self.stylesheets.append(self.other_stylesheet)
             parsed_css = css_parser(other_css, f"#{self.uid}")
             self.other_stylesheet.textContent = parsed_css
         elif self.other_stylesheet:
