@@ -144,6 +144,8 @@ class SuperComponent:
             self.form.add_component = self.add_to_html_structure
         else:
             self.form.add_component = self._add_component
+
+        self.children_css = self._children_css
     
     @property
     def alt(self):
@@ -611,6 +613,7 @@ class SuperComponent:
             if not self.true_html_structure:
                 self.children_stylesheet.textContent = css_parser(value, f'#{self.uid}>[anvil-name="container-slot"]')
             else:
+                
                 self.children_stylesheet.textContent = css_parser(value, f'#{self.uid}>*')
         elif self.children_stylesheet:
             self.children_stylesheet.textContent = ""
