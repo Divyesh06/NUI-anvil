@@ -23,6 +23,7 @@ class Container(ContainerTemplate):
                     self._update_stylesheet()
 
                     if self.true_html_structure:
+                        print("enabling add_to_html_structure")
                         for component in self.get_components():
                             self.add_to_html_structure(component)
                     

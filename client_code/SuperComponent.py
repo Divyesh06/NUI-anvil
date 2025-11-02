@@ -142,6 +142,7 @@ class SuperComponent:
         self._true_html_structure = value
         if value and (not in_designer or self.true_view):
             self.form.add_component = self.add_to_html_structure
+            print("enabling add_to_html_structure")
         else:
             self.form.add_component = self._add_component
     
@@ -214,7 +215,7 @@ class SuperComponent:
             self._remove_component()
 
     def add_to_html_structure(self, child, **slot):
-        
+        8/0
         if not hasattr(child, "is_nui"):
             if in_designer:
                 if not child.parent:
