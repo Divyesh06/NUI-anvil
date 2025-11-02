@@ -243,7 +243,7 @@ class SuperComponent:
                 self.dom.insertBefore(child_dom_nui, self.dom.children[index])
 
                 for style in child_dom.querySelectorAll('style'):
-                    child_dom_nui.appendChild(style)
+                    self.dom.appendChild(style)
         
 
     @property
@@ -640,6 +640,7 @@ class SuperComponent:
             self.dom.removeAttribute(attr)
       
         for attr in self._attributes:
+            print(attr)
             attr_key, attr_value = attr.split(":", 1)
             attr_key = attr_key.strip()
             attr_value = attr_value.strip()
