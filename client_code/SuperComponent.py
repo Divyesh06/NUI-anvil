@@ -296,9 +296,11 @@ class SuperComponent:
             return
         if in_designer:
             self._toggle_ghost_label()
-        self.dom.textContent = self._text
-        # else:
-        #     self.dom.innerHTML = self._text
+
+        if self.text_type!="html":
+            self.dom.textContent = self._text
+        else:
+            self.dom.innerHTML = self._text
         if in_designer:
             self._toggle_ghost_label()
         self._update_icon()
