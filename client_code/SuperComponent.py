@@ -260,6 +260,7 @@ class SuperComponent:
         if not self.is_textbox:
             self._set_text()
         else:
+            
             self.dom.value = value
 
     @property
@@ -297,7 +298,9 @@ class SuperComponent:
         if in_designer:
             self._toggle_ghost_label()
 
+       
         if self.text_type!="html":
+            
             self.dom.textContent = self._text
         else:
             self.dom.innerHTML = self._text
@@ -778,7 +781,11 @@ class SuperComponent:
                 self.dom.style.color = "#aaa"
             else:
                 self.dom.style.color = ""
-                self.dom.textContent = self.text
+                if self.text_type!="html":
+                    self.dom.textContent = self.text
+                else:
+                    self.dom.innerHTML = self.text
+          
 
     def _on_show_design(self, **event_args):
         self.designer_name = get_design_name(self.form)
