@@ -572,8 +572,14 @@ class SuperComponent:
 
     @icon.setter
     def icon(self, value):
+        
         self._icon = value
+
+        if in_designer:
+            self._toggle_ghost_label()
+            
         self._update_icon()
+        
 
     @property
     def custom_icon(self):
@@ -776,7 +782,7 @@ class SuperComponent:
             else:
                 self.dom.placeholder = self.placeholder
         else:
-            if not self.text and not self.true_view:
+            if not self.text and not self.true_view and (not self.is_textbox and not self.is_textarea and not self.icon):
                 self.dom.textContent = self.designer_name
                 self.dom.style.color = "#aaa"
             else:
