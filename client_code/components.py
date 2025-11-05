@@ -1,9 +1,9 @@
-from .Label import Label
-from .Button import Button
-from .Container import Container
-from .TextArea import TextArea
-from .TextBox import TextBox
-from .StyleSheet import StyleSheet
-from .PresetsContainer import PresetsContainer
-from .Link import Link
-from .Image import Image
+from.Label import Label
+from.Button import Button
+from.Container import Container
+from.TextArea import TextArea
+from.TextBox import TextBox
+from.StyleSheet import StyleSheet
+from.PresetsContainer import PresetsContainer
+from.Link import Link
+from.Image import Image

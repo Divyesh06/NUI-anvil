@@ -1,10 +1,1 @@
-components: []
-container:
-  properties: {html: '', visible: false}
-  type: HtmlTemplate
-custom_component: true
-custom_component_container: true
-is_package: true
-toolbox_item:
-  group: NUI Components (Designer Only)
-  icon: {dark: 'asset:designer_icons/presetcontainer_dark.svg', light: 'asset:designer_icons/presetcontainer_light.svg'}
+{components: [], container: {properties: {html: '', visible: false}, type: HtmlTemplate}, custom_component: true, custom_component_container: true, is_package: true, toolbox_item: {group: NUI Components (Designer Only), icon: {dark: 'asset:designer_icons/presetcontainer_dark.svg', light: 'asset:designer_icons/presetcontainer_light.svg'}}}

@@ -1,17 +1,1 @@
-allow_embedding: false
-dependencies: []
-name: NUI HTML Library
-native_deps: {head_html: ''}
-package_name: NUI
-runtime_options:
-  client_version: '3'
-  legacy_features: {__dict__: true, bootstrap3: true, class_names: true, root_container: true}
-  server_spec: {base: python310-minimal}
-  server_version: python3-sandbox
-  version: 3
-services:
-- client_config: {}
-  server_config: {}
-  source: /runtime/services/tables.yml
-startup: {module: PresetsContainer, type: form}
-startup_form: null
+{allow_embedding: false, dependencies: [], name: NUI HTML Library, native_deps: {head_html: ''}, package_name: NUI, runtime_options: {client_version: '3', legacy_features: {__dict__: true, bootstrap3: true, class_names: true, root_container: true}, server_spec: {base: python310-minimal}, server_version: python3-sandbox, version: 3}, services: [{client_config: {}, server_config: {}, source: /runtime/services/tables.yml}], startup: {module: PresetsContainer, type: form}, startup_form: null}

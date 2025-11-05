@@ -1,13 +1,1 @@
-components: []
-container:
-  event_bindings: {}
-  properties: {html: '', visible: false}
-  type: HtmlTemplate
-custom_component: true
-is_package: true
-properties:
-- {default_binding_prop: true, default_value: false, description: Tries to show the exact view of the current form (This may make some components unselectable), important: true, name: true_view, type: boolean}
-- {default_value: false, description: Adds padding around all containers to make it easy to select or drag stuff into them, important: true, name: inflate_containers, type: boolean}
-toolbox_item:
-  group: NUI Components (Designer Only)
-  icon: {dark: 'asset:designer_icons/previewsettings_dark.svg', light: 'asset:designer_icons/previewsettings_light.svg'}
+{components: [], container: {event_bindings: {}, properties: {html: '', visible: false}, type: HtmlTemplate}, custom_component: true, is_package: true, properties: [{default_binding_prop: true, default_value: false, description: Tries to show the exact view of the current form (This may make some components unselectable), important: true, name: true_view, type: boolean}, {default_value: false, description: Adds padding around all containers to make it easy to select or drag stuff into them, important: true, name: inflate_containers, type: boolean}], toolbox_item: {group: NUI Components (Designer Only), icon: {dark: 'asset:designer_icons/previewsettings_dark.svg', light: 'asset:designer_icons/previewsettings_light.svg'}}}
