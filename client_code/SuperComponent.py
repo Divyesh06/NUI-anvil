@@ -324,7 +324,7 @@ class SuperComponent:
 		if B not in A.preset:A.preset=A.preset+[B]
 	def remove_preset(A,value):
 		B=value
-		if B in A.preset:A.preset=[A for A in A.preset if A!=B]
+		if B in A.preset:A.preset=[i for i in A.preset if i!=B]
 	def toggle_preset(A,value):
 		B=value
 		if B in A.preset:A.remove_preset(B)
