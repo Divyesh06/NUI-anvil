@@ -1,0 +1,24 @@
+components:
+- components:
+  - components:
+    - components:
+      - layout_properties: {slot: default}
+        name: label_1
+        properties: {text: Hello}
+        type: form:Label
+      layout_properties: {slot: default}
+      name: container_2
+      properties: {}
+      type: form:Container
+    layout_properties: {grid_position: 'UDDGJA,YVMCRG'}
+    name: container_1
+    properties: {}
+    type: form:Container
+  layout_properties: {slot: default}
+  name: content_panel
+  properties: {}
+  type: ColumnPanel
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true
