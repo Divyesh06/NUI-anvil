@@ -244,8 +244,11 @@ class SuperComponent:
                     if slot.contains(child_dom_nui):
                         slot.remove()
 
-                self.dom.insertBefore(child_dom_nui, self.dom.children[index])
-
+                
+                try:
+                    self.dom.insertBefore(child_dom_nui, self.dom.children[index])
+                except LookupError:
+                    self.dom.appendChild(child_dom_nui)
                 for stylesheet in child.stylesheets:
                     self.dom.appendChild(stylesheet)
         
