@@ -309,6 +309,7 @@ class SuperComponent:
             self.dom.innerHTML = self._text
         if in_designer:
             self._toggle_ghost_label()
+
         self._update_icon()
 
     @property
@@ -681,6 +682,7 @@ class SuperComponent:
             icon_el.innerHTML = self.custom_icon
             self.dom.appendChild(icon_el)
         elif self.icon and ":" in self.icon:
+          
             lib, name = self.icon.split(":", 1)
             icon_el = document.createElement("i")
             if lib == 'bi':
