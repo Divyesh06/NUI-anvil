@@ -240,8 +240,8 @@ class SuperComponent:
             if child_dom_nui:
                 
                 for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                    slot.remove()
-
+                    if slot.contains(child_dom_nui):
+                        slot.remove()
                 
                 try:
                     self.dom.insertBefore(child_dom_nui, self.dom.children[index])
@@ -249,7 +249,7 @@ class SuperComponent:
                     self.dom.appendChild(child_dom_nui)
                 for stylesheet in child.stylesheets:
                     self.dom.appendChild(stylesheet)
-        
+
 
     @property
     def text(self):
