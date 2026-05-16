@@ -235,14 +235,12 @@ class SuperComponent:
             
             index = self.form.get_components().index(child)
 
-            child_dom = get_dom_node(child)
             child_dom_nui = child.dom
 
             if child_dom_nui:
                 
                 for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                    if slot.contains(child_dom_nui):
-                        slot.remove()
+                    slot.remove()
 
                 
                 try:
