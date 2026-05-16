@@ -3,7 +3,7 @@ from anvil.js import get_dom_node, window
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name, update_component_properties
-from anvil import Media, alert
+from anvil import Media
 from .utils import true_view
 events_map = {
     "hover": "mouseenter",
