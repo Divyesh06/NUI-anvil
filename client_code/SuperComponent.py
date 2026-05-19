@@ -392,13 +392,20 @@ class SuperComponent:
         self._margin = value
         if not value:
             styles = window.getComputedStyle(self.dom)
-            update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
+            try:
+                update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
+            except: pass
+           
 
         if isinstance(value, list):
             value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
             
         else:
             value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
+
+        try:
+            update_component_properties(self.form, {"margin": value})
+        except: pass
         self.set_property("margin", value)
 
     @property
