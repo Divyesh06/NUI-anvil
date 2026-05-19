@@ -393,10 +393,8 @@ class SuperComponent:
         if not value:
             styles = window.getComputedStyle(self.dom)
             try:
-              
-                g = {"margin": [styles.marginTop or 0, styles.marginRight or 0, styles.marginBottom or 0, styles.marginLeft or 0]}
-                print(g)
-                update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
+
+                update_component_properties(self.form, {"margin": "20px"})
             except: pass
 
             return

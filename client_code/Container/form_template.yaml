@@ -1,8 +1,4 @@
-components:
-- layout_properties: {slot: default}
-  name: container_1
-  properties: {}
-  type: form:Container
+components: []
 container:
   properties:
     html: |+
