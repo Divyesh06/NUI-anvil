@@ -393,6 +393,9 @@ class SuperComponent:
         if not value:
             styles = window.getComputedStyle(self.dom)
             try:
+              
+                g = {"margin": [styles.marginTop or 0, styles.marginRight or 0, styles.marginBottom or 0, styles.marginLeft or 0]}
+                print(g)
                 update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
             except: pass
 
@@ -419,8 +422,10 @@ class SuperComponent:
         self._padding = value
         if not value:
             styles = window.getComputedStyle(self.dom)
-            update_component_properties(self.form, {"padding": [styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft]})
-
+            try:
+                update_component_properties(self.form, {"padding": [styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft]})
+            except: pass
+            return
         if isinstance(value, list):
             value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
             
