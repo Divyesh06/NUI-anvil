@@ -408,7 +408,8 @@ class SuperComponent:
     def padding(self, value):
         self._padding = value
         if not value:
-            return
+            styles = window.getComputedStyle(self.dom)
+            return update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
 
         if isinstance(value, list):
             value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
