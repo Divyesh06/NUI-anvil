@@ -8,6 +8,10 @@ components:
     name: container_1
     properties: {}
     type: form:Container
+  - layout_properties: {grid_position: 'GYORIH,UECEVC'}
+    name: label_1
+    properties: {}
+    type: form:Label
   layout_properties: {slot: default}
   name: content_panel
   properties: {}

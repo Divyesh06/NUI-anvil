@@ -5,6 +5,18 @@ from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name, update_component_properties
 from anvil import Media
 from .utils import true_view
+from anvil.property_utils import (
+get_margin_styles,
+get_padding_styles,
+get_spacing_styles,
+get_unset_margin,
+get_unset_padding,
+get_unset_spacing,
+get_unset_value,
+set_element_margin,
+set_element_padding,
+set_element_spacing,
+)
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
@@ -391,6 +403,8 @@ class SuperComponent:
     def margin(self, value):
         self._margin = value
         if not value:
+            print(get_unset_margin(self.dom))
+            set_element_margin(self.dom, ["0px", "0px", "0px", "0px"])
             styles = window.getComputedStyle(self.dom)
             try:
 
