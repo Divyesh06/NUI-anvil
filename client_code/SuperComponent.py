@@ -219,6 +219,7 @@ class SuperComponent:
     def add_to_html_structure(self, child, **slot):
         
         if not hasattr(child, "is_nui"):
+
             if in_designer:
                 if not child.parent:
                     self.form._add_component(child, **slot)
@@ -241,7 +242,7 @@ class SuperComponent:
             if child_dom_nui:
                 
                 for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                    if slot.contains(child_dom_nui) or not slot.children:
+                    if slot.contains(child_dom_nui):
                         slot.remove()
                 
                 try:

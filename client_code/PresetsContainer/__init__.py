@@ -7,6 +7,7 @@ from ..utils import true_view
 class PresetsContainer(PresetsContainerTemplate):
     def __init__(self, **properties):
         self.init_components(**properties)
+        self.is_presets_container = True
         if not in_designer:
             return
         self.html = """
