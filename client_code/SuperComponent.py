@@ -1,22 +1,11 @@
 from anvil.js.window import document
-from anvil.js import get_dom_node, window
+from anvil.js import get_dom_node, window, ExternalError
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name, update_component_properties
 from anvil import Media
 from .utils import true_view
-from anvil.property_utils import (
-get_margin_styles,
-get_padding_styles,
-get_spacing_styles,
-get_unset_margin,
-get_unset_padding,
-get_unset_spacing,
-get_unset_value,
-set_element_margin,
-set_element_padding,
-set_element_spacing,
-)
+
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
@@ -402,18 +391,10 @@ class SuperComponent:
     @margin.setter
     def margin(self, value):
         self._margin = value
-        if not value:
-            print(get_unset_margin(self.dom))
-            set_element_margin(self.dom, ["0px", "0px", "0px", "0px"])
-            styles = window.getComputedStyle(self.dom)
-            try:
-
-                update_component_properties(self.form, {"margin": "20px"})
-            except: pass
-
+        if not value:     
             return
+          
            
-
         if isinstance(value, list):
             value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
             
@@ -422,7 +403,9 @@ class SuperComponent:
 
         try:
             update_component_properties(self.form, {"margin": value})
-        except: pass
+        except ExternalError:
+            pass
+        
         self.set_property("margin", value)
 
     @property
@@ -432,30 +415,21 @@ class SuperComponent:
     @padding.setter
     def padding(self, value):
         self._padding = value
-        if not value:
-            styles = window.getComputedStyle(self.dom)
-            try:
-                update_component_properties(self.form, {"padding": [styles.paddingTop, styles.paddingRight, styles.paddingBottom, styles.paddingLeft]})
-            except: pass
+        if not value:     
             return
+
         if isinstance(value, list):
             value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
-            
+
         else:
             value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
+
+        try:
+            update_component_properties(self.form, {"padding": value})
+        except ExternalError:
+            pass
+
         self.set_property("padding", value)
-
-            
-        if "margin" in value:
-
-            if isinstance(value['margin'], list):
-                self.margin = " ".join([str(i if i else 0) for i in value['margin']])
-            else:
-                self.margin = px_convert.convert_to_px(value['margin'])
-            if in_designer:
-                try:
-                    update_component_properties(self.form, {"margin": self.margin})
-                except:pass #Happens when form is not in view
                     
     @property
     def border_size(self):

@@ -1,18 +1,5 @@
 components:
-- components:
-  - layout_properties: {grid_position: 'BAYXZS,UQOQSG'}
-    name: container_2
-    properties: {}
-    type: form:Container
-  - layout_properties: {grid_position: 'YFTNSG,EGWDYS'}
-    name: container_1
-    properties: {}
-    type: form:Container
-  - layout_properties: {grid_position: 'GYORIH,UECEVC'}
-    name: label_1
-    properties: {}
-    type: form:Label
-  layout_properties: {slot: default}
+- layout_properties: {slot: default}
   name: content_panel
   properties: {}
   type: ColumnPanel
