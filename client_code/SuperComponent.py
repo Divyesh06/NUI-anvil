@@ -395,6 +395,8 @@ class SuperComponent:
             try:
                 update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
             except: pass
+
+            return
            
 
         if isinstance(value, list):
