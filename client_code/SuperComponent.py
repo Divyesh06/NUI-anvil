@@ -241,7 +241,7 @@ class SuperComponent:
             if child_dom_nui:
                 
                 for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                    if slot.contains(child_dom_nui):
+                    if slot.contains(child_dom_nui) or not slot.children:
                         slot.remove()
                 
                 try:
