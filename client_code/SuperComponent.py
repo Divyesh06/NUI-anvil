@@ -391,7 +391,8 @@ class SuperComponent:
     def margin(self, value):
         self._margin = value
         if not value:
-            return
+            styles = window.getComputedStyle(self.dom)
+            update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
 
         if isinstance(value, list):
             value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
@@ -409,7 +410,7 @@ class SuperComponent:
         self._padding = value
         if not value:
             styles = window.getComputedStyle(self.dom)
-            return update_component_properties(self.form, {"margin": [styles.marginTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
+            update_component_properties(self.form, {"padding": [styles.paddingTop, styles.marginRight, styles.marginBottom, styles.marginLeft]})
 
         if isinstance(value, list):
             value = " ".join([px_convert.convert_to_px(str(i if i else 0)) for i in value])
