@@ -1,92 +1,20 @@
-components: []
-container:
-  properties:
-    html: |+
-      <div anvil-slot-repeat='default' anvil-name='container-slot'></div>
+{components: [], container: {properties: {html: '<div anvil-slot-repeat=''default'' anvil-name=''container-slot''></div>
 
-  type: HtmlTemplate
-custom_component: true
-custom_component_container: true
-events:
-- {default_event: true, description: When the button is clicked, name: click}
-- {name: show}
-- {name: hide}
-- {name: hover}
-- {name: hover_out}
-is_package: true
-properties:
-- default_value: []
-  description: Apply a predefined style class to the component
-  important: true
-  name: preset
-  priority: 100
-  type: text[]
-- {default_value: div, description: The html tag to be used in this component. Please note that all tags may not give intended results, important: true, name: html_tag, priority: 99, type: string}
-- {default_value: '', description: Sets the background color of the component, group: Appearance, important: false, name: background, type: color}
-- default_value: ''
-  description: |-
-    Rounds the corners of the component
-    Ex. For consistent radius for all sides - 20
-    Ex. For different radius for different sides - 20 30% 20 10
-  group: Border
-  important: false
-  name: border_radius
-  type: string
-- default_value: ''
-  description: |-
-    Sets the width of the border
-    Ex. For consistent width for all sides - 5
-    Ex. For different widths for different sides - 5 0 10 2
-  group: Border
-  important: false
-  name: border_size
-  type: string
-- default_value: null
-  description: Defines the style of the border
-  group: Border
-  important: false
-  include_none_option: true
-  name: border_style
-  none_option_label: no border
-  options: [solid, dotted, dashed, double, groove, ridge, inset, outset]
-  type: enum
-- {default_value: '', description: Sets the color of the border., group: Border, important: false, name: border_color, type: color}
-- {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, priority: 1, type: string}
-- {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}
-- {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}
-- description: |-
-    Sets the outer spacing around the component
-    Ex. For consistent margin on all sides - 20
-    Ex. For different margin for different sides - 20 30px 20 10
-  group: Layout
-  important: true
-  name: margin
-  priority: 95
-  type: margin
-- description: |-
-    Sets the inner spacing between content and border
-    Ex. For consistent padding on all sides - 20
-    Ex. For different padding for different sides - 20 30px 20 10
-  group: Layout
-  important: true
-  name: padding
-  type: padding
-- {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}
-- {default_value: '', description: ' Defines CSS styles to apply when the container is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}
-- {default_value: '', description: CSS properties to apply to children of this container, group: CSS, important: true, multiline: true, name: children_css, type: string}
-- {default_value: '', group: Appearance, important: true, name: height, type: string}
-- {default_value: '', group: Appearance, important: true, name: width, type: string}
-- {default_value: '', important: true, name: text, type: string}
-- {important: true, name: attrs, type: object}
-- default_value: false
-  description: "[BETA] Components added to this container mantain a true HTML structure without any wrappers from Anvil. \nThis patches the anvil's default method and is unstable"
-  important: true
-  name: true_html_structure
-  type: boolean
-- default_value: []
-  important: false
-  name: attributes
-  type: text[]
-toolbox_item:
-  group: NUI Components
-  icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}
+
+        '}, type: HtmlTemplate}, custom_component: true, custom_component_container: true, events: [{default_event: true, description: When the button is clicked, name: click}, {name: show}, {name: hide}, {name: hover}, {name: hover_out}], is_package: true, properties: [{default_value: [], description: Apply a predefined style class to the component, important: true, name: preset, priority: 100, type: 'text[]'}, {default_value: div, description: The html tag to be used in this component. Please note that all tags may not give intended results, important: true, name: html_tag, priority: 99, type: string}, {default_value: '', description: Sets the background color of the component, group: Appearance, important: false, name: background, type: color}, {default_value: '', description: 'Rounds the corners of the component
+
+        Ex. For consistent radius for all sides - 20
+
+        Ex. For different radius for different sides - 20 30% 20 10', group: Border, important: false, name: border_radius, type: string}, {default_value: '', description: 'Sets the width of the border
+
+        Ex. For consistent width for all sides - 5
+
+        Ex. For different widths for different sides - 5 0 10 2', group: Border, important: false, name: border_size, type: string}, {default_value: null, description: Defines the style of the border, group: Border, important: false, include_none_option: true, name: border_style, none_option_label: no border, options: [solid, dotted, dashed, double, groove, ridge, inset, outset], type: enum}, {default_value: '', description: Sets the color of the border., group: Border, important: false, name: border_color, type: color}, {default_value: '', description: Allows injecting custom CSS styles., group: CSS, important: true, multiline: true, name: css, priority: 1, type: string}, {default_value: '', description: ' Defines CSS styles to apply when the user hovers over the component.', group: CSS, important: true, multiline: true, name: hover_css, type: string}, {default_value: true, description: 'Toggles the visibility of the component (true = visible, false = hidden).', designer_hint: visible, group: Appearance, important: false, name: visible, type: boolean}, {description: 'Sets the outer spacing around the component
+
+        Ex. For consistent margin on all sides - 20
+
+        Ex. For different margin for different sides - 20 30px 20 10', group: Layout, important: true, name: margin, priority: 95, type: margin}, {description: 'Sets the inner spacing between content and border
+
+        Ex. For consistent padding on all sides - 20
+
+        Ex. For different padding for different sides - 20 30px 20 10', group: Layout, important: true, name: padding, type: padding}, {default_value: true, description: Whether to allow interaction on this button or not, designer_hint: enabled, group: Appearance, important: false, name: enabled, type: boolean}, {default_value: '', description: ' Defines CSS styles to apply when the container is clicked', group: CSS, important: true, multiline: true, name: active_css, type: string}, {default_value: '', description: CSS properties to apply to children of this container, group: CSS, important: true, multiline: true, name: children_css, type: string}, {default_value: '', group: Appearance, important: true, name: height, type: string}, {default_value: '', group: Appearance, important: true, name: width, type: string}, {default_value: '', important: true, name: text, type: string}, {important: true, name: attrs, type: object}, {default_value: false, description: "[BETA] Components added to this container mantain a true HTML structure without any wrappers from Anvil. \nThis patches the anvil's default method and is unstable", important: true, name: true_html_structure, type: boolean}, {default_value: [], important: false, name: attributes, type: 'text[]'}], toolbox_item: {group: NUI Components, icon: {dark: 'asset:designer_icons/container_dark.svg', light: 'asset:designer_icons/container_light.svg'}}}

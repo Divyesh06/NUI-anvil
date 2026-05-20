@@ -1,4 +1,1 @@
-color_scheme:
-  colors: []
-  preset_groups: []
-roles: []
+{color_scheme: {colors: [], preset_groups: []}, roles: []}

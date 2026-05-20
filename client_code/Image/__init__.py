@@ -1,23 +1,9 @@
-from ._anvil_designer import ImageTemplate
-from .. import SuperComponent
+from._anvil_designer import ImageTemplate
+from..import SuperComponent
 from anvil import alert
-
-
 class Image(ImageTemplate):
-    def __init__(self, **properties):
-        self.super_comp = SuperComponent.SuperComponent(
-            self, events=["hover", "hover_out", "click"], **properties
-        )
-        self.remove_from_parent = self.super_comp.remove_from_parent
-        self.init_components(**properties)
-
-    def __getattr__(self, name):
-        try:
-            return object.__getattribute__(self, name)
-        except AttributeError:
-            super_comp = object.__getattribute__(self, "super_comp")
-            return getattr(super_comp, name)
-
-    def __setattr__(self, name, value):
-        object.__setattr__(self, name, value)
-        setattr(self.super_comp, name, value)
+	def __init__(A,**B):A.super_comp=SuperComponent.SuperComponent(A,events=['hover','hover_out','click'],**B);A.remove_from_parent=A.super_comp.remove_from_parent;A.init_components(**B)
+	def __getattr__(A,name):
+		try:return object.__getattribute__(A,name)
+		except AttributeError:B=object.__getattribute__(A,'super_comp');return getattr(B,name)
+	def __setattr__(A,name,value):B=value;object.__setattr__(A,name,B);setattr(A.super_comp,name,B)
