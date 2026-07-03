@@ -4,8 +4,8 @@ from anvil.js import get_dom_node
 from anvil import alert
 class Label(SuperComponent, LabelTemplate):
     def __init__(self, **properties):
-        print(properties)
-        super().__init__(self, events = ["hover", "hover_out", "click"], dom=get_dom_node(self),**properties)
+        print(get_dom_node(self))
+        super().__init__(events = ["hover", "hover_out", "click"], dom=get_dom_node(self),**properties)
     #     self.remove_from_parent = self.super_comp.remove_from_parent
     #     self.init_components(**properties)
         

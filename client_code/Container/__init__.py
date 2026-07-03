@@ -7,7 +7,7 @@ from anvil import alert
 
 class Container(SuperComponent, ContainerTemplate):
     def __init__(self, **properties):
-        super().__init__(events = ["hover", "hover_out", "click"], is_container = True, dom = get_dom_node(self.container),**properties)
+        super().__init__(events = ["hover", "hover_out", "click"], is_container = True, dom = self.dom_nodes['container-slot'],**properties)
         
         self.true_view = False
         if in_designer:
