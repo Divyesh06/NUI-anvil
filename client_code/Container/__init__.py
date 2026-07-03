@@ -3,13 +3,11 @@ from ..SuperComponent import SuperComponent
 from anvil.designer import in_designer
 from ..utils import true_view
 from anvil.js import window,get_dom_node
+from anvil import alert
 
 class Container(ContainerTemplate,SuperComponent):
     def __init__(self, **properties):
-        SuperComponent.__init__(self, events = ["hover", "hover_out", "click"], is_container = True, dom = get_dom_node(self.container),**properties)
-        # self.super_comp = SuperComponent.SuperComponent()
-            
-        self.init_components(**properties)
+        super().__init__(events = ["hover", "hover_out", "click"], is_container = True, dom = get_dom_node(self.container),**properties)
         
         self.true_view = False
         if in_designer:
@@ -34,20 +32,20 @@ class Container(ContainerTemplate,SuperComponent):
                 
                 
     
-    def __getattr__(self, name):
+    # def __getattr__(self, name):
         
-        try:
-            return object.__getattribute__(self, name)
-        except AttributeError:
-            super_comp = object.__getattribute__(self, "super_comp")
-            return getattr(super_comp, name)
+    #     try:
+    #         return object.__getattribute__(self, name)
+    #     except AttributeError:
+    #         super_comp = object.__getattribute__(self, "super_comp")
+    #         return getattr(super_comp, name)
 
-    def __setattr__(self, name, value):
-        try:
-            object.__setattr__(self, name, value)
-            setattr(self.super_comp, name, value)
-        except:
-            pass
-            #object.__setattr__(self, name, value)
+    # def __setattr__(self, name, value):
+    #     try:
+    #         object.__setattr__(self, name, value)
+    #         setattr(self.super_comp, name, value)
+    #     except:
+    #         pass
+    #         #object.__setattr__(self, name, value)
             
 

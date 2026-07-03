@@ -3,7 +3,7 @@ from anvil.js import get_dom_node, window, ExternalError
 from .utils import px_convert, id_assigner
 from .css_parser import css_parser
 from anvil.designer import in_designer, get_design_name, update_component_properties
-from anvil import Media
+from anvil import Media, alert
 from .utils import true_view
 
 events_map = {
@@ -19,8 +19,8 @@ events_map = {
 reverse_events_map = {v: k for k, v in events_map.items()}
 
 class SuperComponent:
-    def __init__(self, form, dom=None, events=[], is_container = False,**properties):
-        self.form = form
+    def __init__(self, dom=None, events=[], is_container = False,**properties):
+
         self.events = events
         self.is_container = is_container
         self.is_textbox = False
@@ -97,7 +97,7 @@ class SuperComponent:
         if in_designer:
             self.css_properties['transition'] = "all 0.25s ease-in-out"  # For smoother UI building
             self.designer_name = "Loading"
-            self.form.add_event_handler("show", self._on_show_design)
+            self.add_event_handler("show", self._on_show_design)
 
         @true_view.true_view
         def true_view_toggle(state):
@@ -111,13 +111,13 @@ class SuperComponent:
 
 
     def _global_events_handler(self, e):
-        self.form.raise_event(reverse_events_map[e.type], sender=self.form, event=e)
+        self.raise_event(reverse_events_map[e.type], sender=self, event=e)
 
     def _refresh_components(self):
-        components = self.form.get_components()
-        self.form.clear()
+        components = self.get_components()
+        self.clear()
         for comp in components:
-            self.form.add_component(comp)
+            self.add_component(comp)
 
     @property
     def html_tag(self):
@@ -142,9 +142,9 @@ class SuperComponent:
     def true_html_structure(self, value):
         self._true_html_structure = value
         if value and (not in_designer or self.true_view):
-            self.form.add_component = self.add_to_html_structure
+            self.add_component = self.add_to_html_structure
         else:
-            self.form.add_component = self._add_component
+            self.add_component = self._add_component
 
         self.children_css = self._children_css
     
@@ -207,7 +207,7 @@ class SuperComponent:
             raise ValueError("Unsupported type of source")
         
     def remove_from_parent(self):
-        parent = self.form.parent
+        parent = self.parent
         if getattr(parent, "true_html_structure", False):
             self._remove_component()
             self.dom.remove()
@@ -221,20 +221,20 @@ class SuperComponent:
         if not hasattr(child, "is_nui"):
             if in_designer:
                 if not child.parent:
-                    self.form._add_component(child, **slot)
+                    self._add_component(child, **slot)
 
             else:
-                self.form._add_component(child, **slot)
+                self._add_component(child, **slot)
 
         else:
             if in_designer:
                 if not child.parent:
-                    self.form._add_component(child, **slot)
+                    self._add_component(child, **slot)
 
             else:
-                self.form._add_component(child, **slot)
+                self._add_component(child, **slot)
             
-            index = self.form.get_components().index(child)
+            index = self.get_components().index(child)
 
             child_dom_nui = child.dom
 
@@ -354,6 +354,7 @@ class SuperComponent:
     @background.setter
     def background(self, value):
         self._background = value
+        alert(value)
         self.set_property("background-color", value.replace(" ", "_"))
 
     @property
@@ -402,7 +403,7 @@ class SuperComponent:
             value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
 
         try:
-            update_component_properties(self.form, {"margin": value})
+            update_component_properties(self, {"margin": value})
         except ExternalError:
             pass
         
@@ -425,7 +426,7 @@ class SuperComponent:
             value = " ".join([px_convert.convert_to_px(v) for v in value.split()]) if isinstance(value, str) else px_convert.convert_to_px(value)
 
         try:
-            update_component_properties(self.form, {"padding": value})
+            update_component_properties(self, {"padding": value})
         except ExternalError:
             pass
 
@@ -622,7 +623,7 @@ class SuperComponent:
         if value:
             if not self.children_stylesheet:
                 self.children_stylesheet = document.createElement("style")
-                get_dom_node(self.form).appendChild(self.children_stylesheet)
+                get_dom_node(self).appendChild(self.children_stylesheet)
                 self.stylesheets.append(self.children_stylesheet)
 
             if not self.true_html_structure:
@@ -646,7 +647,7 @@ class SuperComponent:
         if value:
             if not self.icon_stylesheet:
                 self.icon_stylesheet = document.createElement("style")
-                get_dom_node(self.form).appendChild(self.icon_stylesheet)
+                get_dom_node(self).appendChild(self.icon_stylesheet)
                 self.stylesheets.append(self.icon_stylesheet)
             self.icon_stylesheet.textContent = css_parser(value, f'#{self.uid} [nui-icon=true]')
         elif self.icon_stylesheet:
@@ -712,7 +713,7 @@ class SuperComponent:
 
     def add_event(self, event_name, event_callback):
         def event_raiser(e):
-            event_callback(sender=self.form, event=e)
+            event_callback(sender=self, event=e)
 
         self.dom.addEventListener(event_name, event_raiser)
 
@@ -753,7 +754,7 @@ class SuperComponent:
         if self.is_container and in_designer:
            
             self.dom.classList.add("nui-container")
-        get_dom_node(self.form).appendChild(self.dom)
+        get_dom_node(self).appendChild(self.dom)
 
     def _update_stylesheet(self):
         if self.block_stylesheet:
@@ -765,7 +766,7 @@ class SuperComponent:
         if css_rules:  # Only create stylesheet if there are actual rules
             if not self.stylesheet:
                 self.stylesheet = document.createElement("style")
-                get_dom_node(self.form).appendChild(self.stylesheet)
+                get_dom_node(self).appendChild(self.stylesheet)
                 self.stylesheets.append(self.stylesheet)
             parsed_css = css_parser(css_rules, f"#{self.uid}")
             self.stylesheet.textContent = parsed_css
@@ -799,7 +800,7 @@ class SuperComponent:
           
 
     def _on_show_design(self, **event_args):
-        self.designer_name = get_design_name(self.form)
+        self.designer_name = get_design_name(self)
         self._toggle_ghost_label()
 
     def _update_other_stylesheet(self):
@@ -815,7 +816,7 @@ class SuperComponent:
         if other_css.strip():  # Only create/update if there's actual CSS content
             if not self.other_stylesheet:
                 self.other_stylesheet = document.createElement("style")
-                get_dom_node(self.form).appendChild(self.other_stylesheet)
+                get_dom_node(self).appendChild(self.other_stylesheet)
                 self.stylesheets.append(self.other_stylesheet)
             parsed_css = css_parser(other_css, f"#{self.uid}")
             self.other_stylesheet.textContent = parsed_css
