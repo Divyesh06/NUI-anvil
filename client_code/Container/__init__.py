@@ -7,9 +7,10 @@ from anvil.js import window,get_dom_node
 class Container(ContainerTemplate):
     def __init__(self, **properties):
         
+        
+        super().__init__(**properties)
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], is_container = True,**properties)
 
-        super().__init__(**properties)
         self.dom.appendChild(self.container)
         self.true_view = False
         if in_designer:
@@ -42,6 +43,8 @@ class Container(ContainerTemplate):
             return getattr(super_comp, name)
 
     def __setattr__(self, name, value):
-        object.__setattr__(self, name, value)
-        setattr(self.super_comp, name, value)
+        try:
+            object.__setattr__(self, name, value)
+            setattr(self.super_comp, name, value)
+        except: pass
 
