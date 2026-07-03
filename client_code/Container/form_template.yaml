@@ -2,7 +2,7 @@ components: []
 container:
   properties:
     html: |-
-      <div anvil:name="container-slot">
+      <div anvil:name="container">
           <anvil-dropzone name="default"></anvil-dropzone>
       </div>
   type: HtmlTemplate
