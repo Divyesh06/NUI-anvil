@@ -20,7 +20,7 @@ reverse_events_map = {v: k for k, v in events_map.items()}
 
 class SuperComponent:
     def __init__(self, dom=None, events=[], is_container = False,**properties):
-
+        
         self.events = events
         self.is_container = is_container
         self.is_textbox = False
@@ -106,8 +106,10 @@ class SuperComponent:
             
 
 
-        self._add_component = form.add_component
-        self._remove_component = form.remove_from_parent
+        self._add_component = self.add_component
+        self._remove_component = self.remove_from_parent
+
+        super().__init__(**properties)
 
 
     def _global_events_handler(self, e):
@@ -354,7 +356,7 @@ class SuperComponent:
     @background.setter
     def background(self, value):
         self._background = value
-        alert(value)
+       
         self.set_property("background-color", value.replace(" ", "_"))
 
     @property

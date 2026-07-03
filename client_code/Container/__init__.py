@@ -5,7 +5,7 @@ from ..utils import true_view
 from anvil.js import window,get_dom_node
 from anvil import alert
 
-class Container(ContainerTemplate,SuperComponent):
+class Container(SuperComponent, ContainerTemplate, ):
     def __init__(self, **properties):
         super().__init__(events = ["hover", "hover_out", "click"], is_container = True, dom = get_dom_node(self.container),**properties)
         
