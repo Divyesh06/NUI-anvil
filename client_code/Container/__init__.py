@@ -10,7 +10,7 @@ class Container(ContainerTemplate):
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], is_container = True,**properties)
 
         super().__init__(**properties)
-        self.dom.appendChild(self.co)
+        self.dom.appendChild(self.container)
         self.true_view = False
         if in_designer:
 
