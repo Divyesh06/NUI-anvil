@@ -6,13 +6,14 @@ from anvil.js import window,get_dom_node
 
 class Container(ContainerTemplate):
     def __init__(self, **properties):
+        
         self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], is_container = True,**properties)
 
-        self.init_components(**properties)
+        super().__init__(**properties)
         self.dom.appendChild(self.co)
         self.true_view = False
         if in_designer:
-            
+
             self.set_property("min-height", "40px")
 
             @true_view.true_view
@@ -25,14 +26,14 @@ class Container(ContainerTemplate):
                     if self.true_html_structure:
                         for component in self.get_components():
                             self.add_to_html_structure(component)
-                    
+
                 else:
                     self.set_property("min-height", "40px")
-                    
-            
-                
-                
-    
+
+
+
+
+
     def __getattr__(self, name):
         try:
             return object.__getattribute__(self, name)
