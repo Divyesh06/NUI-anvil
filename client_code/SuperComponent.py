@@ -87,6 +87,7 @@ class SuperComponent:
             self._create_dom(self.last_tag)
         else:
             self.dom = dom
+            self.dom.id = self.uid
 
         self.block_stylesheet = False
         self._update_stylesheet()
@@ -105,9 +106,8 @@ class SuperComponent:
             self._toggle_ghost_label()
             
 
-
-        self._add_component = self.add_component
-        self._remove_component = self.remove_from_parent
+        # self._add_component = self.add_component
+        # self._remove_component = self.remove_from_parent
 
         super().__init__(**properties)
 
@@ -136,19 +136,19 @@ class SuperComponent:
                 self.dom.innerHTML = "Container children disappeared. Please add any component anywhere to see them again"
             self._update_stylesheet()
 
-    @property
-    def true_html_structure(self):
-        return self._true_html_structure
+    # @property
+    # def true_html_structure(self):
+    #     return self._true_html_structure
 
-    @true_html_structure.setter
-    def true_html_structure(self, value):
-        self._true_html_structure = value
-        if value and (not in_designer or self.true_view):
-            self.add_component = self.add_to_html_structure
-        else:
-            self.add_component = self._add_component
+    # @true_html_structure.setter
+    # def true_html_structure(self, value):
+    #     self._true_html_structure = value
+    #     if value and (not in_designer or self.true_view):
+    #         self.add_component = self.add_to_html_structure
+    #     else:
+    #         self.add_component = self._add_component
 
-        self.children_css = self._children_css
+    #     self.children_css = self._children_css
     
     @property
     def alt(self):
@@ -208,50 +208,50 @@ class SuperComponent:
         elif value:
             raise ValueError("Unsupported type of source")
         
-    def remove_from_parent(self):
-        parent = self.parent
-        if getattr(parent, "true_html_structure", False):
-            self._remove_component()
-            self.dom.remove()
-            for stylesheet in self.stylesheets:
-                stylesheet.remove()
-        else:
-            self._remove_component()
+    # def remove_from_parent(self):
+    #     parent = self.parent
+    #     if getattr(parent, "true_html_structure", False):
+    #         self._remove_component()
+    #         self.dom.remove()
+    #         for stylesheet in self.stylesheets:
+    #             stylesheet.remove()
+    #     else:
+    #         self._remove_component()
 
-    def add_to_html_structure(self, child, **slot):
+    # def add_to_html_structure(self, child, **slot):
         
-        if not hasattr(child, "is_nui"):
-            if in_designer:
-                if not child.parent:
-                    self._add_component(child, **slot)
+    #     if not hasattr(child, "is_nui"):
+    #         if in_designer:
+    #             if not child.parent:
+    #                 self._add_component(child, **slot)
 
-            else:
-                self._add_component(child, **slot)
+    #         else:
+    #             self._add_component(child, **slot)
 
-        else:
-            if in_designer:
-                if not child.parent:
-                    self._add_component(child, **slot)
+    #     else:
+    #         if in_designer:
+    #             if not child.parent:
+    #                 self._add_component(child, **slot)
 
-            else:
-                self._add_component(child, **slot)
+    #         else:
+    #             self._add_component(child, **slot)
             
-            index = self.get_components().index(child)
+    #         index = self.get_components().index(child)
 
-            child_dom_nui = child.dom
+    #         child_dom_nui = child.dom
 
-            if child_dom_nui:
+    #         if child_dom_nui:
                 
-                for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                    if slot.contains(child_dom_nui):
-                        slot.remove()
+    #             for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
+    #                 if slot.contains(child_dom_nui):
+    #                     slot.remove()
                 
-                try:
-                    self.dom.insertBefore(child_dom_nui, self.dom.children[index])
-                except LookupError:
-                    self.dom.appendChild(child_dom_nui)
-                for stylesheet in child.stylesheets:
-                    self.dom.appendChild(stylesheet)
+    #             try:
+    #                 self.dom.insertBefore(child_dom_nui, self.dom.children[index])
+    #             except LookupError:
+    #                 self.dom.appendChild(child_dom_nui)
+    #             for stylesheet in child.stylesheets:
+    #                 self.dom.appendChild(stylesheet)
 
 
     @property

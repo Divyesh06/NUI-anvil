@@ -1,10 +1,10 @@
 from ._anvil_designer import LabelTemplate
-from .. import SuperComponent
+from ..SuperComponent import SuperComponent
 from anvil import alert
-class Label(LabelTemplate):
+class Label(SuperComponent, LabelTemplate):
     def __init__(self, **properties):
         
-        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], **properties)
+        super().__init__(self, events = ["hover", "hover_out", "click"], **properties)
         self.remove_from_parent = self.super_comp.remove_from_parent
         self.init_components(**properties)
         
