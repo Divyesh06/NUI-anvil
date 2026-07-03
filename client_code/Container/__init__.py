@@ -1,15 +1,16 @@
 from ._anvil_designer import ContainerTemplate
-from .. import SuperComponent
+from ..SuperComponent import SuperComponent
 from anvil.designer import in_designer
 from ..utils import true_view
 from anvil.js import window,get_dom_node
 
-class Container(ContainerTemplate):
+class Container(ContainerTemplate,SuperComponent):
     def __init__(self, **properties):
-        self.super_comp = SuperComponent.SuperComponent(self, events = ["hover", "hover_out", "click"], is_container = True,**properties)
-
+        SuperComponent.__init__(self, events = ["hover", "hover_out", "click"], is_container = True, dom = get_dom_node(self.container),**properties)
+        # self.super_comp = SuperComponent.SuperComponent()
+            
         self.init_components(**properties)
-        self.dom.appendChild(self.co)
+        
         self.true_view = False
         if in_designer:
             
@@ -34,6 +35,7 @@ class Container(ContainerTemplate):
                 
     
     def __getattr__(self, name):
+        
         try:
             return object.__getattribute__(self, name)
         except AttributeError:
@@ -41,6 +43,11 @@ class Container(ContainerTemplate):
             return getattr(super_comp, name)
 
     def __setattr__(self, name, value):
-        object.__setattr__(self, name, value)
-        setattr(self.super_comp, name, value)
+        try:
+            object.__setattr__(self, name, value)
+            setattr(self.super_comp, name, value)
+        except:
+            pass
+            #object.__setattr__(self, name, value)
+            
 
