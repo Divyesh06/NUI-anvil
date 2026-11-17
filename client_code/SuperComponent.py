@@ -10,6 +10,7 @@ events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
     "change": "change",
+    "click": "click",
     "input": "input",
     "focus": "focus",
     "lost_focus": "blur"
