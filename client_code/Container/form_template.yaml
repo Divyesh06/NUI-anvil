@@ -1,10 +1,8 @@
 components: []
 container:
   properties:
-    html: |-
-      <div class="custom-container" style="border: 2px solid; padding: 10px;">
-        <anvil-slot name="default"></anvil-slot>
-      </div>
+    html: |
+      <anvil-slot name="default"></anvil-slot>
   type: HtmlTemplate
 custom_component: true
 custom_component_container: true
