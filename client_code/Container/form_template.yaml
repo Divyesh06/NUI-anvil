@@ -1,9 +1,9 @@
 components: []
 container:
   properties:
-    html: |+
-      <div anvil-slot-repeat='default' anvil-name='container-slot'></div>
-
+    html: |-
+      <div anvil:dom-node="container-slot">
+      </div>
   type: HtmlTemplate
 custom_component: true
 custom_component_container: true
