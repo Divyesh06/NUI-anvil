@@ -236,7 +236,8 @@ class SuperComponent:
                 self.dom.appendChild(child_dom_nui)
                 for stylesheet in child.stylesheets:
                     self.dom.appendChild(stylesheet)
-                for slot in self.dom.querySelectorAll("[anvil-name="container-slot"]")
+                for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
+                    slot.remove()
 
 
     @property
