@@ -9,7 +9,6 @@ from .utils import true_view
 events_map = {
     "hover": "mouseenter",
     "hover_out": "mouseleave",
-    "click": "click",
     "change": "change",
     "input": "input",
     "focus": "focus",
