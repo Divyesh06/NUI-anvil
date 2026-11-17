@@ -232,10 +232,10 @@ class SuperComponent:
             child_dom_nui = child.dom
             if child_dom_nui:
                 get_dom_node(child).remove()
-                child_dom_nui.setAttribute("anvil-slot", slot)
+                child_dom_nui.setAttribute("anvil-slot", slot['slot'])
                 self.dom.appendChild(child_dom_nui)
                 for stylesheet in child.stylesheets:
-                    self.dom.appendChild(stylesheet)
+                    child_dom_nui.appendChild(stylesheet)
                 for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
                     slot.remove()
 
