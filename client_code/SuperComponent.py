@@ -230,14 +230,16 @@ class SuperComponent:
     
             self.form._add_component(child)
             child_dom_nui = child.dom
+            child_dom = get_dom_node(child)
             if child_dom_nui:
+                #child_slot = child_dom.parentNode
                 get_dom_node(child).remove()
                 child_dom_nui.setAttribute("anvil-slot", slot.get("slot"))
                 self.dom.appendChild(child_dom_nui)
                 for stylesheet in child.stylesheets:
+                    print(stylesheet)
                     child_dom_nui.appendChild(stylesheet)
-                for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                    slot.remove()
+                #child_slot.remove()
 
 
     @property
@@ -247,10 +249,9 @@ class SuperComponent:
     @text.setter
     def text(self, value):
         self._text = value
-        if not self.is_textbox:
+        if not self.is_textbox and not self.is_textarea:
             self._set_text()
         else:
-            
             self.dom.value = value
 
     @property
