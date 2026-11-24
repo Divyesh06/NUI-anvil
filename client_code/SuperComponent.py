@@ -141,7 +141,7 @@ class SuperComponent:
     @true_html_structure.setter
     def true_html_structure(self, value):
         self._true_html_structure = value
-        if value and (not in_designer or self.true_view):
+        if value:
             self.form.add_component = self.add_to_html_structure
         else:
             self.form.add_component = self._add_component
@@ -227,29 +227,17 @@ class SuperComponent:
                 self.form._add_component(child, **slot)
 
         else:
-            if in_designer:
-                if not child.parent:
-                    self.form._add_component(child, **slot)
-
-            else:
-                self.form._add_component(child, **slot)
-            
-            index = self.form.get_components().index(child)
-
+    
+            self.form._add_component(child)
             child_dom_nui = child.dom
-
             if child_dom_nui:
-                
-                for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
-                    if slot.contains(child_dom_nui):
-                        slot.remove()
-                
-                try:
-                    self.dom.insertBefore(child_dom_nui, self.dom.children[index])
-                except LookupError:
-                    self.dom.appendChild(child_dom_nui)
+                get_dom_node(child).remove()
+                child_dom_nui.setAttribute("anvil-slot", slot.get("slot"))
+                self.dom.appendChild(child_dom_nui)
                 for stylesheet in child.stylesheets:
-                    self.dom.appendChild(stylesheet)
+                    child_dom_nui.appendChild(stylesheet)
+                for slot in self.dom.querySelectorAll('[anvil-name="container-slot"]'):
+                    slot.remove()
 
 
     @property
